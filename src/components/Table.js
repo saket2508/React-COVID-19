@@ -1,13 +1,12 @@
 import React, { Component} from "react"
-import {Container} from "reactstrap"
+import ReactCSSTransitionGroup from 'react-transition-group';
 import TableBody from './TableBody'
 
 
 function TableHeader(){
     const tableheader=(
-        <thead class='thead-dark'>
-            <th scope='col'>Country,
-                World</th>
+        <thead>
+            <th scope='col'>Country</th>
             <th scope='col'>Total Cases</th>
             <th scope='col'>Total Deaths</th>
             <th scope='col'>Total Recovered</th>
@@ -28,13 +27,23 @@ class Table extends Component{
     }
     render(){
         return(
-            <div className='table-responsive'>
-                <table class="table table-striped table-bordered mt-4 mb-4">
-                    <TableHeader/>
-                    <TableBody data= {this.props.data}/>
-                </table>
+            <div id='c1' className='container mt-4'>
+                <div className='row'>
+                <div className='col'>
+                    <h3 class='text-muted text-center font-weight-light'>Confirmed Cases and Deaths by country.</h3>
+                </div>
             </div>
-            
+            <div className='row'>
+                <div className='col'>
+                <div className='table-responsive'>
+                    <table class="table table-striped table-bordered">
+                        <TableHeader/>
+                        <TableBody data= {this.props.data}/>
+                    </table>
+                </div>
+            </div>
+            </div> 
+            </div>
         );
     }
 }
