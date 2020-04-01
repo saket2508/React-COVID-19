@@ -1,5 +1,4 @@
 import React, { Component} from "react"
-import ReactCSSTransitionGroup from 'react-transition-group';
 import TableBody from './TableBody'
 
 
@@ -27,22 +26,14 @@ class Table extends Component{
     }
     render(){
         return(
-            <div id='c1' className='container mt-4'>
-                <div className='row'>
-                <div className='col'>
-                    <h3 class='text-muted text-center font-weight-light'>Confirmed Cases and Deaths by country.</h3>
-                </div>
-            </div>
-            <div className='row'>
-                <div className='col'>
+            <div id='c2' className='container'>
+                <h3 class='text-muted text-center font-weight-light'>Confirmed Cases and Deaths by country.</h3>
                 <div className='table-responsive'>
                     <table class="table table-striped table-bordered">
                         <TableHeader/>
                         <TableBody data= {this.props.data}/>
                     </table>
-                </div>
-            </div>
-            </div> 
+                </div>   
             </div>
         );
     }

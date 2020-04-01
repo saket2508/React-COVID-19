@@ -8,16 +8,28 @@ import './App.css';
 import axios from 'axios';
 const url= 'https://corona.lmao.ninja/countries?sort=cases'
 
+function Footer(){
+  const footer= (
+    <div className='container-fluid border-top mt-4'>
+      <p className='small text-muted text-center'>DO YOUR BIT IN FLATTENING THE CURVE BY STAYING AT HOME.</p>
+      </div>
+  )
+    return footer;
+}
+
 class App extends Component{
   constructor(props) {
     super(props);
+    this.state = {myList:[],myData:[],Data:{Cases:0,Deaths:0,Recovered:0}};
+  }
+
+  componentDidMount(){
     var cases=0
     var deaths=0
     var recovered=0
-    this.state = {myList:[],myData:[],Data:{Cases:0,Deaths:0,Recovered:0}};
 
     axios.get('https://corona.lmao.ninja/countries?sort=cases')
-      .then( response => response.data)
+      .then(response => response.data)
       .then((data) => data.forEach(item => {
         cases += Number(item.cases);
         deaths+= Number(item.deaths);

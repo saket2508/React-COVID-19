@@ -6,12 +6,12 @@ class Figures extends Component{
 
     render(){
         return(
-        <div class='container mb-4'>
+        <div id='c2' class='container mb-4'>
             <div class="card-group">
             <div class="card">
                 <div class="card-body">
                     <p class="h3 card-title text-center font-weight-light">CASES</p>         
-                    <p className='h3 text-warning text-center'>{this.props.data.Cases}</p>     
+                    <p className='h3 text-secondary text-center'>{this.props.data.Cases}</p>     
                 </div>
             </div>
             <div class="card">
@@ -28,7 +28,7 @@ class Figures extends Component{
             </div>
         </div>
         </div>
-        
+
         )
     }
 
