@@ -3,7 +3,7 @@ import {Navbar, Nav,  Container} from 'reactstrap';
 
 class AppNavbar extends Component{
     navbar= (
-      <Nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Container>
       <a class="navbar-brand" href="#">STAY HOME<span><i class="far fa-smile ml-2"></i></span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@ class AppNavbar extends Component{
       </ul>
       </div>
       </Container>
-    </Nav>
+    </nav>
     );
 
     render(){
