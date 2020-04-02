@@ -9,8 +9,8 @@ const url= 'https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statew
 function HeadingInfo(props){
    const heading=(
        <div class='c1'>
-           <div className='container shadow-sm p-3 mb-5 bg-white rounded mt-2'>
-                <div id='c3' class="container mt-4">
+           <div className='container shadow-sm p-3 mb-5 bg-white rounded mt-4'>
+                <div id='c3' class="container mt-2 mb-2">
                     <h1 className='font-weight-light text-center'>Cases in India</h1>
                 </div>
                 <img height='60' width='80' src='https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png' alt='' className='center'></img>            
