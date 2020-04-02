@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter, Link} from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import India from './components/Route-India/India'
@@ -8,12 +8,12 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing=(
-  <HashRouter basename='/'>
+  <Router>
     <div>
       <Route exact path="/" component={App}/>
       <Route exact path="/india" component={India}/>
     </div>
-  </HashRouter>
+  </Router>
 )
 
 ReactDOM.render( routing,

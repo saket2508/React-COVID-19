@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import {Navbar, Nav,  Container} from 'reactstrap';
+import {Link} from 'react-router-dom'
 
 class AppNavbar extends Component{
     navbar= (
@@ -15,7 +16,7 @@ class AppNavbar extends Component{
                <a class="nav-link" href="#">SEE WORLDWIDE<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/india">SEE INDIA</a>
+              <a class="nav-link" href="/India">SEE INDIA</a>
           </li>
          
       </ul>
