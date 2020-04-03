@@ -2,6 +2,7 @@ import React, { Component} from "react"
 import TableBody from './TableBody'
 
 
+
 function TableHeader(){
     const tableheader=(
         <thead>
@@ -23,11 +24,12 @@ function TableHeader(){
 class Table extends Component{
     constructor(props){
         super(props);
+        this.state={}
     }
     render(){
         return(
             <div id='c2' className='container'>
-                <h3 class='text-muted text-center font-weight-light'>Confirmed Cases and Deaths by country.</h3>
+                <h4 class='text-muted text-center font-weight-light'>Confirmed Cases And Deaths By Country.</h4>
                 <div className='table-responsive'>
                     <table class="table table-striped table-bordered">
                         <TableHeader/>

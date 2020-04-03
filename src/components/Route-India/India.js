@@ -1,17 +1,51 @@
 import React, { Component} from "react"
 import RouteNavbar from './RouteNavbar'
 import TableIndia from './TableIndia'
-import {Jumbotron, Container} from 'reactstrap';
 
 const url= 'https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise'
 
 
 function HeadingInfo(props){
    const heading=(
+    <div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div id='d1' class="carousel-item active">
+            <div className='container-fluid mt-2'>
+                <p id='p1' className='small text-center'>DO YOUR BIT IN FLATTENING THE CURVE BY STAYING AT HOME.</p>
+            </div>
+        </div>
+        <div id='d2' class="carousel-item">
+            <div className='container-fluid mt-2'>
+                <p id='p2' className='small text-center'>SPREAD THE MESSAGE: WASH YOUR HANDS FOR AT LEAST 20 SECONDS. AVOID TOUCHING YOUR FACE</p>    
+            </div>       
+        </div>
+        <div id='d3' class="carousel-item">
+            <div className='container-fluid mt-2'>
+                <p id='p3' className='small text-center'>WEAR A MASK ONLY IF YOU ARE CARING FOR SOMEONE WHO IS ILL</p>    
+            </div>       
+        </div>
+        <div id='d4' class="carousel-item">
+            <div className='container-fluid mt-2'>
+                <p id='p4' className='small text-center'>THERE IS NO PROOF THAT HOT WEATHER STOPS THE SPREAD OF THE VIRUS</p>    
+            </div>       
+        </div>
+        <div id='d5' class="carousel-item">
+            <div className='container-fluid mt-2'>
+                <p id='p5' className='small text-center'>WE DON'T HAVE A CURE FOR THE VIRUS YET SO OUR ONLY HOPE LIES IN SOCIAL DISTANCING.</p>    
+            </div>       
+        </div>
+        <div id='d6' class="carousel-item">
+            <div className='container-fluid mt-2'>
+                <p id='p6' className='small text-center'>SPEND QUALITY TIME WITH LOVED ONES. LEARN A NEW SKILL.</p>    
+            </div>       
+        </div>
+    </div>
+</div>
        <div class='c1'>
            <div className='container shadow-sm p-3 mb-5 bg-white rounded mt-4'>
                 <div id='c3' class="container mt-2 mb-2">
-                    <h1 className='font-weight-light text-center'>Cases in India</h1>
+                    <h2 className='font-weight-light text-center'>CASES IN INDIA</h2>
                 </div>
                 <img height='60' width='80' src='https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png' alt='' className='center'></img>            
             </div>
@@ -20,7 +54,7 @@ function HeadingInfo(props){
         <div class="card">
             <div class="card-body">
                 <p class="h3 card-title text-center font-weight-light">CONFIRMED</p>         
-                <p className='h3 text-secondary text-center'>{props.DataTotal.Cases}</p>     
+                <p className='h3 text-primary text-center'>{props.DataTotal.Cases}</p>     
             </div>
         </div>
         <div class="card">
@@ -35,10 +69,11 @@ function HeadingInfo(props){
                 <p className='h3 text-success text-center'>{props.DataTotal.Recovered}</p>               
             </div>
         </div>
-    </div>
-    </div>
+        </div>
+        </div>
        </div>
-    )
+       </div>
+    );
     return heading;
 }
 

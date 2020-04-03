@@ -10,8 +10,8 @@ class Figures extends Component{
             <div class="card-group">
             <div class="card">
                 <div class="card-body">
-                    <p class="h3 card-title text-center font-weight-light">CASES</p>         
-                    <p className='h3 text-secondary text-center'>{this.props.data.Cases}</p>     
+                    <p class="h3 card-title text-center font-weight-light">CONFIRMED</p>         
+                    <p className='h3 text-primary text-center'>{this.props.data.Cases}</p>     
                 </div>
             </div>
             <div class="card">

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import {Navbar, Nav,  Container} from 'reactstrap';
+import {Container} from 'reactstrap';
 
 class RouteNavbar extends Component{
     navbar= (

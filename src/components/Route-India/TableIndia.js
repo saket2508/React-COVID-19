@@ -42,7 +42,7 @@ class TableIndia extends Component{
     render(){
         return(
             <div id='c4' className='container'>
-                <h3 class='text-muted text-center font-weight-light'>Confirmed Cases and Deaths by State</h3>
+                <h4 class='text-muted text-center font-weight-light'>Confirmed Cases And Deaths By State</h4>
                 <div className='table-responsive'>
                     <table class="table table-striped table-bordered">
                         <TableHeader/>
