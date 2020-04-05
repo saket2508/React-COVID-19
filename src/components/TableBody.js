@@ -7,7 +7,6 @@ class TableBody extends Component{
     }
 
     render(){
-        var i=0
         const tablebody= this.props.data.map(item => (
             <tr>
                 <th scope='row'><span class="mr-1"><img src={item.countryInfo.flag} height='18' width='24'></img></span> {item.country}</th>

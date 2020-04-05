@@ -6,7 +6,7 @@ class AppNavbar extends Component{
     navbar= (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Container>
-      <a class="navbar-brand" href="#">STAY HOME<span><i class="far fa-smile ml-2"></i></span></a>
+      <a class="navbar-brand" href="#">STAY HOME<span><i class="ml-1 far fa-grin"></i></span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

@@ -44,7 +44,7 @@ class TableIndia extends Component{
             <div id='c4' className='container'>
                 <h4 class='text-muted text-center font-weight-light'>Confirmed Cases And Deaths By State</h4>
                 <div className='table-responsive'>
-                    <table class="table table-striped table-bordered">
+                    <table id='t1' class="table table-striped table-bordered">
                         <TableHeader/>
                         <TableBodyIndia Data= {this.props.Data}/>
                     </table>

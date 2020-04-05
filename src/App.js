@@ -20,24 +20,35 @@ function Footer(){
 class App extends Component{
   constructor(props) {
     super(props);
-    this.state = {myList:[],myData:[],Data:{Cases:0,Deaths:0,Recovered:0}};
+    this.state = {myList:[],myData:[],Data:{Cases:0,Deaths:0,Recovered:0,Active:0,TodayCases:0,TodayDeaths:0}};
   }
 
   componentDidMount(){
-    var cases=0
     var deaths=0
+    var cases=0
     var recovered=0
-
+    var active=0
+    var todayDeaths=0
+    var todayCases=0
     axios.get('https://corona.lmao.ninja/countries?sort=cases')
       .then(response => response.data)
       .then((data) => data.forEach(item => {
-        cases += Number(item.cases);
-        deaths+= Number(item.deaths);
-        recovered+= Number(item.recovered);
-        this.setState({myList:[...this.state.myList,item.country],myData:[...this.state.myData,item],Data:{Cases:cases,Deaths:deaths,Recovered:recovered}})
-      }));
-  }
-  
+          cases+= Number(item.cases)
+          deaths+= Number(item.deaths)
+          recovered+= Number(item.recovered)
+          active+= Number(item.active)
+          todayDeaths+= Number(item.todayDeaths)
+          todayCases+= Number(item.todayCases)
+          this.setState({myList:[...this.state.myList,item.country],
+            myData:[...this.state.myData,item],
+            Data:{Cases:cases,Deaths:deaths,
+              Recovered:recovered,
+              Active:active,
+              TodayCases:todayCases,
+              TodayDeaths:todayDeaths}})
+      }))
+    }
+
 
   render(){
     return(

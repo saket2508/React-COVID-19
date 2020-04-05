@@ -24,7 +24,9 @@ function TableHeader(){
 class Table extends Component{
     constructor(props){
         super(props);
-        this.state={}
+        this.state={
+            rowData: this.props.data
+        };
     }
     render(){
         return(

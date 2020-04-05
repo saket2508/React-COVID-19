@@ -21,8 +21,7 @@ class TableBodyIndia extends Component{
                 {tablebody}
             </tbody>
         );
-    }
-    
+    }  
 }
 
 export default TableBodyIndia
