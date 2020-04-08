@@ -56,7 +56,7 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={this.state.Data}/>
-        <Table data= {this.state.myData}/>
+        <Table data= {this.state.myData} list={this.state.myList}/>
       </div>
     );
   }

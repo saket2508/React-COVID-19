@@ -6,8 +6,8 @@ class Figures extends Component{
 
     render(){
         return(
-        <div id='c2' class='container mb-4'>
-            <div class="card-group">
+        <div id='c2' class='container-xl mb-4'>
+           <div class="card-group">
             <div class="card">
                 <div class="card-body">
                     <p class="h3 card-title text-center font-weight-light">CONFIRMED</p>         
