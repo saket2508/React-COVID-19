@@ -8,8 +8,8 @@ class HeadingStats extends Component{
         const element=(
             <div class='c1'>
            <div className='container shadow-sm p-3 mb-5 bg-white rounded mt-4'>
-                <div id='c3' class="container mt-2 mb-2">
-                    <h2 className='font-weight-light text-center'>CASES IN INDIA</h2>
+                <div id='c3' class="container mt-2 mb-3">
+                    <h2 className='text-center'>CASES IN INDIA</h2>
                 </div>
                 <img height='60' width='80' src='https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png' alt='' className='center'></img>            
             </div>
@@ -17,25 +17,25 @@ class HeadingStats extends Component{
         <div class="card-group">
         <div class="card">
             <div class="card-body">
-                <p class="h3 card-title text-center font-weight-light">CONFIRMED</p>         
+                <p class="h5 card-title text-center">CONFIRMED</p>         
                 <p className='h3 text-secondary text-center'>{this.props.DataTotal.Cases}</p>     
             </div>
         </div>
         <div class="card">
             <div class="card-body"> 
-            <p class=" h3 card-title text-center font-weight-light">DEATHS</p>  
+            <p class=" h5 card-title text-center">DEATHS</p>  
                 <p className='h3 text-danger text-center'>{this.props.DataTotal.Deaths}</p>
             </div>
         </div>
         <div class="card">               
             <div class="card-body">
-            <p class="h3 card-title text-center font-weight-light">RECOVERED</p>
+            <p class="h5 card-title text-center">RECOVERED</p>
                 <p className='h3 text-success text-center'>{this.props.DataTotal.Recovered}</p>               
             </div>
         </div>
         <div class="card">               
             <div class="card-body">
-            <p class="h3 card-title text-center font-weight-light">ACTIVE</p>
+            <p class="h card-title text-center">ACTIVE</p>
                 <p className='h3 text-primary text-center'>{this.props.DataTotal.Active}</p>               
             </div>
         </div>

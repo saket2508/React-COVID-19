@@ -45,7 +45,7 @@ class FilteredTableIndia extends Component{
 
         if(filteredElements.length==0){
             tableBody=(
-                    <td colSpan='5'>
+                    <td colSpan='5' bgcolor="#ffcdd2">
                         <p className='small text-danger'>NO MATCHING RECORDS FOUND</p>
                     </td>
             )
@@ -53,7 +53,7 @@ class FilteredTableIndia extends Component{
 
         return(
             <div className='FilteredTable'>
-            <h4 className='text-center font-weight-light'>CONFIRMED CASES AND DEATHS BY STATE</h4>
+            <h5 className='text-center text-muted font-weight-light'>CONFIRMED CASES AND DEATHS BY STATE</h5>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <p className='small text-info mt-2'>SEARCH A STATE</p>

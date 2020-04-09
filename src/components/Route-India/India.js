@@ -1,20 +1,10 @@
 import React, { Component} from "react"
 import RouteNavbar from './RouteNavbar'
 import TableIndia from './TableIndia'
-import India_Snippets from './India_Snippets'
 import HeadingStats from './HeadingStats'
 
 const url= 'https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise'
 
-
-function HeadingInfo(){
-    const heading=(
-    <div>
-        <India_Snippets/>
-    </div>
-    );
-    return heading;
-}
 
 function TableHeader(){
     const tableheader=(
@@ -55,7 +45,6 @@ class India extends Component{
         return(
             <div>
                 <RouteNavbar/>
-                <HeadingInfo/>
                 <HeadingStats DataTotal= {this.state.Data}/>
                 <TableIndia Data= {this.state.StatesData}/>
             </div>
