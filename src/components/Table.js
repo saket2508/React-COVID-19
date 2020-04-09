@@ -10,7 +10,7 @@ class Table extends Component{
     render(){
         const {tabledata}= this.props.data
         return(
-            <div id='c2' className='container'>
+            <div id='c4' className='container'>
                 <FilteredTable data={this.props.data}/>
             </div>
         );

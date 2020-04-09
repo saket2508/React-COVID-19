@@ -6,8 +6,8 @@ class HeadingStats extends Component{
     }
     render(){
         const element=(
-        <div class='c1'>
-            <div className='container sm shadow-sm p-3 mb-5 bg-white rounded mt-2'>
+        <div>
+            <div className='container shadow p-3 mb-4 bg-white rounded mt-2'>
                 <div id='c3' class="container sm mt-2 mb-3">
                     <h2 className='text-center'>CASES IN INDIA</h2>
                     <div className='text-center'>
@@ -31,7 +31,7 @@ class HeadingStats extends Component{
         <div class="card">
             <div class="card-body">
                 <p class="h5 card-title text-center">CONFIRMED</p>         
-                <p className='h3 text-secondary text-center'>{this.props.DataTotal.Cases}</p>     
+                <p className='h3 text-warning text-center'>{this.props.DataTotal.Cases}</p>     
             </div>
         </div>
         <div class="card">

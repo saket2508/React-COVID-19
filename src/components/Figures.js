@@ -11,8 +11,8 @@ class Figures extends Component{
             <div class="card">
                 <div class="card-body">
                     <p class="h5 card-title text-center">CONFIRMED</p>         
-                    <p className='h3 text-secondary text-center'>{this.props.data.Cases}</p>
-                    <h5 className='text-center'><span class="badge badge-pill badge-secondary">+{this.props.data.TodayCases}</span></h5>     
+                    <p className='h3 text-warning text-center'>{this.props.data.Cases}</p>
+                    <h5 className='text-center'><span class="badge badge-pill badge-warning">+{this.props.data.TodayCases}</span></h5>     
                 </div>
             </div>
             <div class="card">
