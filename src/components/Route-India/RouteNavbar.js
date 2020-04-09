@@ -10,7 +10,7 @@ class RouteNavbar extends Component{
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto ml-3 mt-2 mt-lg-0">
+      <ul class="navbar-nav ml-auto ml-2 mt-2 mt-lg-0">
           <li class="nav-item">
                <a class="nav-link" href="/">SEE WORLDWIDE</a>
           </li>

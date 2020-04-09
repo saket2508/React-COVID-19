@@ -59,7 +59,7 @@ class FilteredTable extends Component{
 
         return(
             <div className='FilteredTableIndia'>
-            <h5 className='text-center text-muted font-weight-light'>CONFIRMED CASES AND DEATHS BY COUNTRY</h5>
+            <h4 className='text-center text-muted font-weight-light'>CONFIRMED CASES AND DEATHS BY COUNTRY</h4>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <p className='small text-info mt-2'>SEARCH A COUNTRY</p>
