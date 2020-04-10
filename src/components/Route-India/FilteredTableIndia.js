@@ -68,7 +68,7 @@ class FilteredTableIndia extends Component{
             </div>
         
               <div className='table-responsive'>
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-bordered table-hover">
                         <TableHeader/>
                             {tableBody}
                     </table>

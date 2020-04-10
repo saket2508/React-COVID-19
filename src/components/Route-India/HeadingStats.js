@@ -7,7 +7,7 @@ class HeadingStats extends Component{
     render(){
         const element=(
         <div>
-            <div className='container shadow p-3 mb-4 bg-white rounded mt-2'>
+            <div className='container shadow-sm p-3 mb-4 bg-white rounded mt-2'>
                 <div id='c3' class="container sm mt-2 mb-3">
                     <h2 className='text-center'>CASES IN INDIA</h2>
                     <div className='text-center'>
@@ -16,7 +16,7 @@ class HeadingStats extends Component{
                 </div>
                 <div className='mt-4 text-center'>
                     <p className='lead'>
-                        See live stats tracking the number of confirmed cases, deaths and recovered in all 28 states and 9 UTs.
+                        See live stats tracking the number of confirmed cases, deaths and recovered in all 28 states and 8 UTs.
                     </p>
                     <div className='mt-2'>
                         <p className='text-info text-center'>
@@ -28,28 +28,28 @@ class HeadingStats extends Component{
             </div>
         <div id='c2' class='container mb-4'>
         <div class="card-group">
-        <div class="card">
+        <div class="card" style={{backgroundColor:'#f5f5f5'}}>
             <div class="card-body">
-                <p class="h5 card-title text-center">CONFIRMED</p>         
-                <p className='h3 text-warning text-center'>{this.props.DataTotal.Cases}</p>     
+                <p class="h5 card-title text-center" style={{fontWeight:'600'}}>CONFIRMED</p>         
+                <p className='h3 text-secondary text-center' style={{fontWeight:'600'}}>{this.props.DataTotal.Cases}</p>     
             </div>
         </div>
-        <div class="card">
+        <div class="card" style={{backgroundColor:'#ffebee'}}>
             <div class="card-body"> 
-            <p class=" h5 card-title text-center">DEATHS</p>  
-                <p className='h3 text-danger text-center'>{this.props.DataTotal.Deaths}</p>
+            <p class=" h5 card-title text-center" style={{fontWeight:'600'}}>DEATHS</p>  
+                <p className='h3 text-danger text-center' style={{fontWeight:'600'}}>{this.props.DataTotal.Deaths}</p>
             </div>
         </div>
-        <div class="card">               
+        <div class="card" style={{backgroundColor:'#e8f5e9'}}>               
             <div class="card-body">
-            <p class="h5 card-title text-center">RECOVERED</p>
-                <p className='h3 text-success text-center'>{this.props.DataTotal.Recovered}</p>               
+            <p class="h5 card-title text-center" style={{fontWeight:'600',color:'#43a047'}}>RECOVERED</p>
+                <p className='h3 text-center' style={{fontWeight:'600',color:'#43a047'}}>{this.props.DataTotal.Recovered}</p>               
             </div>
         </div>
-        <div class="card">               
+        <div class="card" style={{backgroundColor:'#e1f5fe'}}>               
             <div class="card-body">
-            <p class="h card-title text-center">ACTIVE</p>
-                <p className='h3 text-primary text-center'>{this.props.DataTotal.Active}</p>               
+            <p class="h5 card-title text-center" style={{fontWeight:'600',color:'#0288d1'}}>ACTIVE</p>
+                <p className='h3 text-center' style={{fontWeight:'600',color:'#0288d1'}}>{this.props.DataTotal.Active}</p>               
             </div>
         </div>
         </div>

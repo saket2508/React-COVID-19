@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 class AppHeading extends Component{
 
     Heading= (
-        <div className='container sm shadow p-3 mb-4 bg-white rounded mt-2'>
+        <div className='container sm shadow-sm p-3 mb-4 bg-white rounded mt-2'>
             <div id='c3' class="container sm mt-2 mb-3">
                 <h2 className='text-center'>COVID-19 DASHBOARD</h2>
             </div>
