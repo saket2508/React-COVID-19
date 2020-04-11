@@ -3,19 +3,11 @@ import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
 import Figures from './components/Figures'
+import Footer from './components/Footer'
 
 import './App.css';
 import axios from 'axios';
 const url= 'https://corona.lmao.ninja/countries?sort=cases'
-
-function Footer(){
-  const footer= (
-    <div className='container-fluid border-top mt-4'>
-      <p className='small text-muted text-center'>DO YOUR BIT IN FLATTENING THE CURVE BY STAYING AT HOME.</p>
-      </div>
-  )
-    return footer;
-}
 
 class App extends Component{
   constructor(props) {
@@ -57,6 +49,7 @@ class App extends Component{
         <AppHeading/>
         <Figures data={this.state.Data}/>
         <Table data= {this.state.myData} list={this.state.myList}/>
+        <Footer/>
       </div>
     );
   }
