@@ -30,13 +30,13 @@ class HeadingStats extends Component{
         <div class="card-group">
         <div class="card" style={{backgroundColor:'#f5f5f5'}}>
             <div class="card-body">
-                <p class="h5 card-title text-center" style={{fontWeight:'600'}}>CONFIRMED</p>         
+                <p class="h5 card-title text-secondary text-center" style={{fontWeight:'600'}}>CONFIRMED</p>         
                 <p className='h3 text-secondary text-center' style={{fontWeight:'600'}}>{this.props.DataTotal.Cases}</p>     
             </div>
         </div>
         <div class="card" style={{backgroundColor:'#ffebee'}}>
             <div class="card-body"> 
-            <p class=" h5 card-title text-center" style={{fontWeight:'600'}}>DEATHS</p>  
+            <p class=" h5 card-title text-danger text-center" style={{fontWeight:'600'}}>DEATHS</p>  
                 <p className='h3 text-danger text-center' style={{fontWeight:'600'}}>{this.props.DataTotal.Deaths}</p>
             </div>
         </div>

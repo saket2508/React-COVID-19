@@ -22,8 +22,10 @@ function TableHeader(){
 class India extends Component{
     constructor(props){
         super(props);
-        this.state= {StatesData:[],isLoaded:false,Data:{Cases:0,Deaths:0,Recovered:0}}
-        
+        this.state= {StatesData:[],isLoaded:false,Data:{Cases:0,
+            Deaths:0,
+            Recovered:0,
+            Active:0}}
     }
 
     componentDidMount(){
