@@ -37,7 +37,7 @@ class FilteredTable extends Component{
                         {filteredElements.map((item) =>
                             (
                                 <tr>
-                                    <th scope='row'><span class="mr-1"><img src={item.countryInfo.flag} height='18' width='24'></img></span> {item.country}</th>
+                                    <th scope='row'><span class="mr-1"><img src={item.countryInfo.flag} height='18' width='24' alt='flag-icon'></img></span> {item.country}</th>
                                     <td>{item.cases}  <span class="badge badge-pill badge-warning">{'+'+item.todayCases}</span></td>
                                     <td>{item.deaths}<span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span></td> 
                                     <td>{item.recovered}</td>
@@ -49,7 +49,7 @@ class FilteredTable extends Component{
                 </tbody>
         )
 
-        if(filteredElements.length==0){
+        if(filteredElements.length===0){
             tableBody=(
                     <td colSpan='7' bgcolor='#ffcdd2'>
                         <p className='small text-danger'>NO MATCHING RECORDS FOUND</p>

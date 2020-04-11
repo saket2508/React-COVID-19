@@ -43,7 +43,7 @@ class FilteredTableIndia extends Component{
         </tbody>
         )
 
-        if(filteredElements.length==0){
+        if(filteredElements.length===0){
             tableBody=(
                     <td colSpan='5' bgcolor="#ffcdd2">
                         <p className='small text-danger'>NO MATCHING RECORDS FOUND</p>

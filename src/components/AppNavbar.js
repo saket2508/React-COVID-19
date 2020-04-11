@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
-import {Navbar, Nav,  Container} from 'reactstrap';
-import {Link} from 'react-router-dom'
+import React, {Component} from "react";
+import {Container} from 'reactstrap';
 
 class AppNavbar extends Component{
     navbar= (

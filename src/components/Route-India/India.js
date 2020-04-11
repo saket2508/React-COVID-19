@@ -7,19 +7,6 @@ import Footer from '../Footer'
 const url= 'https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise'
 
 
-function TableHeader(){
-    const tableheader=(
-        <thead>
-            <th scope='col'>State</th>
-            <th scope='col'>Cofirmed Cases</th>
-            <th scope='col'>Deaths</th>
-            <th scope='col'>Recovered</th>
-            <th scope='col'>Active</th>
-        </thead>
-    );
-    return tableheader;
-}
-
 class India extends Component{
     constructor(props){
         super(props);

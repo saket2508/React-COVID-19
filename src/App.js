@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react"
+import React, {Component} from "react"
 import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
@@ -7,7 +7,6 @@ import Footer from './components/Footer'
 
 import './App.css';
 import axios from 'axios';
-const url= 'https://corona.lmao.ninja/countries?sort=cases'
 
 class App extends Component{
   constructor(props) {
