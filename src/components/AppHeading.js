@@ -2,7 +2,7 @@ import React, {Component} from "react";
 class AppHeading extends Component{
 
     Heading= (
-        <div className='container sm shadow-sm p-3 mb-4 bg-white rounded mt-2'>
+        <div className='container shadow-sm p-3 mb-4 bg-white rounded mt-2'>
             <div id='c3' class="container sm mt-2 mb-3">
                 <h3 className='text-center' style={{fontWeight:'400'}}>COVID-19 TRACKER</h3>
             </div>
