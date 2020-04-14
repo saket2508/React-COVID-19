@@ -2,18 +2,24 @@ import React, { Component} from "react"
 import RouteNavbar from './RouteNavbar'
 import TableIndia from './TableIndia'
 import HeadingStats from './HeadingStats'
-import Footer from '../Footer'
 
-const url= 'https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise'
-
+const url= 'https://api.covid19india.org/data.json'
 
 class India extends Component{
     constructor(props){
         super(props);
-        this.state= {StatesData:[],isLoaded:false,Data:{Cases:0,
-            Deaths:0,
-            Recovered:0,
-            Active:0}}
+        this.state= {
+            natnl:{
+                'confirmed':0,
+                'active':0,
+                'deaths':0,
+                'recovered':0,
+                'deltaconfirmed':0,
+                'deltadeaths':0,
+                'deltarecovered':0,
+            },
+            statewise:[]
+        }
     }
 
     componentDidMount(){
@@ -21,12 +27,16 @@ class India extends Component{
         .then(res => res.json())
         .then(json => {
             this.setState({
-                isLoaded:true,
-                StatesData: json.data.statewise,
-                Data: {Cases:json.data.total.confirmed,
-                    Deaths:json.data.total.deaths,
-                    Recovered:json.data.total.recovered,
-                    Active:json.data.total.active}
+                natnl:  {
+                        'confirmed':json.statewise[0].confirmed,
+                        'active':json.statewise[0].active,
+                        'deaths':json.statewise[0].deaths,
+                        'recovered':json.statewise[0].recovered,
+                        'deltaconfirmed':json.statewise[0].deltaconfirmed,
+                        'deltadeaths':json.statewise[0].deltadeaths,
+                        'deltarecovered':json.statewise[0].deltarecovered,
+                    },
+                statewise:  json.statewise.slice(1)
             })
         })
     }
@@ -35,9 +45,8 @@ class India extends Component{
         return(
             <div>
                 <RouteNavbar/>
-                <HeadingStats DataTotal= {this.state.Data}/>
-                <TableIndia Data= {this.state.StatesData}/>
-                <Footer/>
+                <HeadingStats data= {this.state.natnl}/>
+                <TableIndia data= {this.state.statewise}/>
             </div>
         );
 

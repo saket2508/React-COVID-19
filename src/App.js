@@ -3,7 +3,6 @@ import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
 import Figures from './components/Figures'
-import Footer from './components/Footer'
 
 import './App.css';
 import axios from 'axios';
@@ -48,7 +47,6 @@ class App extends Component{
         <AppHeading/>
         <Figures data={this.state.Data}/>
         <Table data= {this.state.myData} list={this.state.myList}/>
-        <Footer/>
       </div>
     );
   }

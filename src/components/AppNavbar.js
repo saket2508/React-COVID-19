@@ -16,7 +16,7 @@ class AppNavbar extends Component{
           </li>
           <li class="nav-item">
               <a class="nav-link" href="/India">SEE INDIA</a>
-          </li>     
+          </li>    
       </ul>
       </div>
       </Container>

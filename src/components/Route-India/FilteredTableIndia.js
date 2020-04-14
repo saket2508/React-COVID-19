@@ -27,16 +27,15 @@ class FilteredTableIndia extends Component{
         const filteredElements=(
             elements.filter(e => e.state.toLowerCase().includes(filtertStr.toLowerCase()))
         )
-        
         var tableBody=(
             <tbody>
             {filteredElements.map((item) =>
             (
                 <tr>
                     <th scope='row'>{item.state}</th>
-                    <td>{item.confirmed}</td>
-                    <td>{item.deaths}</td> 
-                    <td>{item.recovered}</td>
+                    <td>{item.confirmed} <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span></td>
+                    <td>{item.deaths} <span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span></td> 
+                    <td>{item.recovered} <span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span></td>
                     <td>{item.active}</td>
                 </tr>
             ))}
