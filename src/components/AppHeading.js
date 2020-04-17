@@ -8,7 +8,7 @@ class AppHeading extends Component{
             </div>
             <div className='mt-4 text-center'>
                 <p className='lead'>
-                    See live statistics of the ongoing pandemic that includes the current count of cases, deaths, recovered and the prevalence of the outbreak per million people in all affected countries. You can search a country to see its data from the table
+                    See live statistics of the ongoing COVID-19 pandemic that includes the current count of cases, deaths, recovered and the prevalence of the outbreak per million people in all affected countries. You can search a country to see its data from the table
                 </p>
                 <p className='text-info text-center'>
                     Last Updated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})} (IST)

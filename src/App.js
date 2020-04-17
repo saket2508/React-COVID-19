@@ -20,7 +20,7 @@ class App extends Component{
     var active=0
     var todayDeaths=0
     var todayCases=0
-    axios.get('https://corona.lmao.ninja/countries?sort=cases')
+    axios.get('https://corona.lmao.ninja/v2/countries?sort=cases')
       .then(response => response.data)
       .then((data) => data.forEach(item => {
           cases+= Number(item.cases)

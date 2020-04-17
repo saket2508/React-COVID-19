@@ -14,6 +14,7 @@ class HeadingStats extends Component{
                 <div className='mt-4 text-center'>
                     <p className='lead'>
                         See live stats tracking the number of confirmed cases, deaths and recovered in all 28 states and 8 UTs.
+                        You can search a state to see its data from the table.
                     </p>
                     <div className='mt-2'>
                         <p className='text-info text-center'>

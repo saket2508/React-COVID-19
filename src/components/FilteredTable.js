@@ -24,6 +24,16 @@ class FilteredTable extends Component{
             filterStr:""
         }
     }
+    checkConfirmedValue= (item) =>{
+        if(item.todayCases >0){
+            return <span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span>
+        }
+    }
+    checkDeathsValue = (item) =>{
+        if(item.todayDeaths >0){
+            return <span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span>
+        }
+    }
     render(){
         const elements= this.props.data;
         const filtertStr= this.state.filterStr;
@@ -38,8 +48,12 @@ class FilteredTable extends Component{
                             (
                                 <tr>
                                     <th scope='row'><span class="mr-1"><img src={item.countryInfo.flag} height='18' width='24' alt='flag-icon'></img></span> {item.country}</th>
-                                    <td>{item.cases}  <span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span></td>
-                                    <td>{item.deaths}<span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span></td> 
+                                    <td>{item.cases}  
+                                        {this.checkConfirmedValue(item)}
+                                    </td>
+                                    <td>{item.deaths}
+                                        {this.checkDeathsValue(item)}
+                                    </td> 
                                     <td>{item.recovered}</td>
                                     <td>{item.active}</td>
                                     <td>{item.critical}</td>

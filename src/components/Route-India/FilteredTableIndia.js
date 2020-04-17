@@ -20,6 +20,21 @@ class FilteredTableIndia extends Component{
             filterStr:""
         }
     }
+    checkConfirmedValue= (item) =>{
+        if(item.deltaconfirmed >0){
+            return <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span>
+        }
+    }
+    checkDeathsValue = (item) =>{
+        if(item.deltadeaths >0){
+            return <span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span>
+        }
+    }
+    checkRecoveredValue = (item) => {
+        if(item.deltarecovered >0){
+            return <span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span>
+        }
+    }
     render(){
         const elements= this.props.data;
         const filtertStr= this.state.filterStr;
@@ -33,9 +48,15 @@ class FilteredTableIndia extends Component{
             (
                 <tr>
                     <th scope='row'>{item.state}</th>
-                    <td>{item.confirmed} <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span></td>
-                    <td>{item.deaths} <span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span></td> 
-                    <td>{item.recovered} <span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span></td>
+                    <td>{item.confirmed}
+                        {this.checkConfirmedValue(item)}
+                    </td>
+                    <td>{item.deaths} 
+                        {this.checkDeathsValue(item)}
+                    </td> 
+                    <td>{item.recovered}
+                        {this.checkRecoveredValue(item)} 
+                    </td>
                     <td>{item.active}</td>
                 </tr>
             ))}
