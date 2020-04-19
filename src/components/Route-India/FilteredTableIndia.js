@@ -3,7 +3,7 @@ import React, { Component} from "react"
 function TableHeader(){
     const tableheader=(
         <thead className='thead'>
-            <th scope='col'>State</th>
+            <th scope='col'>State/UT</th>
             <th scope='col'>Confirmed Cases</th>
             <th scope='col'>Deaths</th>
             <th scope='col'>Recovered</th>
@@ -22,7 +22,9 @@ class FilteredTableIndia extends Component{
     }
     checkConfirmedValue= (item) =>{
         if(item.deltaconfirmed >0){
-            return <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span>
+            return (
+                <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span>
+            );
         }
     }
     checkDeathsValue = (item) =>{
@@ -48,13 +50,16 @@ class FilteredTableIndia extends Component{
             (
                 <tr>
                     <th scope='row'>{item.state}</th>
-                    <td>{item.confirmed}
+                    <td>
+                        {item.confirmed}
                         {this.checkConfirmedValue(item)}
                     </td>
-                    <td>{item.deaths} 
+                    <td>
+                        {item.deaths} 
                         {this.checkDeathsValue(item)}
                     </td> 
-                    <td>{item.recovered}
+                    <td>
+                        {item.recovered}
                         {this.checkRecoveredValue(item)} 
                     </td>
                     <td>{item.active}</td>
@@ -72,11 +77,11 @@ class FilteredTableIndia extends Component{
         }
 
         return(
-            <div className='FilteredTable'>
-            <h4 className='text-center text-muted' style={{fontWeight:'400'}}>CONFIRMED CASES AND DEATHS BY STATE</h4>
+            <div className='FilteredTableIndia'>
+            <h5 className='text-center text-muted' style={{fontWeight:'400'}}>CONFIRMED CASES AND DEATHS BY STATE</h5>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
-                    <p className='small text-info mt-2'>SEARCH A STATE</p>
+                    <p className='small text-dark mt-2'>SEARCH A STATE: </p>
                     <div class='col-5'>
                         <input type="text" 
                                 class="form-control" 
@@ -88,7 +93,7 @@ class FilteredTableIndia extends Component{
             </div>
         
               <div className='table-responsive'>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-striped table-bordered">
                         <TableHeader/>
                             {tableBody}
                     </table>

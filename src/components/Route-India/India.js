@@ -4,7 +4,6 @@ import TableIndia from './TableIndia'
 import HeadingStats from './HeadingStats'
 
 const url= 'https://api.covid19india.org/data.json'
-
 class India extends Component{
     constructor(props){
         super(props);
@@ -18,11 +17,17 @@ class India extends Component{
                 'deltadeaths':0,
                 'deltarecovered':0,
             },
-            statewise:[]
+            statewise:[],
+            chartData:{},
+            PieChartData:{}
         }
     }
 
     componentDidMount(){
+        this.getData();
+    }
+
+    getData(){
         fetch(url)
         .then(res => res.json())
         .then(json => {
@@ -36,10 +41,9 @@ class India extends Component{
                         'deltadeaths':json.statewise[0].deltadeaths,
                         'deltarecovered':json.statewise[0].deltarecovered,
                     },
-                statewise:  json.statewise.slice(1)
-            })
-        })
-    }
+                statewise: json.statewise.slice(1),
+                })
+    })}
 
     render(){
         return(

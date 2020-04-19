@@ -6,7 +6,7 @@ class HeadingStats extends Component{
         <div>
             <div className='container shadow-sm p-3 mb-4 bg-white rounded mt-2'>
                 <div id='c3' class="container sm mt-2 mb-3">
-                <h3 className='text-center' style={{fontWeight:'400'}}>CASES IN INDIA</h3>
+                <h4 className='text-center' style={{fontWeight:'400'}}>CASES IN INDIA</h4>
                     <div className='text-center'>
                         <img height='60' width='80' src='https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png' alt='' className='rounded'></img>            
                     </div>

@@ -72,11 +72,11 @@ class FilteredTable extends Component{
         }
 
         return(
-            <div className='FilteredTableIndia'>
-            <h4 className='text-center text-muted' style={{fontWeight:'400'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</h4>
+            <div className='FilteredTable'>
+            <h5 className='text-center text-muted' style={{fontWeight:'400'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</h5>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
-                    <p className='small text-info mt-2'>SEARCH A COUNTRY</p>
+                    <p className='small text-dark mt-2'>SEARCH A COUNTRY: </p>
                     <div class='col-6'>
                         <input type="text" 
                                 class="form-control" 
