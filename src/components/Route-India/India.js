@@ -68,14 +68,14 @@ class India extends Component{
                             label:'COVID-19 Cases',
                             data:data,
                             backgroundColor:[
-                            '#A9A9A9',
-                            '#F66D44',
-                            '#FEAE65',
-                            '#E6F69D',
-                            '#AADEA7',
-                            '#FFC154',
-                            '#0674C4'
-                            ]
+                                '#9e9e9e',
+                                '#f44336',
+                                '#4caf50',
+                                '#4dd0e1',
+                                '#ffeb3b',
+                                '#0674C4',
+                                '#ff9800'
+                                ]
                         }
                         ]
                     }
@@ -83,7 +83,7 @@ class India extends Component{
         fetch(url1)
         .then(res => res.json())
         .then(json =>{
-            let rawdata= json.cases_time_series.slice(-14)
+            let rawdata= json.cases_time_series.slice(-7)
             rawdata.map((item)=>{
                 dates.push(item.date)
                 cases.push(Number(item.dailyconfirmed))

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Bar, Line, Pie} from 'react-chartjs-2';
 
 class Charts extends Component{
@@ -15,10 +15,36 @@ class Charts extends Component{
 
       render(){
         return (
-    <div id='chart' className="container-fluid shadow p-3 mb-2 bg-white rounded mt-2">
+            <Fragment>
+                <div id='chart' className="container shadow p-3 mb-2 bg-white rounded mt-2">
         <div col="12">
-        <p className='text-center text-muted mb-3' style={{fontWeight:'500'}}>TREND IN DAILY RECORDED CASES</p>
-        <div id='chart-1' className="chart-container">
+        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>STATEWISE DISTRIBUTION OF CASES</p>
+            <div id='chart-1' className="chart-container mb-3">
+                <Pie
+                data={this.props.chart1Data}
+                options={{
+                    responsive:true,
+                    maintainAspectRatio:false,
+                    title:{
+                        display:false,
+                    },
+                    legend:{
+                        display:this.props.displayLegend,
+                        position:"top",
+                        labels:{
+                            fontFamily:  "'Noto Sans JP', sans-serif",
+                            fontColor:'#000'
+                        },
+                    }
+                }}
+                />
+            </div>
+        </div>
+    </div>
+    <div id='chart' className="container shadow p-3 mb-2 bg-white rounded mt-2">
+        <div col="12">
+        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>TREND IN DAILY RECORDED CASES</p>
+        <div id='chart-2' className="chart-container">
         <Bar
                 data={this.props.chart2Data}
                 options={{
@@ -44,7 +70,7 @@ class Charts extends Component{
                             barPercentage: 0.4,
                             ticks:{
                                     fontFamily:  "'Noto Sans JP', sans-serif",
-                                    fontSize:'12',
+                                    fontSize:'15',
                                     fontColor: '#000',
                                 }
                             }
@@ -53,7 +79,7 @@ class Charts extends Component{
                             {
                                 ticks:{
                                         fontFamily:  "'Noto Sans JP', sans-serif",
-                                        fontSize:'12',
+                                        fontSize:'15',
                                         fontColor: '#000',
                                     }
                                 }
@@ -65,6 +91,8 @@ class Charts extends Component{
             </div>
         </div>
     </div>
+            </Fragment>
+
         )
       }
     }
