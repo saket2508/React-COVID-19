@@ -8,7 +8,7 @@ class India extends Component{
     constructor(props){
         super(props);
         this.state= {
-            natnl:{
+            natnlData:{
                 'confirmed':0,
                 'active':0,
                 'deaths':0,
@@ -17,9 +17,7 @@ class India extends Component{
                 'deltadeaths':0,
                 'deltarecovered':0,
             },
-            statewise:[],
-            chartData:{},
-            PieChartData:{}
+            statewiseData:[],
         }
     }
 
@@ -32,7 +30,7 @@ class India extends Component{
         .then(res => res.json())
         .then(json => {
             this.setState({
-                natnl:  {
+                natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
                         'active':json.statewise[0].active,
                         'deaths':json.statewise[0].deaths,
@@ -41,7 +39,7 @@ class India extends Component{
                         'deltadeaths':json.statewise[0].deltadeaths,
                         'deltarecovered':json.statewise[0].deltarecovered,
                     },
-                statewise: json.statewise.slice(1),
+                statewiseData: json.statewise.slice(1),
                 })
     })}
 
@@ -49,8 +47,8 @@ class India extends Component{
         return(
             <div>
                 <RouteNavbar/>
-                <HeadingStats data= {this.state.natnl}/>
-                <TableIndia data= {this.state.statewise}/>
+                <HeadingStats data= {this.state.natnlData}/>
+                <TableIndia data= {this.state.statewiseData}/>
             </div>
         );
 

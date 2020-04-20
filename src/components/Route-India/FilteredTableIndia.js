@@ -78,15 +78,14 @@ class FilteredTableIndia extends Component{
 
         return(
             <div className='FilteredTableIndia'>
-            <h5 className='text-center text-muted' style={{fontWeight:'400'}}>CONFIRMED CASES AND DEATHS BY STATE</h5>
+            <h5 className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</h5>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
-                    <p className='small text-dark mt-2'>SEARCH A STATE: </p>
-                    <div class='col-5'>
+                    <div class='col-9'>
                         <input type="text" 
                                 class="form-control" 
                                 value={filtertStr} 
-                                placeholder="State..."
+                                placeholder="Search A State..."
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
                     </div>
                 </div>
