@@ -3,14 +3,14 @@ import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
 import Figures from './components/Figures'
-import Chart from './components/Chart'
+//import Chart from './components/Chart'
 import './App.css';
-import axios from 'axios';
 
 const url='https://corona.lmao.ninja/v2/countries?sort=cases'
 const data=[]
-const topsix_labels=[]
-const topsix_cases=[]
+//const topsix_labels=[]
+//const topsix_cases=[]
+
 
 class App extends Component{
   constructor(props) {
@@ -46,14 +46,8 @@ class App extends Component{
           todayDeaths+= Number(item.todayDeaths)
           todayCases+= Number(item.todayCases)
         })
-        let rawdata= json.slice(0,6)
-        rawdata.map((item)=> {
-          sum+= Number(item.cases)
-          topsix_labels.push(item.country)
-          topsix_cases.push(Number(item.cases))
-        })
-        topsix_labels[6]='Other'
-        topsix_cases[6]=cases-sum
+       const cases_breakdown=[active,recovered,deaths]
+       const labels=['Active','Recovered','Deceased']
         this.setState({
           myData:data,
           Data:{
@@ -65,19 +59,15 @@ class App extends Component{
             TodayDeaths:todayDeaths
           },
           pieChart:{
-            labels: topsix_labels,
+            labels: labels,
                         datasets:[
                         {
                             label:'COVID-19 Cases',
-                            data:topsix_cases,
+                            data:cases_breakdown,
                             backgroundColor:[
-                            '#f44336',
-                            '#ff9800',
-                            '#4caf50',
-                            '#4dd0e1',
-                            '#ffeb3b',
-                            '#0674C4',
-                            '#9e9e9e'
+                              '#64b5f6',
+                              '#81c784',
+                              '#e57373'
                             ]
                         }
                         ]
@@ -93,7 +83,6 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={this.state.Data}/>
-        <Chart chart1Data={this.state.pieChart}/>
         <Table data= {this.state.myData} list={this.state.myList}/>
       </div>
     );

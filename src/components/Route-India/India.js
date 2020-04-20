@@ -2,14 +2,22 @@ import React, { Component} from "react"
 import RouteNavbar from './RouteNavbar'
 import TableIndia from './TableIndia'
 import HeadingStats from './HeadingStats'
-import Charts from './IndiaCharts/Charts'
+//import Charts from './IndiaCharts/Charts'
 
 const labels=[]
 const data=[]
+
 const cases=[]
+const deaths=[]
+const recovered=[]
+
+const newcases=[]
+const newdeaths=[]
+const newrecovered=[]
+
 const dates=[]
+
 const url= 'https://api.covid19india.org/data.json'
-const url1='https://api.covid19india.org/data.json'
 
 class India extends Component{
     constructor(props){
@@ -25,6 +33,7 @@ class India extends Component{
                 'deltarecovered':0,
             },
             statewiseData:[],
+            rawdata:{},
             pieChart:{},
             timeSeries:{}
         }
@@ -68,36 +77,46 @@ class India extends Component{
                             label:'COVID-19 Cases',
                             data:data,
                             backgroundColor:[
-                                '#9e9e9e',
-                                '#f44336',
-                                '#4caf50',
-                                '#4dd0e1',
-                                '#ffeb3b',
-                                '#0674C4',
-                                '#ff9800'
+                                '#9e9e9e',//Gray
+                                '#e57373',//Red
+                                '#81c784',//Green
+                                '#4fc3f7',//Light Blue
+                                '#fff176',//Yellow
+                                '#7986cb',//Blue
+                                '#ffb74d'//Orange
                                 ]
                         }
                         ]
                     }
                 })
-        fetch(url1)
+        fetch(url)
         .then(res => res.json())
         .then(json =>{
-            let rawdata= json.cases_time_series.slice(-7)
+            let rawdata= json.cases_time_series.slice(1)
             rawdata.map((item)=>{
                 dates.push(item.date)
-                cases.push(Number(item.dailyconfirmed))
+                cases.push(Number(item.totalconfirmed))
+                deaths.push(Number(item.totaldeceased))
+                recovered.push(Number(item.totalrecovered))
             })
             this.setState(
                 {
+                rawdata:{
+                    'CasesTimeSeries':cases,
+                    'DeathsTimeSeries':deaths,
+                    'RecoveredTimeSeries':recovered
+                },
                     
                 timeSeries:{
                             labels: dates,
                             datasets:[
                                 {
-                                    label:'Cases Recorded',
+                                    fill:false,
+                                    label:'Confirmed',
                                     data:cases,
-                                    backgroundColor:'#2196f3'
+                                    backgroundColor:'#2196f3',
+                                    borderColor:'#2196f3',
+                                    //pointBackgroundColor:'#2196f3'
                                 }
                                 ]
                         }
@@ -111,7 +130,6 @@ class India extends Component{
             <div>
                 <RouteNavbar/>
                 <HeadingStats data= {this.state.natnlData}/>
-                <Charts chart1Data={this.state.pieChart} chart2Data={this.state.timeSeries} ch legendPosition="top"/>
                 <TableIndia data= {this.state.statewiseData}/>
             </div>
         );

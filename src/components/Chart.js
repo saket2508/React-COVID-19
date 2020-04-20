@@ -1,10 +1,13 @@
 import React, {Component} from "react"
-import {Bar, Line, Pie} from 'react-chartjs-2';
+import {Bar, Line, Pie} from 'react-chartjs-3';
+
+
 
 class Chart extends Component{
     constructor(props){
         super(props)
     }
+    
 
     static defaultProps = {
         displayTitle:true,
@@ -15,9 +18,9 @@ class Chart extends Component{
 
       render(){
         return (
-                <div id='chart' className="container shadow p-3 mb-2 bg-white rounded mt-2">
+                <div id='chart' className="container shadow-sm p-3 mb-2 bg-white rounded mt-2">
         <div col="12">
-        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COUNTRIES HAVING THE MOST COVID-19 CASES</p>
+        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>BREAKDOWN OF CONFIRMED CASES</p>
             <div id='chart-1' className="chart-container mb-3">
                 <Pie
                 data={this.props.chart1Data}
@@ -29,7 +32,7 @@ class Chart extends Component{
                     },
                     legend:{
                         display:this.props.displayLegend,
-                        position:"top",
+                        position:"bottom",
                         labels:{
                             fontFamily:  "'Noto Sans JP', sans-serif",
                             fontColor:'#000'
@@ -40,7 +43,6 @@ class Chart extends Component{
             </div>
         </div>
     </div>
-           
 
         )
       }
