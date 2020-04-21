@@ -11,6 +11,7 @@ const deaths=[]
 const dailycases=[]
 const dailydeaths=[]
 const dailyrecovered=[]
+const dates2=[]
 
 const state_names=[]
 const state_data=[]
@@ -70,17 +71,22 @@ class Charts extends Component{
                 let rawdata= json.cases_time_series
                 rawdata.map((item)=>{
                     dates.push(item.date)
-                    cases.push(item.totalconfirmed)
-                    dailycases.push(item.dailyconfirmed)
+                    cases.push(item.totalconfirmed)    
                     deaths.push(item.totaldeceased)
-                    dailydeaths.push(item.dailydeceased)
                     recovered.push(item.totalrecovered)
+                    
+                })
+
+                rawdata.slice(-21,-1).map((item)=>{
+                    dailycases.push(item.dailyconfirmed)
+                    dailydeaths.push(item.dailydeceased)
                     dailyrecovered.push(item.dailyrecovered)
+                    dates2.push(item.date)
                 })
 
                 this.setState({
                     DailyChartData:{
-                        labels: dates,
+                        labels: dates2,
                         datasets:[
                           {
                             fill:false,
@@ -129,7 +135,7 @@ class Charts extends Component{
         if(item.id===1){
             this.setState({
                 DailyChartData:{
-                    labels: dates,
+                    labels: dates2,
                         datasets:[
                           {
                             fill:false,
@@ -145,7 +151,7 @@ class Charts extends Component{
         if(item.id===2){
             this.setState({
                 DailyChartData:{
-                    labels: dates,
+                    labels: dates2,
                         datasets:[
                           {
                             fill:false,
@@ -162,7 +168,7 @@ class Charts extends Component{
         if(item.id===3){
             this.setState({
                 DailyChartData:{
-                    labels: dates,
+                    labels: dates2,
                         datasets:[
                           {
                             fill:false,
