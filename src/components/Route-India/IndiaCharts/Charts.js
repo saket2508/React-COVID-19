@@ -69,7 +69,7 @@ class Charts extends Component{
                 
 
                 let rawdata= json.cases_time_series
-                rawdata.map((item)=>{
+                rawdata.slice(31,-1).map((item)=>{
                     dates.push(item.date)
                     cases.push(item.totalconfirmed)    
                     deaths.push(item.totaldeceased)
@@ -77,7 +77,7 @@ class Charts extends Component{
                     
                 })
 
-                rawdata.slice(-21,-1).map((item)=>{
+                rawdata.slice(-22,-1).map((item)=>{
                     dailycases.push(item.dailyconfirmed)
                     dailydeaths.push(item.dailydeceased)
                     dailyrecovered.push(item.dailyrecovered)
@@ -246,7 +246,7 @@ class Charts extends Component{
             <Fragment>
                  <div id='chart-3' className="container shadow-sm p-3 mb-4 bg-white rounded mt-4">
         <div col="12">
-        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: STATES WITH THE MOST CASES</h5>
+        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: STATES HAVING THE MOST CASES</h5>
         <div id='chart' className="chart-container">
         <Pie
                 data={this.state.PieChart}
@@ -267,12 +267,15 @@ class Charts extends Component{
                         },
                         onClick: (e) => e.stopPropagation()
                     },
+
                 }}
                 />
             </div>
         </div>
     </div>
-                 <div id='chart-1' className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
+
+    <div id="chart-1">
+    <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
         <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</h5>
         <div id='chart' className="chart-container">
@@ -296,6 +299,10 @@ class Charts extends Component{
                     scales: {
                         xAxes: [
                         {
+                            gridLines: {
+                                display:false
+                            },
+                            barPercentage: 0.4,
                             ticks:{
                                     fontFamily:  "'Noto Sans JP', sans-serif",
                                     fontSize:'12',
@@ -323,12 +330,15 @@ class Charts extends Component{
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
                 <li id={item.id} className="nav-item">
-                    <button type="button" className={"btn btn-outline-"+item.color} onClick={this.changeDailyVariable.bind(this,item)}>{item.name}</button>
+                    <button type="button" className={"btn btn-sm btn-outline-"+item.color} onClick={this.changeDailyVariable.bind(this,item)}>{item.name}</button>
                 </li>
             ))}
         </ul>
     </div>
-    <div id='chart-2' className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
+    </div>
+
+    <div id="chart-2">
+    <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
         <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</h5>
         <div id='chart' className="chart-container">
@@ -354,6 +364,9 @@ class Charts extends Component{
                     scales: {
                         xAxes: [
                         {
+                            gridLines: {
+                                display:false
+                            },
                             ticks:{
                                     fontFamily:  "'Noto Sans JP', sans-serif",
                                     fontSize:'12',
@@ -381,10 +394,11 @@ class Charts extends Component{
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
                 <li id={item.id} className="nav-item">
-                    <button type="button" className={"btn btn-outline-"+item.color} onClick={this.changeVariable.bind(this,item)}>{item.name}</button>
+                    <button type="button" className={"btn btn-sm btn-outline-"+item.color} onClick={this.changeVariable.bind(this,item)}>{item.name}</button>
                 </li>
             ))}
         </ul>
+    </div>
     </div>
             </Fragment>
 
