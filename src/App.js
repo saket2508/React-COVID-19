@@ -3,7 +3,7 @@ import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
 import Figures from './components/Figures'
-//import Chart from './components/Chart'
+import Chart from './components/Chart'
 import './App.css';
 
 const url='https://corona.lmao.ninja/v2/countries?sort=cases'
@@ -27,13 +27,15 @@ class App extends Component{
   }
 
   getData(){
-    let sum=0
     let deaths=0
     let cases=0
     let recovered=0
     let active=0
     let todayDeaths=0
     let todayCases=0
+    let sum=0
+    const country_names=[]
+    const country_data=[]
     fetch(url)
       .then(res => res.json())
       .then(json => {
@@ -46,6 +48,16 @@ class App extends Component{
           todayDeaths+= Number(item.todayDeaths)
           todayCases+= Number(item.todayCases)
         })
+        let rawdata= json.slice(0,6)
+        rawdata.map((item)=>{
+          country_names.push(item.country)
+          country_data.push(item.cases)
+          sum+= Number(item.cases)
+        })
+
+        country_names[6]='Other'
+        country_data[6]= cases-sum
+
        const cases_breakdown=[active,recovered,deaths]
        const labels=['Active','Recovered','Deceased']
         this.setState({
@@ -59,15 +71,19 @@ class App extends Component{
             TodayDeaths:todayDeaths
           },
           pieChart:{
-            labels: labels,
+            labels: country_names,
                         datasets:[
                         {
                             label:'COVID-19 Cases',
-                            data:cases_breakdown,
+                            data:country_data,
                             backgroundColor:[
-                              '#64b5f6',
-                              '#81c784',
-                              '#e57373'
+                              '#ef9a9a',//RED
+                              '#ffe082',//ORANGE
+                              '#a5d6a7',//GREEN
+                              '#81d4fa',//LIGHT BLUE
+                              '#9fa8da',//BLUE
+                              '#80cbc4',//TEAL
+                              '#bdbdbd'//GRAY
                             ]
                         }
                         ]
@@ -83,6 +99,7 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={this.state.Data}/>
+        <Chart chartData={this.state.pieChart}/>
         <Table data= {this.state.myData} list={this.state.myList}/>
       </div>
     );

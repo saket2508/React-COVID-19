@@ -4,14 +4,12 @@ function TableHeader(){
     const tableheader=(
         <thead className='thead'>
             <th scope='col'>Country</th>
-            <th scope='col'>Total Cases</th>
-            <th scope='col'>Total Deaths</th>
-            <th scope='col'>Total Recovered</th>
-            <th scope='col'>Active Cases</th>
-            <th scope='col'>Serious,
-                Critical</th>
-            <th scope='col'>Total Cases/
-                1M People</th>
+            <th scope='col'>Confirmed</th>
+            <th scope='col'>Deaths</th>
+            <th scope='col'>Recovered</th>
+            <th scope='col'>Active</th>
+            <th scope='col'>Critical</th>
+            <th scope='col'>Cases/1M People</th>
         </thead>
     );
     return tableheader;
@@ -86,7 +84,7 @@ class FilteredTable extends Component{
                 </div>
             </div>
               <div className='table-responsive'>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-sm">
                         <TableHeader/>
                         {tableBody}
                     </table>

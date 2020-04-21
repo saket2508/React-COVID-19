@@ -18,12 +18,12 @@ class Chart extends Component{
 
       render(){
         return (
-                <div id='chart' className="container shadow-sm p-3 mb-2 bg-white rounded mt-2">
+            <div id='chart-1' className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
-        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>BREAKDOWN OF CONFIRMED CASES</p>
-            <div id='chart-1' className="chart-container mb-3">
+        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19: COUNTRIES HAVING THE MOST CASES</h5>
+            <div id='chart' className="chart-container mb-1">
                 <Pie
-                data={this.props.chart1Data}
+                data={this.props.chartData}
                 options={{
                     responsive:true,
                     maintainAspectRatio:false,
