@@ -11,8 +11,8 @@ class Stats extends Component{
 
     render(){
         return(
-            <Fragment>
-            <div id="statswindow" class="container shadow p-3 mt-4 mb-3" style={{width:"90%"}}>
+            <div id="statswindow">
+               <div id="statswindow" class="container shadow p-3 mt-4 mb-3" style={{width:"90%"}}>
                 <h5 class="text-muted text-center">FLASH INSIGHTS <i class="fas fa-chart-bar"></i></h5>
                 <div id="stats border-bottom">
                         <div className="text-center">
@@ -20,9 +20,9 @@ class Stats extends Component{
                                 <li class="list-group-item"></li>
                                 <li class="list-group-item"><p className="h6 text-muted">Total Individuals Tested</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.totalTests}</p></li>
                                 <li class="list-group-item"><p className="h6 text-muted">Individuals Tested Yesterday</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.newTests}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Cases</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.latestUpdate.newCases}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Deaths</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.latestUpdate.newDeaths}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Recoveries</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.latestUpdate.newRecoveries}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">New Cases</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up"></i></small>{this.props.insights.latestUpdate.newCases}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">New Deaths</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up" ></i></small>{this.props.insights.latestUpdate.newDeaths}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">New Recoveries</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up"></i></small>{this.props.insights.latestUpdate.newRecoveries}</p></li>
                             </ul>
                         </div>
                 </div>
@@ -32,7 +32,7 @@ class Stats extends Component{
                     </div>
                 </div>
             </div>
-            </Fragment>
+            </div>
         );
     }
 }

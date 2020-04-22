@@ -275,8 +275,8 @@ class Charts extends Component{
     </div>
     </div>
 
-    <div id="chart-2">
-    <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
+    <div id="chart-2" >
+    <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4" >
         <div col="12">
         <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</h5>
         <div id='chart' className="chart-container">
