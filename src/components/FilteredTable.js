@@ -24,12 +24,12 @@ class FilteredTable extends Component{
     }
     checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
-            return <span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span>
+            return <small><span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span></small>
         }
     }
     checkDeathsValue = (item) =>{
         if(item.todayDeaths >0){
-            return <span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span>
+            return <small><span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span></small>
         }
     }
     render(){

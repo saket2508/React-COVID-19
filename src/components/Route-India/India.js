@@ -30,6 +30,17 @@ class India extends Component{
                 'deltarecovered':0,
             },
             statewiseData:[],
+            Insights:{
+                totalTests:0,
+                population:1350000000,
+                latestUpdate:{
+                    timeStamp:"",
+                    newCases:0,
+                    newDeaths:0,
+                    newRecoveries:0
+                }
+
+            }
         }
     }
 
@@ -42,6 +53,8 @@ class India extends Component{
         fetch(url)
         .then(res => res.json())
         .then(json => {
+            let rawdatatests= json.tested.slice(-1)[0]
+            let rawdatainfo= json.cases_time_series.slice(-2)[0]
             this.setState({
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
@@ -52,15 +65,25 @@ class India extends Component{
                         'deltadeaths':json.statewise[0].deltadeaths,
                         'deltarecovered':json.statewise[0].deltarecovered,
                     },
-                statewiseData: json.statewise.slice(1)
-                })
+                statewiseData: json.statewise.slice(1),
+                Insights:{
+                    totalTests: rawdatatests.totalsamplestested,
+                    population:1350000000,
+                    latestUpdate:{
+                        timeStamp:rawdatatests.updatetimestamp,
+                        newCases:rawdatainfo.dailyconfirmed,
+                        newDeaths:rawdatainfo.dailydeceased,
+                        newRecoveries:rawdatainfo.dailyrecovered
+                    }
+                }
+            })
     })}
 
     render(){
         return(
             <div>
                 <RouteNavbar/>
-                <HeadingStats data= {this.state.natnlData}/>
+                <HeadingStats insights={this.state.Insights} data= {this.state.natnlData}/>
                 <Charts/>
                 <TableIndia data= {this.state.statewiseData}/>
             </div>

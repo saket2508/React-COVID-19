@@ -23,18 +23,18 @@ class FilteredTableIndia extends Component{
     checkConfirmedValue= (item) =>{
         if(item.deltaconfirmed >0){
             return (
-                <span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span>
+                <small><span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span></small>
             );
         }
     }
     checkDeathsValue = (item) =>{
         if(item.deltadeaths >0){
-            return <span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span>
+            return<small><span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span></small>
         }
     }
     checkRecoveredValue = (item) => {
         if(item.deltarecovered >0){
-            return <span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span>
+            return <small><span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span></small>
         }
     }
     render(){

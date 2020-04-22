@@ -69,7 +69,7 @@ class Charts extends Component{
                 
 
                 let rawdata= json.cases_time_series
-                rawdata.slice(31,-1).map((item)=>{
+                rawdata.slice(-21).map((item)=>{
                     dates.push(item.date)
                     cases.push(item.totalconfirmed)    
                     deaths.push(item.totaldeceased)
@@ -77,7 +77,7 @@ class Charts extends Component{
                     
                 })
 
-                rawdata.slice(-22,-1).map((item)=>{
+                rawdata.slice(-21).map((item)=>{
                     dailycases.push(item.dailyconfirmed)
                     dailydeaths.push(item.dailydeceased)
                     dailyrecovered.push(item.dailyrecovered)
@@ -302,7 +302,7 @@ class Charts extends Component{
                             gridLines: {
                                 display:false
                             },
-                            barPercentage: 0.4,
+                            //barPercentage: 0.4,
                             ticks:{
                                     fontFamily:  "'Noto Sans JP', sans-serif",
                                     fontSize:'12',
@@ -360,6 +360,11 @@ class Charts extends Component{
                             fontColor:'#000'
                         },
                         onClick: (e) => e.stopPropagation()
+                    },
+                    tooltips:{
+                        enabled:true,
+                        mode:'index',
+                        intersect:false
                     },
                     scales: {
                         xAxes: [

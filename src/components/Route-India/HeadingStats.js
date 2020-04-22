@@ -63,6 +63,24 @@ function StatsSummary(props){
     return summary
 }
 
+function OtherStats(props){
+    const stats=(
+        <div id='stats' className='container shadow-sm p-3 mb-4 bg-white rounded mt-3'>
+            <div className='justify-content-center'>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Total Individuals Tested <p className='text-info'>{props.insights.totalTests}</p></li>
+                    <li class="list-group-item">New Cases  <p className='text-info'>{props.insights.latestUpdate.newCases}</p></li>
+                    <li class="list-group-item">New Deaths <p className='text-info'>{props.insights.latestUpdate.newDeaths}</p></li>
+                    <li class="list-group-item">New Recoveries <p className='text-info'>{props.insights.latestUpdate.newRecoveries}</p></li>
+                    <li class="list-group-item">Tests Per Million <p className='text-info'>{props.insights.totalTests/props.insights.population}</p></li>
+                    <li class="list-group-item">Cases Per Million <p className='text-info'>{props.data.confirmed/props.insights.population}</p></li>
+                </ul>
+            </div>
+        </div>
+    )
+    return stats
+}
+
 class HeadingStats extends Component{
     constructor(props){
         super(props)
