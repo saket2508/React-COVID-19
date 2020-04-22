@@ -3,6 +3,7 @@ import RouteNavbar from './RouteNavbar'
 import TableIndia from './TableIndia'
 import HeadingStats from './HeadingStats'
 import Charts from './IndiaCharts/Charts'
+import Stats from './IndiaCharts/Stats'
 //import Charts from './IndiaCharts/Charts'
 
 const labels=[]
@@ -32,6 +33,7 @@ class India extends Component{
             statewiseData:[],
             Insights:{
                 totalTests:0,
+                newTests:0,
                 population:1350000000,
                 latestUpdate:{
                     timeStamp:"",
@@ -54,7 +56,7 @@ class India extends Component{
         .then(res => res.json())
         .then(json => {
             let rawdatatests= json.tested.slice(-1)[0]
-            let rawdatainfo= json.cases_time_series.slice(-2)[0]
+            let rawdatainfo= json.cases_time_series.slice(-1)[0]
             this.setState({
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
@@ -68,6 +70,7 @@ class India extends Component{
                 statewiseData: json.statewise.slice(1),
                 Insights:{
                     totalTests: rawdatatests.totalsamplestested,
+                    newTests:rawdatatests.samplereportedtoday,
                     population:1350000000,
                     latestUpdate:{
                         timeStamp:rawdatatests.updatetimestamp,
@@ -84,6 +87,7 @@ class India extends Component{
             <div>
                 <RouteNavbar/>
                 <HeadingStats insights={this.state.Insights} data= {this.state.natnlData}/>
+                <Stats data={this.state.natnlData} insights={this.state.Insights}/>
                 <Charts/>
                 <TableIndia data= {this.state.statewiseData}/>
             </div>

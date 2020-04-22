@@ -54,27 +54,13 @@ class Charts extends Component{
         fetch(url)
             .then(res => res.json())
             .then(json => {
-
-                let statesdata= json.statewise.slice(0,7)
-                let sum=0
-                let total= Number(statesdata[0].confirmed)
-
-                statesdata.slice(1,7).map((item)=>{
-                    state_names.push(item.state)
-                    state_data.push(item.confirmed)
-                    sum+= Number(item.confirmed)
-                })
-                state_names[6]='Other'
-                state_data[6]= total-sum
-                
-
+                        
                 let rawdata= json.cases_time_series
-                rawdata.slice(-21).map((item)=>{
+                rawdata.map((item)=>{
                     dates.push(item.date)
                     cases.push(item.totalconfirmed)    
                     deaths.push(item.totaldeceased)
                     recovered.push(item.totalrecovered)
-                    
                 })
 
                 rawdata.slice(-21).map((item)=>{
@@ -109,24 +95,6 @@ class Charts extends Component{
                           }
                         ]
                     },
-                    PieChart:{
-                        labels: state_names,
-                        datasets:[
-                          {
-                            label:'COVID-19 Cases',
-                            data:state_data,
-                            backgroundColor:[
-                              '#ef9a9a',//RED
-                              '#ffe082',//ORANGE
-                              '#a5d6a7',//GREEN
-                              '#81d4fa',//LIGHT BLUE
-                              '#9fa8da',//BLUE
-                              '#80cbc4',//TEAL
-                              '#bdbdbd'//GRAY
-                            ]
-                          }
-                        ]
-                    }
                 })
             })
     }
@@ -243,37 +211,7 @@ class Charts extends Component{
 
       render(){
         return (
-            <Fragment>
-                 <div id='chart-3' className="container shadow-sm p-3 mb-4 bg-white rounded mt-4">
-        <div col="12">
-        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: STATES HAVING THE MOST CASES</h5>
-        <div id='chart' className="chart-container">
-        <Pie
-                data={this.state.PieChart}
-                options={{
-                    responsive:true,
-                    maintainAspectRatio:false,
-                    title:{
-                        display:false,
-                        text:'Largest Cities In '+this.props.location,
-                        fontSize:25
-                    },
-                    legend:{
-                        display:this.props.displayLegend,
-                        position:"bottom",
-                        labels:{
-                            fontFamily:  "'Noto Sans JP', sans-serif",
-                            fontColor:'#000'
-                        },
-                        onClick: (e) => e.stopPropagation()
-                    },
-
-                }}
-                />
-            </div>
-        </div>
-    </div>
-
+<Fragment>
     <div id="chart-1">
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
@@ -405,7 +343,7 @@ class Charts extends Component{
         </ul>
     </div>
     </div>
-            </Fragment>
+</Fragment>
 
         )
       }

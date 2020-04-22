@@ -84,7 +84,7 @@ class FilteredTable extends Component{
                 </div>
             </div>
               <div className='table-responsive'>
-                    <table class="table table-sm">
+                    <table class="table table-sm table-bordered table-striped">
                         <TableHeader/>
                         {tableBody}
                     </table>

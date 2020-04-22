@@ -6,7 +6,7 @@ function MainHeading(){
                 <div id='c3' class="container sm mt-2 mb-3">
                 <h4 className='text-center' style={{fontWeight:'400'}}>CASES IN INDIA</h4>
                     <div className='text-center'>
-                        <img height='60' width='80' src='https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png' alt='' className='rounded'></img>            
+                        <img height='60' width='80' src='https://corona.lmao.ninja/assets/img/flags/in.png' alt='' className='rounded'></img>            
                     </div>
                 </div>
                 <div className='mt-4 text-center'>
@@ -15,9 +15,6 @@ function MainHeading(){
                         You can search a state to see its data from the table.
                     </p>
                     <div className='mt-2'>
-                        <p className='text-info text-center'>
-                            Last Updated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})} (IST)
-                        </p>
                         <a class="btn btn-primary btn-sm" href="/" role="button">SEE WORLDWIDE</a>
                     </div>
                 </div>
@@ -89,7 +86,7 @@ class HeadingStats extends Component{
         const element=(
         <div>
            <MainHeading/>
-           <StatsSummary data= {this.props.data}/>
+           <StatsSummary data={this.props.data}/>
        </div>
     );
         return element
