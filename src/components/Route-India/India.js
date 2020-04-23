@@ -81,7 +81,7 @@ class India extends Component{
                     casespermillion:casespermillion,
                     deathspermillion:deathspermillion,
                     latestUpdate:{
-                        timeStamp:rawdatatests.updatetimestamp,
+                        timeStamp:json.statewise[0].lastupdatedtime,
                         newCases:rawdatainfo.dailyconfirmed,
                         newDeaths:rawdatainfo.dailydeceased,
                         newRecoveries:rawdatainfo.dailyrecovered

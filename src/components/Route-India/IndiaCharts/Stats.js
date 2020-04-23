@@ -10,6 +10,9 @@ class Stats extends Component{
              <div id="statswindow">
                <div id="statswindow" class="container shadow p-3 mt-4 mb-3" style={{width:"90%"}}>
                 <h5 class="text-muted text-center">FLASH INSIGHTS <i class="fas fa-chart-bar"></i></h5>
+                <div className="text-center mb-2">
+                    <small className="text-muted text-center">{new Date().toUTCString().slice(5,11)}, {this.props.insights.latestUpdate.timeStamp.slice(11,16)} IST</small>
+                </div>
                 <div id="stats border-bottom">
                         <div className="text-center">
                             <ul className="list-group list-group-flush" style={{margin:"auto"}}>
