@@ -267,7 +267,7 @@ class Charts extends Component{
     <div className='container mb-4'>
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
-                <li id={item.id} className="nav-item">
+                <li id={item.id} className="nav-item mr-1">
                     <button type="button" className={"btn btn-sm btn-outline-"+item.color} onClick={this.changeDailyVariable.bind(this,item)}>{item.name}</button>
                 </li>
             ))}
@@ -336,7 +336,7 @@ class Charts extends Component{
     <div className='container mb-4'>
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
-                <li id={item.id} className="nav-item">
+                <li id={item.id} className="nav-item mr-1">
                     <button type="button" className={"btn btn-sm btn-outline-"+item.color} onClick={this.changeVariable.bind(this,item)}>{item.name}</button>
                 </li>
             ))}

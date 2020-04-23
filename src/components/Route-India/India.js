@@ -14,6 +14,7 @@ const deaths=[]
 const recovered=[]
 
 const dates=[]
+const population=1350000000
 
 const url= 'https://api.covid19india.org/data.json'
 
@@ -57,6 +58,10 @@ class India extends Component{
         .then(json => {
             let rawdatatests= json.tested.slice(-1)[0]
             let rawdatainfo= json.cases_time_series.slice(-1)[0]
+            let totalTests= Number(rawdatatests.totalsamplestested)
+            let testspermillion= ((totalTests/population)*1000000).toFixed(0)
+            let casespermillion= (Number(json.statewise[0].confirmed)/population*1000000).toFixed(0)
+            let deathspermillion= (Number(json.statewise[0].deaths)/population).toFixed(1)
             this.setState({
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
@@ -72,6 +77,9 @@ class India extends Component{
                     totalTests: rawdatatests.totalsamplestested,
                     newTests:rawdatatests.samplereportedtoday,
                     population:1350000000,
+                    testspermillion:testspermillion,
+                    casespermillion:casespermillion,
+                    deathspermillion:deathspermillion,
                     latestUpdate:{
                         timeStamp:rawdatatests.updatetimestamp,
                         newCases:rawdatainfo.dailyconfirmed,

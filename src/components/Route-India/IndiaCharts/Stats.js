@@ -11,7 +11,8 @@ class Stats extends Component{
 
     render(){
         return(
-            <div id="statswindow">
+            <Fragment>
+             <div id="statswindow">
                <div id="statswindow" class="container shadow p-3 mt-4 mb-3" style={{width:"90%"}}>
                 <h5 class="text-muted text-center">FLASH INSIGHTS <i class="fas fa-chart-bar"></i></h5>
                 <div id="stats border-bottom">
@@ -19,20 +20,17 @@ class Stats extends Component{
                             <ul className="list-group list-group-flush" style={{margin:"auto"}}>
                                 <li class="list-group-item"></li>
                                 <li class="list-group-item"><p className="h6 text-muted">Total Individuals Tested</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.totalTests}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">Individuals Tested Yesterday</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.newTests}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Cases</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up"></i></small>{this.props.insights.latestUpdate.newCases}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Deaths</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up" ></i></small>{this.props.insights.latestUpdate.newDeaths}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Recoveries</p><p className='h4 text-info' style={{fontWeight:"500"}}><small><i class="fas fa-arrow-up"></i></small>{this.props.insights.latestUpdate.newRecoveries}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">Tests Per Million</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.testspermillion}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">Cases Per Million</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.casespermillion}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">Deaths Per Million</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.deathspermillion}</p></li>
                             </ul>
                         </div>
+                        <div className="mt-1 border-top">
                 </div>
-                <div className='mt-2 border-top'>
-                    <div className='footer mt-4'>
-                        <p className="small text-center text-muted">Last Updated: {this.props.insights.latestUpdate.timeStamp}</p>
-                    </div>
                 </div>
             </div>
             </div>
+            </Fragment>
         );
     }
 }
