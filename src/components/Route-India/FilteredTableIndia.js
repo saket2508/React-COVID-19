@@ -29,6 +29,14 @@ class FilteredTableIndia extends Component{
             filterStr:""
         }
     }
+    checkStateValue = (item) =>{
+        if(item.state.length > 18){
+            return <td style={{fontWeight:"400"}}>{item.state}</td>
+        }
+        else{
+            return <td id="nowrap">{item.state}</td>
+        }
+    }
     checkConfirmedValue= (item) =>{
         if(item.deltaconfirmed >0){
             return (
@@ -58,20 +66,20 @@ class FilteredTableIndia extends Component{
             {filteredElements.map((item) =>
             (
                 <tr>
-                    <td style={{fontWeight:"400"}} id="statename">{item.state}</td>
-                    <td style={{fontWeight:"400"}}>
+                    {this.checkStateValue(item)}
+                    <td id="nowrap" style={{fontWeight:"400"}}>
                         {item.confirmed}
                         {this.checkConfirmedValue(item)}
                     </td>
-                    <td style={{fontWeight:"400"}}>
+                    <td id="nowrap" style={{fontWeight:"400"}}>
                         {item.deaths} 
                         {this.checkDeathsValue(item)}
                     </td> 
-                    <td style={{fontWeight:"400"}}>
+                    <td id="nowrap" style={{fontWeight:"400"}}>
                         {item.recovered}
                         {this.checkRecoveredValue(item)} 
                     </td>
-                    <td style={{fontWeight:"400"}}>{item.active}</td>
+                    <td id="nowrap" style={{fontWeight:"400"}}>{item.active}</td>
                 </tr>
             ))}
         </tbody>
