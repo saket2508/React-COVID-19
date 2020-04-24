@@ -43,6 +43,32 @@ class FilteredTable extends Component{
             return <small><span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span></small>
         }
     }
+    checkCountryName = (item) =>{
+        if(item.country==="Lao People's Democratic Republic"){
+            item.country='Laos'
+            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+        }
+        if(item.country==="USA"){
+            item.country= 'United States'
+            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+        }
+        if(item.country==="UK"){
+            item.country='United Kingdom'
+            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+        }
+       if(item.country.length > 18){
+           return <td><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+       }
+        if(item.country==="MS Zaandam"){
+            return <td>{item.country}</td>
+        }
+        if(item.country==="Diamond Princess"){
+            return <td>{item.country}</td>
+        }
+        else{
+            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+        }
+    }
     render(){
         const elements= this.props.data;
         const filtertStr= this.state.filterStr;
@@ -56,17 +82,17 @@ class FilteredTable extends Component{
                         {filteredElements.map((item) =>
                             (
                                 <tr>
-                                    <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
-                                    <td> {item.cases} 
+                                   {this.checkCountryName(item)}
+                                    <td id='nowrap'> {item.cases} 
                                         {this.checkConfirmedValue(item)}
                                     </td>
-                                    <td>{item.deaths}
+                                    <td id='nowrap'>{item.deaths}
                                         {this.checkDeathsValue(item)}
                                     </td> 
-                                    <td>{item.recovered}</td>
-                                    <td>{item.active}</td>
-                                    <td>{item.critical}</td>
-                                    <td>{item.casesPerOneMillion}</td>
+                                    <td id='nowrap'>{item.recovered}</td>
+                                    <td id='nowrap'>{item.active}</td>
+                                    <td id='nowrap'>{item.critical}</td>
+                                    <td id='nowrap'>{item.casesPerOneMillion}</td>
                                 </tr>
                             ))}
                 </tbody>
@@ -94,7 +120,7 @@ class FilteredTable extends Component{
                     </div>
                 </div>
             </div>
-              <div className='table-responsive'>
+              <div className='table-responsive-sm'>
                     <table class="table table-sm">
                         <TableHeader data= {this.props.dataw}/>
                         {tableBody}

@@ -27,7 +27,7 @@ class Charts extends Component{
                 {
                     id:1,
                     name:'Cases',
-                    color:'primary',
+                    color:'secondary',
                     selected:false
                 },
                 {
@@ -76,10 +76,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#8c9eff',
+                            borderColor:'#9e9e9e',
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#8c9eff'
+                            backgroundColor:'#9e9e9e'
                           }
                         ]
                     },
@@ -88,10 +88,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#8c9eff',
+                            borderColor:'#9e9e9e',
                             label:'COVID-19 Cases',
                             data: cases,
-                            backgroundColor:'#8c9eff'
+                            backgroundColor:'#9e9e9e'
                           }
                         ]
                     },
@@ -107,10 +107,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#8c9eff',
+                            borderColor:'#9e9e9e',
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#8c9eff'
+                            backgroundColor:'#9e9e9e'
                           }
                         ]
                 }
@@ -159,10 +159,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#8c9eff',
+                            borderColor:'#9e9e9e',
                             label:'COVID-19 Cases',
                             data: cases,
-                            backgroundColor:'#8c9eff'
+                            backgroundColor:'#9e9e9e'
                           }
                         ]
                 }
