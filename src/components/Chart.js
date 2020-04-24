@@ -21,7 +21,7 @@ class Chart extends Component{
             <div id="chart-3">
                 <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
                     <div col="12">
-                    <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19: COUNTRIES HAVING THE MOST CASES</p>
+                    <p className='h5 text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19: COUNTRIES HAVING THE MOST CASES</p>
                         <div id='chart' className="chart-container mb-1">
                             <Pie
                             data={this.props.chartData}

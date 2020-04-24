@@ -4,16 +4,16 @@ function TableHeader(props){
     const tableheader=(
         <Fragment>
         <thead className='thead-dark'>
-            <td>Location</td>
-            <td>Confirmed</td>
-            <td>Deaths</td>
-            <td>Recovered</td>
-            <td>Active</td>
-            <td>Critical</td>
-            <td>Cases/1M People</td>
+            <td scope='col'>Location</td>
+            <td scope='col'>Confirmed</td>
+            <td scope='col'>Deaths</td>
+            <td scope='col'>Recovered</td>
+            <td scope='col'>Active</td>
+            <td scope='col'>Critical</td>
+            <td scope='col'>Cases/1M People</td>
         </thead>
         <tr className="table-secondary">
-            <td style={{fontWeight:"500"}}>Worldwide</td>
+            <td style={{fontWeight:"500"}}> <i class="fas fa-globe mr-1"></i> Worldwide</td>
             <td style={{fontWeight:"500"}}>{props.data.Cases}</td>
             <td style={{fontWeight:"500"}}>{props.data.Deaths}</td>
             <td style={{fontWeight:"500"}}>{props.data.Recovered}</td>
@@ -46,27 +46,27 @@ class FilteredTable extends Component{
     checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
-            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="USA"){
             item.country= 'United States'
-            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="UK"){
             item.country='United Kingdom'
-            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
        if(item.country.length > 18){
-           return <td><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+           return <td style={{fontWeight:"400"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
        }
         if(item.country==="MS Zaandam"){
-            return <td>{item.country}</td>
+            return <td style={{fontWeight:"400"}}>{item.country}</td>
         }
         if(item.country==="Diamond Princess"){
-            return <td>{item.country}</td>
+            return <td style={{fontWeight:"400"}}>{item.country}</td>
         }
         else{
-            return <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
     }
     render(){
@@ -108,7 +108,7 @@ class FilteredTable extends Component{
 
         return(
             <div className='FilteredTable'>
-            <p className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</p>
+            <p className='h5 text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</p>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <div class='col-9'>

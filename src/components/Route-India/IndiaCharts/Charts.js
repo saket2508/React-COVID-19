@@ -215,7 +215,7 @@ class Charts extends Component{
     <div id="chart-1">
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
-        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: NEW CASES OVER TIME</p>
+        <p className='h5 text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</p>
         <div id='chart' className="chart-container">
         <Bar
                 data={this.state.DailyChartData}
@@ -278,7 +278,7 @@ class Charts extends Component{
     <div id="chart-2" >
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4" >
         <div col="12">
-        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CASES OVER TIME</p>
+        <p className='h5 text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</p>
         <div id='chart' className="chart-container">
         <Line
                 data={this.state.CumulativeChartData}

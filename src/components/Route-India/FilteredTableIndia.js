@@ -4,14 +4,14 @@ function TableHeader(props){
     const tableheader=(
         <Fragment>
             <thead className='thead'>
-                <td>State/UT</td>
+                <td scope='col'>State/UT</td>
                 <td scope='col'>Confirmed</td>
                 <td scope='col'>Deaths</td>
                 <td scope='col'>Recovered</td>
                 <td scope='col'>Active</td>
         </thead>
         <tr class="table-secondary">
-            <td style={{fontWeight:"500"}}>India</td>
+            <td style={{fontWeight:"500"}}>India (Total)</td>
             <td style={{fontWeight:"500"}}>{props.natnl.confirmed}</td>
             <td style={{fontWeight:"500"}}>{props.natnl.deaths}</td>
             <td style={{fontWeight:"500"}}>{props.natnl.recovered}</td>
@@ -87,7 +87,7 @@ class FilteredTableIndia extends Component{
 
         return(
             <div className='FilteredTableIndia'>
-            <p className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</p>
+            <p className='h5 text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</p>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <div class='col-9'>
