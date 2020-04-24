@@ -18,7 +18,7 @@ class Stats extends Component{
                             <ul className="list-group list-group-flush" style={{margin:"auto"}}>
                                 <li class="list-group-item"></li>
                                 <li class="list-group-item"><p className="h6 text-muted">Total Individuals Tested</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.totalTests}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">Tests Per Million</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.testspermillion}</p></li>
+                                <li class="list-group-item"><p className="h6 text-muted">Tests Per Million People</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.testspermillion}</p></li>
                                 <li class="list-group-item"><p className="h6 text-muted">New Cases</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltaconfirmed}</p></li>
                                 <li class="list-group-item"><p className="h6 text-muted">New Deaths</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltadeaths}</p></li>
                                 <li class="list-group-item"><p className="h6 text-muted">New Recoveries</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltarecovered}</p></li>

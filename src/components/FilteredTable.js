@@ -3,20 +3,28 @@ import React, { Component, Fragment} from "react"
 function TableHeader(props){
     const tableheader=(
         <Fragment>
-        <thead className='thead-dark'>
-            <td scope='col'>Location</td>
-            <td scope='col'>Confirmed</td>
-            <td scope='col'>Deaths</td>
-            <td scope='col'>Recovered</td>
-            <td scope='col'>Active</td>
-            <td scope='col'>Critical</td>
-            <td scope='col'>Cases/1M People</td>
+        <thead className='thead-light'>
+            <th scope='col'>Location</th>
+            <th scope='col'>Confirmed</th>
+            <th scope='col'>Deaths</th>
+            <th scope='col'>Recovered</th>
+            <th scope='col'>Active</th>
+            <th scope='col'>Critical</th>
+            <th scope='col'>Cases/1M People</th>
         </thead>
-        <tr className="table-secondary">
-            <td style={{fontWeight:"500"}}> <i class="fas fa-globe mr-1"></i> Worldwide</td>
-            <td style={{fontWeight:"500"}}>{props.data.Cases}</td>
-            <td style={{fontWeight:"500"}}>{props.data.Deaths}</td>
-            <td style={{fontWeight:"500"}}>{props.data.Recovered}</td>
+        <tr className="table-warning">
+            <td id='nowrap' style={{fontWeight:"500"}}> <i class="fas fa-globe mr-1"></i> Worldwide</td>
+            <td id='nowrap' style={{fontWeight:"500"}}>
+                    {props.data.Cases}
+                    <small><span class="badge badge-pill badge-secondary">{'+'+props.data.TodayCases}</span></small>
+            </td>
+            <td id='nowrap' style={{fontWeight:"500"}}>
+                    {props.data.Deaths}
+                    <small><span class="badge badge-pill badge-danger">{'+'+props.data.TodayDeaths}</span></small>
+            </td>
+            <td id='nowrap' style={{fontWeight:"500"}}>
+                    {props.data.Recovered}
+            </td>
             <td style={{fontWeight:"500"}}>{props.data.Active}</td>
             <td style={{fontWeight:"500"}}>{props.data.Critical}</td>
             <td style={{fontWeight:"500"}}>{props.data.casespermillion}</td>

@@ -1,8 +1,6 @@
 import React, {Component} from "react"
 import {Bar, Line, Pie} from 'react-chartjs-3';
 
-
-
 class Chart extends Component{
     constructor(props){
         super(props)
@@ -15,6 +13,7 @@ class Chart extends Component{
         legendPosition:'right',
         location:'City'
       }
+
 
       render(){
         return (
@@ -38,6 +37,7 @@ class Chart extends Component{
                                         fontFamily:  "'Noto Sans JP', sans-serif",
                                         fontColor:'#000'
                                     },
+                                    onClick: (e) => e.stopPropagation()
                                 }
                             }}
                             />

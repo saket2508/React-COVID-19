@@ -3,19 +3,27 @@ import React, { Component, Fragment} from "react"
 function TableHeader(props){
     const tableheader=(
         <Fragment>
-            <thead className='thead'>
-                <td scope='col'>State/UT</td>
-                <td scope='col'>Confirmed</td>
-                <td scope='col'>Deaths</td>
-                <td scope='col'>Recovered</td>
-                <td scope='col'>Active</td>
+            <thead className='thead-light'>
+                <th scope='col'>State/UT</th>
+                <th scope='col'>Confirmed</th>
+                <th scope='col'>Deaths</th>
+                <th scope='col'>Recovered</th>
+                <th scope='col'>Active</th>
         </thead>
-        <tr class="table-secondary">
+        <tr class="table-warning">
             <td style={{fontWeight:"500"}}>India (Total)</td>
-            <td style={{fontWeight:"500"}}>{props.natnl.confirmed}</td>
-            <td style={{fontWeight:"500"}}>{props.natnl.deaths}</td>
-            <td style={{fontWeight:"500"}}>{props.natnl.recovered}</td>
-            <td style={{fontWeight:"500"}}>{props.natnl.active}</td>
+            <td id="nowrap" style={{fontWeight:"500"}}>
+                    {props.natnl.confirmed}
+                    <small><span class="badge badge-pill badge-secondary">{'+'+props.natnl.deltaconfirmed}</span></small>
+            </td>
+            <td id="nowrap" style={{fontWeight:"500"}}>
+                    {props.natnl.deaths}
+                    <small><span class="badge badge-pill badge-danger">{'+'+props.natnl.deltadeaths}</span></small>
+            </td>
+            <td id="nowrap" style={{fontWeight:"500"}}>
+                    {props.natnl.recovered}
+            </td>
+            <td id="nowrap" style={{fontWeight:"500"}}>{props.natnl.active}</td>
         </tr>
         </Fragment>
     );
