@@ -1,16 +1,27 @@
-import React, { Component} from "react"
+import React, { Component, Fragment} from "react"
 
-function TableHeader(){
+function TableHeader(props){
     const tableheader=(
-        <thead className='thead'>
-            <th scope='col'>Country</th>
-            <th scope='col'>Confirmed</th>
-            <th scope='col'>Deaths</th>
-            <th scope='col'>Recovered</th>
-            <th scope='col'>Active</th>
-            <th scope='col'>Critical</th>
-            <th scope='col'>Cases/1M People</th>
+        <Fragment>
+        <thead className='thead-dark'>
+            <td>Location</td>
+            <td>Confirmed</td>
+            <td>Deaths</td>
+            <td>Recovered</td>
+            <td>Active</td>
+            <td>Critical</td>
+            <td>Cases/1M People</td>
         </thead>
+        <tr className="table-secondary">
+            <td style={{fontWeight:"500"}}>Worldwide</td>
+            <td style={{fontWeight:"500"}}>{props.data.Cases}</td>
+            <td style={{fontWeight:"500"}}>{props.data.Deaths}</td>
+            <td style={{fontWeight:"500"}}>{props.data.Recovered}</td>
+            <td style={{fontWeight:"500"}}>{props.data.Active}</td>
+            <td style={{fontWeight:"500"}}>{props.data.Critical}</td>
+            <td style={{fontWeight:"500"}}>{props.data.casespermillion}</td>
+        </tr>
+        </Fragment>
     );
     return tableheader;
 }
@@ -24,7 +35,7 @@ class FilteredTable extends Component{
     }
     checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
-            return <small><span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span></small>
+                return <small><span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span></small>
         }
     }
     checkDeathsValue = (item) =>{
@@ -45,8 +56,8 @@ class FilteredTable extends Component{
                         {filteredElements.map((item) =>
                             (
                                 <tr>
-                                    <th scope='row'><span class="mr-1"><img src={item.countryInfo.flag} height='18' width='24' alt='flag-icon'></img></span> {item.country}</th>
-                                    <td>{item.cases}  
+                                    <td id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+                                    <td> {item.cases} 
                                         {this.checkConfirmedValue(item)}
                                     </td>
                                     <td>{item.deaths}
@@ -71,7 +82,7 @@ class FilteredTable extends Component{
 
         return(
             <div className='FilteredTable'>
-            <h5 className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</h5>
+            <p className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</p>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <div class='col-9'>
@@ -84,8 +95,8 @@ class FilteredTable extends Component{
                 </div>
             </div>
               <div className='table-responsive'>
-                    <table class="table table-sm table-bordered table-striped">
-                        <TableHeader/>
+                    <table class="table table-sm">
+                        <TableHeader data= {this.props.dataw}/>
                         {tableBody}
                     </table>
                 </div>   

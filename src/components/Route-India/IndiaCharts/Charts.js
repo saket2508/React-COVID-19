@@ -27,7 +27,7 @@ class Charts extends Component{
                 {
                     id:1,
                     name:'Cases',
-                    color:'secondary',
+                    color:'primary',
                     selected:false
                 },
                 {
@@ -76,10 +76,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#8c9eff',
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#8c9eff'
                           }
                         ]
                     },
@@ -88,10 +88,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#8c9eff',
                             label:'COVID-19 Cases',
                             data: cases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#8c9eff'
                           }
                         ]
                     },
@@ -107,10 +107,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#8c9eff',
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#8c9eff'
                           }
                         ]
                 }
@@ -159,10 +159,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#8c9eff',
                             label:'COVID-19 Cases',
                             data: cases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#8c9eff'
                           }
                         ]
                 }
@@ -215,7 +215,7 @@ class Charts extends Component{
     <div id="chart-1">
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
-        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</h5>
+        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: NEW CASES OVER TIME</p>
         <div id='chart' className="chart-container">
         <Bar
                 data={this.state.DailyChartData}
@@ -252,7 +252,7 @@ class Charts extends Component{
                             {
                                 ticks:{
                                         fontFamily:  "'Noto Sans JP', sans-serif",
-                                        fontSize:'15',
+                                        fontSize:'12',
                                         fontColor: '#000',
                                     }
                                 }
@@ -278,7 +278,7 @@ class Charts extends Component{
     <div id="chart-2" >
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4" >
         <div col="12">
-        <h5 className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</h5>
+        <p className='text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CASES OVER TIME</p>
         <div id='chart' className="chart-container">
         <Line
                 data={this.state.CumulativeChartData}
@@ -321,7 +321,7 @@ class Charts extends Component{
                             {
                                 ticks:{
                                         fontFamily:  "'Noto Sans JP', sans-serif",
-                                        fontSize:'15',
+                                        fontSize:'12',
                                         fontColor: '#000',
                                     }
                                 }

@@ -17,7 +17,7 @@ class App extends Component{
     super(props);
     this.state = {
       myData:[],
-      Data:{Cases:0,Deaths:0,Recovered:0,Active:0,TodayCases:0,TodayDeaths:0},
+      Data:{Cases:0,Deaths:0,Recovered:0,Active:0,Critical:0,TodayCases:0,TodayDeaths:0,casespermillion:0},
       pieChart:{}
     }
   }
@@ -31,6 +31,7 @@ class App extends Component{
     let cases=0
     let recovered=0
     let active=0
+    let critical=0
     let todayDeaths=0
     let todayCases=0
     let sum=0
@@ -44,6 +45,7 @@ class App extends Component{
           cases+= Number(item.cases)
           deaths+= Number(item.deaths)
           active+=  Number(item.active)
+          critical+= Number(item.critical)
           recovered+= Number(item.recovered)
           todayDeaths+= Number(item.todayDeaths)
           todayCases+= Number(item.todayCases)
@@ -58,8 +60,8 @@ class App extends Component{
         country_names[6]='Other'
         country_data[6]= cases-sum
 
-       const cases_breakdown=[active,recovered,deaths]
-       const labels=['Active','Recovered','Deceased']
+        const population= 7800000000
+        let casespermillion= ((cases/population)*1000000).toFixed(0)
         this.setState({
           myData:data,
           Data:{
@@ -67,8 +69,10 @@ class App extends Component{
             Deaths:deaths,
             Recovered:recovered,
             Active:active,
+            Critical:critical,
             TodayCases:todayCases,
-            TodayDeaths:todayDeaths
+            TodayDeaths:todayDeaths,
+            casespermillion:casespermillion
           },
           pieChart:{
             labels: country_names,
@@ -100,7 +104,7 @@ class App extends Component{
         <AppHeading/>
         <Figures data={this.state.Data}/>
         <Chart chartData={this.state.pieChart}/>
-        <Table data= {this.state.myData} list={this.state.myList}/>
+        <Table data= {this.state.myData} list={this.state.myList} dataw= {this.state.Data}/>
       </div>
     );
   }

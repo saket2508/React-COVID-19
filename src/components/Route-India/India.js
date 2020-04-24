@@ -37,6 +37,7 @@ class India extends Component{
                 newTests:0,
                 population:1350000000,
                 latestUpdate:{
+                    date:"",
                     timeStamp:"",
                     newCases:0,
                     newDeaths:0,
@@ -62,6 +63,8 @@ class India extends Component{
             let testspermillion= ((totalTests/population)*1000000).toFixed(0)
             let casespermillion= (Number(json.statewise[0].confirmed)/population*1000000).toFixed(0)
             let deathspermillion= (Number(json.statewise[0].deaths)/population).toFixed(1)
+            let d= Number(json.statewise[0].lastupdatedtime.slice(0,2))
+            let m= Number(json.statewise[0].lastupdatedtime.slice(3,5))
             this.setState({
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
@@ -81,6 +84,7 @@ class India extends Component{
                     casespermillion:casespermillion,
                     deathspermillion:deathspermillion,
                     latestUpdate:{
+                        date: new Date(2020,m-1,d).toDateString().slice(4,11),
                         timeStamp:json.statewise[0].lastupdatedtime,
                         newCases:rawdatainfo.dailyconfirmed,
                         newDeaths:rawdatainfo.dailydeceased,
@@ -97,7 +101,7 @@ class India extends Component{
                 <HeadingStats insights={this.state.Insights} data= {this.state.natnlData}/>
                 <Stats data={this.state.natnlData} insights={this.state.Insights}/>
                 <Charts/>
-                <TableIndia data= {this.state.statewiseData}/>
+                <TableIndia data= {this.state.statewiseData} natnl={this.state.natnlData}/>
             </div>
         );
 

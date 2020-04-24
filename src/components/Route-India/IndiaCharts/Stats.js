@@ -8,10 +8,10 @@ class Stats extends Component{
         return(
             <Fragment>
              <div id="statswindow">
-               <div id="statswindow" class="container shadow p-3 mt-4 mb-3" style={{width:"90%"}}>
-                <h5 class="text-muted text-center">FLASH INSIGHTS <i class="fas fa-chart-bar"></i></h5>
-                <div className="text-center mb-2">
-                    <small className="text-muted text-center"><i class="far fa-bell mr-1"></i>{new Date().toUTCString().slice(5,11)}, {this.props.insights.latestUpdate.timeStamp.slice(11,16)} IST</small>
+               <div id="statswindowk" class="container shadow-lg p-3 mt-4 mb-3" style={{width:"90%"}}>
+               <div className="text-center mb-2">
+                    <p class="h5 text-muted">FLASH INSIGHTS</p>
+                    <p id="icon" className="small text-muted text-center"><i class="far fa-bell mr-1"></i>{this.props.insights.latestUpdate.date}, {this.props.insights.latestUpdate.timeStamp.slice(11,16)} IST</p>
                 </div>
                 <div id="stats border-bottom">
                         <div className="text-center">

@@ -1,14 +1,23 @@
-import React, { Component} from "react"
+import React, { Component, Fragment} from "react"
 
-function TableHeader(){
+function TableHeader(props){
     const tableheader=(
-        <thead className='thead'>
-            <th scope='col'>State/UT</th>
-            <th scope='col'>Confirmed</th>
-            <th scope='col'>Deaths</th>
-            <th scope='col'>Recovered</th>
-            <th scope='col'>Active</th>
+        <Fragment>
+            <thead className='thead'>
+                <td>State/UT</td>
+                <td scope='col'>Confirmed</td>
+                <td scope='col'>Deaths</td>
+                <td scope='col'>Recovered</td>
+                <td scope='col'>Active</td>
         </thead>
+        <tr class="table-secondary">
+            <td style={{fontWeight:"500"}}>India</td>
+            <td style={{fontWeight:"500"}}>{props.natnl.confirmed}</td>
+            <td style={{fontWeight:"500"}}>{props.natnl.deaths}</td>
+            <td style={{fontWeight:"500"}}>{props.natnl.recovered}</td>
+            <td style={{fontWeight:"500"}}>{props.natnl.active}</td>
+        </tr>
+        </Fragment>
     );
     return tableheader;
 }
@@ -23,18 +32,18 @@ class FilteredTableIndia extends Component{
     checkConfirmedValue= (item) =>{
         if(item.deltaconfirmed >0){
             return (
-                <small><span class="badge badge-pill badge-secondary">{'+'}{item.deltaconfirmed}</span></small>
+                <small><span class="badge badge-pill badge-secondary">{'+'+item.deltaconfirmed}</span></small>
             );
         }
     }
     checkDeathsValue = (item) =>{
         if(item.deltadeaths >0){
-            return<small><span class="badge badge-pill badge-danger">{'+'}{item.deltadeaths}</span></small>
+            return <small><span class="badge badge-pill badge-danger">{'+'+item.deltadeaths}</span></small>
         }
     }
     checkRecoveredValue = (item) => {
         if(item.deltarecovered >0){
-            return <small><span class="badge badge-pill badge-success">{'+'}{item.deltarecovered}</span></small>
+            return <small><span class="badge badge-pill badge-success">{'+'+item.deltarecovered}</span></small>
         }
     }
     render(){
@@ -49,20 +58,20 @@ class FilteredTableIndia extends Component{
             {filteredElements.map((item) =>
             (
                 <tr>
-                    <th scope='row'>{item.state}</th>
-                    <td>
+                    <td style={{fontWeight:"400"}} id="statename">{item.state}</td>
+                    <td style={{fontWeight:"400"}}>
                         {item.confirmed}
                         {this.checkConfirmedValue(item)}
                     </td>
-                    <td>
+                    <td style={{fontWeight:"400"}}>
                         {item.deaths} 
                         {this.checkDeathsValue(item)}
                     </td> 
-                    <td>
+                    <td style={{fontWeight:"400"}}>
                         {item.recovered}
                         {this.checkRecoveredValue(item)} 
                     </td>
-                    <td>{item.active}</td>
+                    <td style={{fontWeight:"400"}}>{item.active}</td>
                 </tr>
             ))}
         </tbody>
@@ -78,7 +87,7 @@ class FilteredTableIndia extends Component{
 
         return(
             <div className='FilteredTableIndia'>
-            <h5 className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</h5>
+            <p className='text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</p>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
                     <div class='col-9'>
@@ -92,8 +101,8 @@ class FilteredTableIndia extends Component{
             </div>
         
               <div className='table-responsive'>
-                    <table class="table table-sm table-striped table-bordered">
-                        <TableHeader/>
+                    <table class="table table-sm ">
+                        <TableHeader natnl={this.props.natnl}/>
                             {tableBody}
                     </table>
                 </div>   
