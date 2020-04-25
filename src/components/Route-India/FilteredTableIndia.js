@@ -22,6 +22,7 @@ function TableHeader(props){
             </td>
             <td id="nowrap" style={{fontWeight:"500"}}>
                     {props.natnl.recovered}
+                    <small><span class="badge badge-pill badge-success">{'+'+props.natnl.deltarecovered}</span></small>
             </td>
             <td id="nowrap" style={{fontWeight:"500"}}>{props.natnl.active}</td>
         </tr>
@@ -38,7 +39,7 @@ class FilteredTableIndia extends Component{
         }
     }
     checkStateValue = (item) =>{
-        if(item.state.length > 18){
+        if(item.state.length > 21){
             return <td style={{fontWeight:"400"}}>{item.state}</td>
         }
         else{
@@ -117,7 +118,7 @@ class FilteredTableIndia extends Component{
             </div>
         
               <div className='table-responsive'>
-                    <table class="table table-sm ">
+                    <table id="india" class="table table-sm ">
                         <TableHeader natnl={this.props.natnl}/>
                             {tableBody}
                     </table>

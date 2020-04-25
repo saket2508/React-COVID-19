@@ -54,15 +54,15 @@ class FilteredTable extends Component{
     checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
-            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="USA"){
             item.country= 'United States'
-            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="UK"){
             item.country='United Kingdom'
-            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
        if(item.country.length > 18){
            return <td style={{fontWeight:"400"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
@@ -74,7 +74,7 @@ class FilteredTable extends Component{
             return <td style={{fontWeight:"400"}}>{item.country}</td>
         }
         else{
-            return <td style={{fontWeight:"400"}} id='statename'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
     }
     render(){
