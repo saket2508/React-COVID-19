@@ -3,13 +3,21 @@ import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
 import Figures from './components/Figures'
-import Chart from './components/Chart'
+import Chart from './components/Charts/Chart'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const url='https://corona.lmao.ninja/v2/countries?sort=cases'
+const url1='https://pomber.github.io/covid19/timeseries.json'
 const data=[]
 //const topsix_labels=[]
 //const topsix_cases=[]
+
+const deaths_data=[]
+const active_data=[]
+const recovered_data=[]
+
+const dates=[]
 
 
 class App extends Component{
@@ -18,7 +26,7 @@ class App extends Component{
     this.state = {
       myData:[],
       Data:{Cases:0,Deaths:0,Recovered:0,Active:0,Critical:0,TodayCases:0,TodayDeaths:0,casespermillion:0},
-      pieChart:{}
+  
     }
   }
 
@@ -52,16 +60,22 @@ class App extends Component{
         })
         let rawdata= json.slice(0,6)
         rawdata.map((item)=>{
-          country_names.push(item.country)
+          //country_names.push(item.country)
           country_data.push(item.cases)
           sum+= Number(item.cases)
         })
 
-        country_names[6]='Other'
-        country_data[6]= cases-sum
-
         const population= 7800000000
         let casespermillion= ((cases/population)*1000000).toFixed(0)
+
+        let dataraw= data.slice(0,5)
+        dataraw.map(item =>{
+          country_names.push(item.country)
+          active_data.push(Number(item.active))
+          deaths_data.push(Number(item.deaths))
+          recovered_data.push(Number(item.recovered))
+        })
+
         this.setState({
           myData:data,
           Data:{
@@ -74,28 +88,9 @@ class App extends Component{
             TodayDeaths:todayDeaths,
             casespermillion:casespermillion
           },
-          pieChart:{
-            labels: country_names,
-                        datasets:[
-                        {
-                            label:'COVID-19 Cases',
-                            data:country_data,
-                            backgroundColor:[
-                              '#ef9a9a',//RED
-                              '#ffe082',//ORANGE
-                              '#a5d6a7',//GREEN
-                              '#81d4fa',//LIGHT BLUE
-                              '#9fa8da',//BLUE
-                              '#80cbc4',//TEAL
-                              '#bdbdbd'//GRAY
-                            ]
-                        }
-                        ]
-          }
         })
       })
   }
-
 
   render(){
     return(
@@ -103,7 +98,7 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={this.state.Data}/>
-        <Chart chartData={this.state.pieChart}/>
+        <Chart/>
         <Table data= {this.state.myData} list={this.state.myList} dataw= {this.state.Data}/>
       </div>
     );

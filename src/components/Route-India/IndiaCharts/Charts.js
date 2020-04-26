@@ -13,8 +13,6 @@ const dailydeaths=[]
 const dailyrecovered=[]
 const dates2=[]
 
-const state_names=[]
-const state_data=[]
 
 class Charts extends Component{
     constructor(props){
@@ -22,7 +20,7 @@ class Charts extends Component{
         this.state={
             CumulativeChartData: {},
             DailyChartData:{},
-            PieChart:{},
+            AreaChart:{},
             links:[
                 {
                     id:1,
@@ -76,10 +74,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#9e9e9e',//gray border
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#9e9e9e'//gray bg
                           }
                         ]
                     },
@@ -88,10 +86,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#9e9e9e',//gray border
                             label:'COVID-19 Cases',
                             data: cases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#9e9e9e'//gray background
                           }
                         ]
                     },
@@ -107,10 +105,10 @@ class Charts extends Component{
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',
+                            borderColor:'#9e9e9e',//gray border
                             label:'COVID-19 Cases',
                             data: dailycases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#9e9e9e'//gray bg
                           }
                         ]
                 }
@@ -215,11 +213,15 @@ class Charts extends Component{
     <div id="chart-1">
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
         <div col="12">
-        <p className='h5 text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</p>
+        <p className='h5 text-center text-muted mb-4' style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</p>
         <div id='chart' className="chart-container">
         <Bar
                 data={this.state.DailyChartData}
                 options={{
+                    tooltips:{
+                        mode:'index',
+                        intersect:false
+                    },
                     responsive:true,
                     maintainAspectRatio:false,
                     title:{
@@ -263,8 +265,7 @@ class Charts extends Component{
                 />
             </div>
         </div>
-    </div>
-    <div className='container mb-4'>
+        <div className='container mt-4'>
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
                 <li id={item.id} className="nav-item mr-1">
@@ -274,11 +275,12 @@ class Charts extends Component{
         </ul>
     </div>
     </div>
+    </div>
 
     <div id="chart-2" >
     <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4" >
         <div col="12">
-        <p className='h5 text-center text-muted mb-2' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</p>
+        <p className='h5 text-center text-muted mb-4' style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</p>
         <div id='chart' className="chart-container">
         <Line
                 data={this.state.CumulativeChartData}
@@ -332,8 +334,7 @@ class Charts extends Component{
                 />
             </div>
         </div>
-    </div>
-    <div className='container mb-4'>
+        <div className='container mt-4'>
         <ul class="nav justify-content-center">
             {this.state.links.map((item)=>(
                 <li id={item.id} className="nav-item mr-1">
@@ -341,6 +342,7 @@ class Charts extends Component{
                 </li>
             ))}
         </ul>
+    </div>
     </div>
     </div>
 </Fragment>
