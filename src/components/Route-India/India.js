@@ -32,6 +32,9 @@ class India extends Component{
                 'deltarecovered':0,
             },
             statewiseData:[],
+            newCases:[],
+            newDeaths:[],
+            newRecoveries:[],
             Insights:{
                 totalTests:0,
                 newTests:0,
@@ -65,6 +68,31 @@ class India extends Component{
             let deathspermillion= (Number(json.statewise[0].deaths)/population).toFixed(1)
             let d= Number(json.statewise[0].lastupdatedtime.slice(0,2))
             let m= Number(json.statewise[0].lastupdatedtime.slice(3,5))
+
+            json.statewise.slice(1).map((element) => {
+
+                let name= element.state
+                let Cases= Number(element.confirmed)
+                let newcases= Number(element.deltaconfirmed)
+                let Deaths= Number(element.deaths)
+                let newdeaths= Number(element.deltadeaths)
+                let Recovered= Number(element.recovered)
+                let newrecoveries= Number(element.deltarecovered)
+
+                let obj1={State: name,NewCases:newcases,Cases:Cases}
+                let obj2={State: name,NewDeaths:newdeaths,Deaths:Deaths}
+                let obj3={State: name,NewRecoveries:newrecoveries,Recovered:Recovered}
+
+                cases.push(obj1)
+                deaths.push(obj2)
+                recovered.push(obj3)
+
+            })
+
+            cases.sort((a,b) => a.NewCases-b.NewCases)
+            deaths.sort((a,b) => a.NewDeaths-b.NewDeaths)
+            recovered.sort((a,b) => a.NewRecoveries-b.NewRecoveries)
+
             this.setState({
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
@@ -76,6 +104,9 @@ class India extends Component{
                         'deltarecovered':json.statewise[0].deltarecovered,
                     },
                 statewiseData: json.statewise.slice(1),
+                newCases:cases.slice(-5).reverse(),
+                newDeaths:deaths.slice(-5).reverse(),
+                newRecoveries:recovered.slice(-5).reverse(),
                 Insights:{
                     totalTests: rawdatatests.totalsamplestested,
                     newTests:rawdatatests.samplereportedtoday,
@@ -94,13 +125,39 @@ class India extends Component{
             })
     })}
 
+    changeDataCases(){
+        cases.sort((a,b) => a.Cases-b.Cases)
+        this.setState({
+            newCases:cases.slice(-5).reverse()
+        })
+    }
+
+    changeDataRecovered(){
+        deaths.sort((a,b) => a.Deaths-b.Deaths)
+        this.setState({
+            NewDeaths:deaths.slice(-5).reverse()
+        })
+    }
+
+    changeDataDeaths(){
+        recovered.sort((a,b) => a.Recovered-b.Recovered)
+        this.setState({
+            NewDeaths:deaths.slice(-5).reverse()
+        })
+    }
+
     render(){
         return(
             <div>
                 <RouteNavbar/>
                 <HeadingStats insights={this.state.Insights} data= {this.state.natnlData}/>
-                <Stats data={this.state.natnlData} insights={this.state.Insights}/>
-                <Charts/>
+                <Stats NewCases={this.state.newCases} 
+                    NewDeaths={this.state.newDeaths} 
+                    NewRecoveries={this.state.newRecoveries}
+                    changeDataCases={this.changeDataCases}
+                    changeDataDeaths={this.changeDataDeaths}
+                    changeDataRecovered={this.changeDataRecovered}/>
+
                 <TableIndia data= {this.state.statewiseData} natnl={this.state.natnlData}/>
             </div>
         );

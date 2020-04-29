@@ -104,10 +104,9 @@ class FilteredTableIndia extends Component{
 
         return(
             <div className='FilteredTableIndia'>
-            <p className='h5 text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY STATE</p>
             <div className='container-lg'>
                 <div class="d-flex justify-content-center mt-2 mb-3">
-                    <div class='col-9'>
+                    <div class='col-sm-9 col-lg-5'>
                         <input type="text" 
                                 class="form-control" 
                                 value={filtertStr} 
@@ -118,7 +117,7 @@ class FilteredTableIndia extends Component{
             </div>
         
               <div className='table-responsive'>
-                    <table id="india" class="table table-sm ">
+                    <table id="india" class="table table-bordered table-sm ">
                         <TableHeader natnl={this.props.natnl}/>
                             {tableBody}
                     </table>

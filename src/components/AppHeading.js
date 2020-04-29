@@ -2,9 +2,9 @@ import React, {Component} from "react";
 class AppHeading extends Component{
 
     Heading= (
-        <div className='container shadow-sm p-3 mb-4 bg-white rounded mt-2'>
-        <div id='c3' class="container sm mt-2 mb-3">
-            <h4 className='text-center' style={{fontWeight:'400'}}>COVID-19 TRACKER</h4>
+        <div className='container-lg shadow-sm p-3 mb-4 bg-white rounded mt-2'>
+        <div id='c3' class="container-lg mt-2 mb-3">
+            <h5 className='text-center' style={{fontWeight:'400'}}>COVID-19 TRACKER</h5>
         </div>
         <div className='mt-4 text-center'>
             <p className='lead'>

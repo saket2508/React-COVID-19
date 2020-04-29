@@ -8,25 +8,86 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const url='https://corona.lmao.ninja/v2/countries?sort=cases'
-const url1='https://pomber.github.io/covid19/timeseries.json'
+
+
+//FOR HEADING INFO
 const data=[]
-//const topsix_labels=[]
-//const topsix_cases=[]
 
-const deaths_data=[]
-const active_data=[]
-const recovered_data=[]
+//STORES FLAG CODES
+const codes=[]
 
-const dates=[]
+//FOR CONTINENT DATA
+const continents={
+  'North America':{data:[],total:{},population:579000000},
+  'South America':{data:[],total:{},population:422500000},
+  'Europe':{data:[],total:{},population:741000000},
+  'Asia':{data:[],total:{},population:4462000000},
+  'Africa':{data:[],total:{},population:1216000000},
+  'Australia/Oceania':{data:[],total:{},population:42500000}
+}
+
+const WorldwideData={
+        Name: 'Worldwide',
+        Cases:0,
+        Deaths:0,
+        Recovered:0,
+        Active:0,
+        Critical:0,
+        TodayCases:0,
+        TodayDeaths:0,
+        casespermillion:0,
+        deathspermillion:0
+}
+
 
 
 class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      myData:[],
-      Data:{Cases:0,Deaths:0,Recovered:0,Active:0,Critical:0,TodayCases:0,TodayDeaths:0,casespermillion:0},
-  
+      list:[
+        {
+          id:0,
+          name:'Worldwide'
+        },
+        {
+          id:1,
+          name:'North America'
+        },
+        {
+          id:2,
+          name:'South America'
+        },
+        {
+          id:3,
+          name:'Europe'
+        },
+        {
+          id:4,
+          name:'Asia'
+        },
+        {
+          id:5,
+          name:'Africa'
+        },
+        {
+          id:6,
+          name:'Australia/Oceania'
+        }
+      ],
+      appData:[],
+      flagData:[],
+      Data:{
+        Cases:0,
+        Deaths:0,
+        Recovered:0,
+        Active:0,
+        Critical:0,
+        TodayCases:0,
+        TodayDeaths:0,
+        casespermillion:0,
+        deathspermillion:0
+      }
     }
   }
 
@@ -42,14 +103,14 @@ class App extends Component{
     let critical=0
     let todayDeaths=0
     let todayCases=0
-    let sum=0
-    const country_names=[]
-    const country_data=[]
+
     fetch(url)
       .then(res => res.json())
       .then(json => {
         json.map((item)=> {
+
           data.push(item)
+
           cases+= Number(item.cases)
           deaths+= Number(item.deaths)
           active+=  Number(item.active)
@@ -57,39 +118,129 @@ class App extends Component{
           recovered+= Number(item.recovered)
           todayDeaths+= Number(item.todayDeaths)
           todayCases+= Number(item.todayCases)
-        })
-        let rawdata= json.slice(0,6)
-        rawdata.map((item)=>{
-          //country_names.push(item.country)
-          country_data.push(item.cases)
-          sum+= Number(item.cases)
+
+          //FLAG CODES
+          let name= item.country
+          let code= item.countryInfo.iso2
+          let obj= {Name:name,Code:code}
+          codes.push(obj)
+
+          for(let key in continents){
+            if(item.continent===key){
+              continents[key].data.push(item)
+            }
+          }
+
+
         })
 
-        const population= 7800000000
-        let casespermillion= ((cases/population)*1000000).toFixed(0)
+        for(let key in continents){
+          let Cases=0
+          let Deaths=0
+          let Recovered=0
+          let Critical=0
+          let Active=0
+          let TodayCases=0
+          let TodayDeaths=0
 
-        let dataraw= data.slice(0,5)
-        dataraw.map(item =>{
-          country_names.push(item.country)
-          active_data.push(Number(item.active))
-          deaths_data.push(Number(item.deaths))
-          recovered_data.push(Number(item.recovered))
-        })
+          continents[key].data.map((element) =>{
+            Cases+= Number(element.cases)
+            Deaths+= Number(element.deaths)
+            Recovered+= Number(element.recovered)
+            Critical+= Number(element.critical)
+            Active+= Number(element.active)
+            TodayCases+= Number(element.todayCases)
+            TodayDeaths+= Number(element.todayDeaths)
+          })
+
+          let population= continents[key].population
+          let casespermillion= ((Cases/population)*1000000).toFixed(0)
+          let deathspermillion=((Deaths/population)*1000000).toFixed(0)
+
+          let obj={Name:key,
+            Cases:Cases,
+            Deaths:Deaths,
+            Recovered:Recovered,
+            Active:Active,
+            Critical:Critical,
+            TodayCases:TodayCases,
+            TodayDeaths:TodayDeaths,
+            casespermillion:casespermillion,
+            deathspermillion:deathspermillion
+          }
+
+          continents[key].total= obj
+        }
+
+        //For Worldwide data
+          const population= 7800000000
+          const casespermillion= ((cases/population)*1000000).toFixed(0)
+          const deathspermillion= ((deaths/population)*1000000).toFixed(0)
+
+          WorldwideData.Cases= cases
+          WorldwideData.Deaths= deaths
+          WorldwideData.Recovered= recovered
+          WorldwideData.Critical= critical
+          WorldwideData.Active= active
+          WorldwideData.TodayCases= todayCases
+          WorldwideData.TodayDeaths= todayDeaths
+          WorldwideData.casespermillion= casespermillion
+          WorldwideData.deathspermillion= deathspermillion
+
+        
 
         this.setState({
-          myData:data,
-          Data:{
-            Cases:cases,
-            Deaths:deaths,
-            Recovered:recovered,
-            Active:active,
-            Critical:critical,
-            TodayCases:todayCases,
-            TodayDeaths:todayDeaths,
-            casespermillion:casespermillion
-          },
+          appData:data,
+          flagData:codes,
+          continents:continents,
+          Data:WorldwideData,
         })
       })
+  }
+
+  changeContinent = (item) => {
+    if(item.name==='Worldwide'){
+      this.setState({
+        appData:data,
+        Data:WorldwideData
+      })
+    }
+    if(item.name==='North America'){
+      this.setState({
+        appData:continents['North America'].data,
+        Data:continents['North America'].total
+      })
+    }
+    if(item.name==='South America'){
+      this.setState({
+        appData:continents['South America'].data,
+        Data:continents['South America'].total
+      })
+    }
+    if(item.name==='Europe'){
+      this.setState({
+        appData:continents['Europe'].data,
+        Data:continents['Europe'].total
+      })
+    }
+    if(item.name==='Asia'){
+      this.setState({
+        appData:continents['Asia'].data,
+        Data:continents['Asia'].total
+      })
+    }
+    if(item.name==='Africa'){
+      this.setState({
+        appData:continents['Africa'].data,
+        Data:continents['Africa'].total
+      })
+    }
+    if(item.name==='Australia/Oceania'){
+      this.setState({
+        appData:continents['Australia/Oceania'].data,
+        Data:continents['Australia/Oceania'].total
+      })
+    }
   }
 
   render(){
@@ -98,8 +249,8 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={this.state.Data}/>
-        <Chart/>
-        <Table data= {this.state.myData} list={this.state.myList} dataw= {this.state.Data}/>
+        <Chart flagData={this.state.flagData}/>
+        <Table data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </div>
     );
   }

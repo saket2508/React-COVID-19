@@ -4,16 +4,32 @@ function TableHeader(props){
     const tableheader=(
         <Fragment>
         <thead className='thead-light'>
-            <th scope='col'>Location</th>
+            <th scope='col'>        
+                Location
+            </th>
             <th scope='col'>Confirmed</th>
             <th scope='col'>Deaths</th>
             <th scope='col'>Recovered</th>
             <th scope='col'>Active</th>
-            <th scope='col'>Critical</th>
-            <th scope='col'>Cases/1M People</th>
+            <th style={{wordWrap:'break-word'}} scope='col'>Cases/1M People</th>
+            <th style={{wordWrap:'break-word'}} scope='col'>Deaths/1M People</th>
+            <th style={{wordWrap:'break-word'}} scope='col'>Tests/1M People</th>
+            <th style={{wordWrap:'break-word'}} scope='col'>Total Tests</th>
         </thead>
+
         <tr className="table-warning">
-            <td id='nowrap' style={{fontWeight:"500"}}> <i class="fas fa-globe mr-1"></i> Worldwide</td>
+            <td id='nowrap' style={{fontWeight:"500"}}> 
+                    <div class="btn-group">
+                        <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {props.data.Name}
+                        </button>
+                        <div class="dropdown-menu">
+                            {props.list.map((element) => (
+                                <a key={element.id} class="dropdown-item" onClick={props.changeContinent.bind(this,element)}>{element.name}</a>
+                            ))}
+                        </div>
+                    </div>
+            </td>
             <td id='nowrap' style={{fontWeight:"500"}}>
                     {props.data.Cases}
                     <small><span class="badge badge-pill badge-secondary">{'+'+props.data.TodayCases}</span></small>
@@ -26,8 +42,10 @@ function TableHeader(props){
                     {props.data.Recovered}
             </td>
             <td style={{fontWeight:"500"}}>{props.data.Active}</td>
-            <td style={{fontWeight:"500"}}>{props.data.Critical}</td>
             <td style={{fontWeight:"500"}}>{props.data.casespermillion}</td>
+            <td style={{fontWeight:"500"}}>{props.data.deathspermillion}</td>
+            <td style={{fontWeight:"500"}}>{props.data.testsPerOneMillion}</td>
+            <td style={{fontWeight:"500"}}>{props.data.tests}</td>
         </tr>
         </Fragment>
     );
@@ -64,7 +82,7 @@ class FilteredTable extends Component{
             item.country='United Kingdom'
             return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
-       if(item.country.length > 18){
+       if(item.country.length > 10){
            return <td style={{fontWeight:"400"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
        }
         if(item.country==="MS Zaandam"){
@@ -99,8 +117,11 @@ class FilteredTable extends Component{
                                     </td> 
                                     <td id='nowrap'>{item.recovered}</td>
                                     <td id='nowrap'>{item.active}</td>
-                                    <td id='nowrap'>{item.critical}</td>
-                                    <td id='nowrap'>{item.casesPerOneMillion}</td>
+                                    <td id='statscell'>{item.casesPerOneMillion}</td>
+                                    <td id='statscell'>{item.deathsPerOneMillion}</td>
+                                    <td id='statscell'>{item.testsPerOneMillion}</td>
+                                    <td id='statscell'>{item.tests}</td>
+                                   
                                 </tr>
                             ))}
                 </tbody>
@@ -116,10 +137,9 @@ class FilteredTable extends Component{
 
         return(
             <div className='FilteredTable'>
-            <p className='h5 text-center text-muted' style={{fontWeight:'500'}}>CONFIRMED CASES AND DEATHS BY COUNTRY</p>
             <div className='container-lg'>
-                <div class="d-flex justify-content-center mt-2 mb-3">
-                    <div class='col-9'>
+                <div class="d-flex justify-content-center mb-3">
+                    <div class='col-lg-6 col-sm-9 mt-2'>
                         <input type="text" 
                                 class="form-control" 
                                 value={filtertStr} 
@@ -129,8 +149,8 @@ class FilteredTable extends Component{
                 </div>
             </div>
               <div className='table-responsive-sm'>
-                    <table class="table table-sm">
-                        <TableHeader data= {this.props.dataw}/>
+                    <table id='statstable' class="table table-bordered table-sm">
+                        <TableHeader list={this.props.list} changeContinent={this.props.changeContinent} data= {this.props.dataw} />
                         {tableBody}
                     </table>
                 </div>   

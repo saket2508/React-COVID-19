@@ -1,10 +1,12 @@
 import React, {Component, Fragment} from "react"
 import {Bar, Line, Pie,HorizontalBar} from 'react-chartjs-3';
+import Stats from './Stats'
 
 const dates=[]
 const casesdata=[]
 const deathsdata=[]
 const recoveredata=[]
+const activedata=[]
 
 const url='https://pomber.github.io/covid19/timeseries.json'
 
@@ -13,11 +15,12 @@ class Chart extends Component{
         super(props)
         this.state={
             chartData:{},
+            name:'Total Cases',
             links:
                 [
                     {
                         id:1,
-                        name:'Cases',
+                        name:'Total Cases',
                         color:'secondary',
                         //selected:false
                     },
@@ -30,6 +33,12 @@ class Chart extends Component{
                     {
                         id:3,
                         name:'Recovered',
+                        color:'success',
+                        //selected:false
+                    },
+                    {
+                        id:4,
+                        name:'Active Cases',
                         color:'success',
                         //selected:false
                     }
@@ -67,15 +76,18 @@ class Chart extends Component{
                     let cases=0
                     let deaths=0
                     let recovered=0
+                    let active=0
                     for (let key in response){
                         cases+= Number(response[key][i].confirmed)
                         deaths+= Number(response[key][i].deaths)
                         recovered+= Number(response[key][i].recovered)
+                        active= cases - deaths - recovered
                     }
                     //console.log(sum)
                     casesdata.push(cases)
                     deathsdata.push(deaths)
                     recoveredata.push(recovered)
+                    activedata.push(active)
                 }
 
                 this.setState(
@@ -99,6 +111,7 @@ class Chart extends Component{
     changeVariable(item){
         if(item.id===1){
             this.setState({
+                name:item.name,
                 chartData:{
                     labels: dates,
                         datasets:[
@@ -115,6 +128,7 @@ class Chart extends Component{
         }
         if(item.id===2){
             this.setState({
+                name:item.name,
                 chartData:{
                     labels: dates,
                         datasets:[
@@ -132,6 +146,7 @@ class Chart extends Component{
 
         if(item.id===3){
             this.setState({
+                name:item.name,
                 chartData:{
                     labels: dates,
                         datasets:[
@@ -146,7 +161,26 @@ class Chart extends Component{
                 }
             })
         }
+
+        if(item.id===4){
+            this.setState({
+                name:item.name,
+                chartData:{
+                    labels: dates,
+                        datasets:[
+                          {
+                            fill:false,
+                            borderColor:'#64b5f6',
+                            label:'COVID-19 Active Cases',
+                            data: activedata,
+                            backgroundColor:'#64b5f6'
+                          }
+                        ]
+                }
+            })
+        }
     }
+
 
     static defaultProps = {
         displayTitle:true,
@@ -157,14 +191,18 @@ class Chart extends Component{
 
 
       render(){
-        return(
-            <Fragment>
-<div id="chart-2" >
-    <div className="container shadow-sm p-3 mb-2 bg-white rounded mt-4">
-        <div col="12">
-        <p className='h5 text-center text-muted mb-4' style={{fontWeight:'500'}}>COVID-19: WORLDWIDE CUMULATIVE TREND</p>
-        <div id='chart' className="chart-container mb-2">
-        <Line
+          const element=(
+            <div className='container content-row' id="chart-2">
+            <div className='row my-4'>
+                <div className='col-12 d-flex mb-4'>
+                <div className='shadow p-3 mb-4 bg-white rounded flex-fill'>
+                <div className='text-center mb-2'>
+                    <h6 style={{fontWeight:'500'}}>COVID-19: WORLDWIDE CUMULATIVE TREND</h6>
+                    <hr></hr>
+                </div>
+
+                <div id='chart' className="chart-container">
+                            <Line
                             data={this.state.chartData}
                             options={{
                                 responsive:true,
@@ -214,20 +252,31 @@ class Chart extends Component{
                                 }
                             }}
                             />
+                            </div>
+                            <div className='container mt-4'>
+                                <div className='text-center'>
+                                <div class="btn-group">
+                                    <button class="btn btn-light btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {this.state.name}
+                                    </button>       
+                                        <div class="dropdown-menu">
+                                        {this.state.links.map((item)=>(
+                                                <a class="dropdown-item" key={item.id} onClick={this.changeVariable.bind(this,item)}>
+                                                {item.name}
+                                                </a>
+                                            ))} 
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>         
+                </div>
             </div>
         </div>
-    <div className='container mt-4'>
-    <ul class="nav nav-pills justify-content-center">
-            {this.state.links.map((item)=>(
-                <li id={item.id} className="nav-item mr-1">
-                    <button type="button" className={"btn btn-sm btn-outline-"+item.color} onClick={this.changeVariable.bind(this,item)}>{item.name}</button>
-                </li>
-            ))} 
-        </ul>
-    </div>
-    </div>
-    </div>
-
+          )
+        return(
+            <Fragment>
+                <Stats flagData= {this.props.flagData}/>
             </Fragment>
         )
       }

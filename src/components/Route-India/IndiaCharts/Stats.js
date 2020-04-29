@@ -1,33 +1,116 @@
 import React, {Component, Fragment} from 'react';
+
+const newcases=[]
+const newdeaths=[]
+const newrecoveries=[]
+
 class Stats extends Component{
     constructor(props){
         super(props)
     }
 
+    getCasesRow(cases){
+        return(
+            cases.map((item =>(
+                <tr>
+                        <td style={{fontWeight:"400"}}>{item.State}</td>
+                        <td className='text-dark'>{item.NewCases}</td>
+                        <td className='text-dark'>{item.Cases}</td>
+                </tr> 
+                )))
+        )
+    }
+
+    getDeathsRow(deaths){
+        return deaths.map((item =>(
+            <tr>
+                    <td style={{fontWeight:"400"}}>{item.State}</td>
+                    <td className='text-danger'>{item.NewDeaths}</td>
+                    <td className='text-danger'>{item.Deaths}</td>
+            </tr> 
+        )))
+    }
+
+    getRecoveredRow(recoveries){
+        return recoveries.map((item =>(
+            <tr>
+                    <td style={{fontWeight:"400"}}>{item.State}</td>
+                    <td className='text-success'>{item.NewRecoveries}</td>
+                    <td className='text-success'>{item.Recovered}</td>
+            </tr> 
+        )))
+    }
+
+
+
     render(){
+       const cases=this.props.NewCases
+       const deaths= this.props.NewDeaths
+       const recoveries= this.props.NewRecoveries
+
         return(
             <Fragment>
-             <div id="statswindow">
-               <div id="statswindowk" class="container shadow-lg p-3 mt-4 mb-3" style={{width:"90%"}}>
-               <div className="text-center mb-2">
-                    <p class="h5 text-muted">FLASH INSIGHTS</p>
-                    <p id="icon" className="small text-muted text-center"><i class="far fa-bell mr-1"></i>{this.props.insights.latestUpdate.date}, {this.props.insights.latestUpdate.timeStamp.slice(11,16)} IST</p>
+            <div id='chart-2'>
+                <div id='card-box' className='container-lg content-row mb-2'>
+                <div className='row my-5'>
+                <div className='col-12 mb-3'>
+                    <h5 className='text-center text-muted'>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
+                    <hr></hr>
                 </div>
-                <div id="stats border-bottom">
-                        <div className="text-center">
-                            <ul className="list-group list-group-flush" style={{margin:"auto"}}>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"><p className="h6 text-muted">Total Individuals Tested</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.totalTests}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">Tests Per Million People</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.insights.testspermillion}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Cases</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltaconfirmed}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Deaths</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltadeaths}</p></li>
-                                <li class="list-group-item"><p className="h6 text-muted">New Recoveries</p><p className='h4 text-info' style={{fontWeight:"500"}}>{this.props.data.deltarecovered}</p></li>
-                            </ul>
+                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
+                    <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
+                        <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN CASES</p>
+                                    <table id='stats' className='table table-sm'>
+                                    <thead>
+                                            <tr className='table-secondary'>
+                                                <th scope="col">Location</th>
+                                                <th scope="col">Confirmed</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.getCasesRow(cases)}
+                                        </tbody>
+                                    </table>
                         </div>
-                        <div className="mt-1 border-top">
+                </div>
+                <div id='card-box' className='col-sm-12 col-md-4 d-flex'>
+                <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
+                            <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN DEATHS</p> 
+                                   <table id='stats' className='table table-sm'>
+                                    <thead>
+                                            <tr className='table-danger'>
+                                                <th scope="col">Location</th>
+                                                <th scope="col">Deaths</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.getDeathsRow(deaths)}
+                                        </tbody>
+                                    </table>
+                                </div>
+                    </div>
+
+                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
+                    <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
+                        <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN RECOVERIES</p>
+                                   <table id='stats' className='table table-sm'>
+                                        <thead>
+                                            <tr className='table-success'>
+                                                <th scope="col">Location</th>
+                                                <th scope="col">Recovered</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           {this.getRecoveredRow(recoveries)}
+                                        </tbody>
+                                    </table>
+                       </div>
+                    </div>
                 </div>
                 </div>
-            </div>
             </div>
             </Fragment>
         );
