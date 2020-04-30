@@ -11,7 +11,7 @@ class Table extends Component{
     render(){
         return(
             <div id='c4' className='container-lg'>
-                <FilteredTable changeContinent={this.props.changeContinent} data={this.props.data} dataw= {this.props.dataw} list={this.props.list}/>
+                <FilteredTable sortValues={this.props.sortValues} changeContinent={this.props.changeContinent} data={this.props.data} dataw= {this.props.dataw} list={this.props.list}/>
             </div>
         );
     }

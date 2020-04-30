@@ -172,6 +172,7 @@ class App extends Component{
           continents[key].total= obj
         }
 
+
         //For Worldwide data
           const population= 7800000000
           const casespermillion= ((cases/population)*1000000).toFixed(0)
@@ -187,9 +188,9 @@ class App extends Component{
           WorldwideData.casespermillion= casespermillion
           WorldwideData.deathspermillion= deathspermillion
 
-        
 
         this.setState({
+          sorted:false,
           appData:data,
           flagData:codes,
           continents:continents,
@@ -243,6 +244,24 @@ class App extends Component{
     }
   }
 
+  sortValues = () => {
+    this.setState({
+      sorted: !this.state.sorted
+    })
+    if(this.state.sorted===true){
+      let data= this.state.appData.sort((a, b) => a.country.localeCompare(b.country))
+      this.setState({
+        appData:data
+      })
+    }
+    else{
+      let data= this.state.appData.sort((a, b) => a.cases-b.cases).reverse()
+      this.setState({
+        appData:data
+      })
+    }
+  }
+
   render(){
     return(
       <div>
@@ -250,7 +269,7 @@ class App extends Component{
         <AppHeading/>
         <Figures data={this.state.Data}/>
         <Chart flagData={this.state.flagData}/>
-        <Table data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
+        <Table sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </div>
     );
   }

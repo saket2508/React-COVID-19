@@ -141,10 +141,15 @@ class FilteredTable extends Component{
                 <div class="d-flex justify-content-start mb-3">
                     <div class='col-lg-6 col-sm-9 mt-2'>
                         <input type="text" 
-                                class="form-control" 
+                                class="form-control form-control-sm" 
                                 value={filtertStr} 
                                 placeholder="Search A Country..."
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
+                    </div>
+                    <div className='mt-2'>
+                        <button className='btn btn-sm btn-light' onClick={this.props.sortValues}>
+                            <i class="fas fa-sort"></i>
+                        </button>
                     </div>
                 </div>
             </div>

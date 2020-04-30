@@ -14,7 +14,7 @@ class TableIndia extends Component{
     render(){
         return(
             <div id='c4' className='container-lg'>
-                <FilteredTableIndia data={this.props.data} natnl={this.props.natnl}/>
+                <FilteredTableIndia data={this.props.data} natnl={this.props.natnl} sortValues={this.props.sortValues}/>
             </div>
         );
     }

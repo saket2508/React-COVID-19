@@ -6,14 +6,10 @@ import Charts from './IndiaCharts/Charts'
 import Stats from './IndiaCharts/Stats'
 //import Charts from './IndiaCharts/Charts'
 
-const labels=[]
-const data=[]
-
 const cases=[]
 const deaths=[]
 const recovered=[]
 
-const dates=[]
 const population=1350000000
 
 const url= 'https://api.covid19india.org/data.json'
@@ -22,6 +18,7 @@ class India extends Component{
     constructor(props){
         super(props);
         this.state= {
+            sorted:false,
             natnlData:{
                 'confirmed':0,
                 'active':0,
@@ -53,6 +50,28 @@ class India extends Component{
 
     componentDidMount(){
         this.getData();
+    }
+
+    sortValues = () =>{
+        this.setState({
+            sorted: !this.state.sorted
+        })
+
+        if(this.state.sorted){
+            let data= this.state.statewiseData
+            data.sort((a,b) => a.state.localeCompare(b.state))
+
+            this.setState({
+                statewiseData:data
+            })
+        }
+        else{
+            let data= this.state.statewiseData
+            data.sort((a,b) => Number(a.confirmed)-Number(b.confirmed)).reverse()
+            this.setState({
+                statewiseData:data
+            })
+        }
     }
 
 
@@ -94,6 +113,7 @@ class India extends Component{
             recovered.sort((a,b) => a.NewRecoveries-b.NewRecoveries)
 
             this.setState({
+                sorted:false,
                 natnlData:  {
                         'confirmed':json.statewise[0].confirmed,
                         'active':json.statewise[0].active,
@@ -146,6 +166,7 @@ class India extends Component{
         })
     }
 
+
     render(){
         return(
             <div>
@@ -158,7 +179,7 @@ class India extends Component{
                     changeDataDeaths={this.changeDataDeaths}
                     changeDataRecovered={this.changeDataRecovered}/>
 
-                <TableIndia data= {this.state.statewiseData} natnl={this.state.natnlData}/>
+                <TableIndia data= {this.state.statewiseData} natnl={this.state.natnlData} sortValues={this.sortValues}/>
             </div>
         );
 

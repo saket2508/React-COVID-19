@@ -97,30 +97,30 @@ class Stats extends Component{
                     <h5 className='text-center text-muted'>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-md-4 d-flex">
+                <div id='card-box' class="col-sm-12 col-lg-4 d-flex">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN CASES</p>
-                                    <table id='stats' className='table table-sm'>
-                                    <thead>
+                                   <table id='stats' className='table table-sm'>
+                                        <thead>
                                             <tr className='table-secondary'>
                                                 <th scope="col">Location</th>
                                                 <th scope="col">Confirmed</th>
-                                                <th scope="col">Total</th>
+                                                <th style={{paddingLeft:'2rem'}} scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {this.state.NewCases.map((item =>(
-                                            <tr>
-                                                    <td style={{fontWeight:"400"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                    <td className='text-dark'>{item.NewCases}</td>
-                                                    <td className='text-dark'>{item.Cases}</td>
-                                            </tr> 
+                                                <tr>
+                                                        <td style={{fontWeight:"400"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
+                                                        <td id='statstr' className='text-dark'>{item.NewCases}</td>
+                                                        <td style={{paddingLeft:'2rem'}} className='text-dark'>{item.Cases}</td>
+                                                </tr> 
                                             )))}
                                         </tbody>
                                     </table>
-                        </div>
+                       </div>
                     </div>
-                <div id='card-box' className='col-sm-12 col-md-4 d-flex'>
+                <div id='card-box' className='col-sm-12 col-lg-4 d-flex'>
                 <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                             <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
@@ -143,7 +143,7 @@ class Stats extends Component{
                                     </table>
                                 </div>
                     </div>
-                    <div id='card-box' class="col-sm-12 col-md-4 d-flex">
+                    <div id='card-box' class="col-sm-12 col-lg-4 d-flex">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
