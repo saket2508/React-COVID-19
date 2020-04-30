@@ -127,7 +127,7 @@ class Stats extends Component{
                                     <thead>
                                             <tr className='table-danger'>
                                                 <th scope="col">Location</th>
-                                                <th scope="col">Deaths</th>
+                                                <th id='statstr' scope="col">Deaths</th>
                                                 <th scope="col">Total</th>
                                             </tr>
                                         </thead>
@@ -135,7 +135,7 @@ class Stats extends Component{
                                         {this.state.NewDeaths.map((item =>(
                                             <tr>
                                                     <td style={{fontWeight:"400"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                    <td className='text-danger'>{item.NewDeaths}</td>
+                                                    <td id='statstr' className='text-danger'>{item.NewDeaths}</td>
                                                     <td className='text-danger'>{item.Deaths}</td>
                                             </tr> 
                                         )))}
@@ -150,7 +150,7 @@ class Stats extends Component{
                                         <thead>
                                             <tr className='table-success'>
                                                 <th scope="col">Location</th>
-                                                <th scope="col">Recovered</th>
+                                                <th id='statstr' scope="col">Recovered</th>
                                                 <th scope="col">Total</th>
                                             </tr>
                                         </thead>
@@ -158,7 +158,7 @@ class Stats extends Component{
                                             {this.state.NewRecovered.map((item =>(
                                                 <tr>
                                                         <td style={{fontWeight:"400"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                        <td className='text-success'>{item.NewRecovered}</td>
+                                                        <td id='statstr' className='text-success'>{item.NewRecovered}</td>
                                                         <td className='text-success'>{item.Recovered}</td>
                                                 </tr> 
                                             )))}

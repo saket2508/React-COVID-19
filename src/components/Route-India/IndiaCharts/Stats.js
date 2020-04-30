@@ -62,7 +62,7 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-danger'>{item.NewDeaths}</td>
+                        <td id='statstr' className='text-danger'>{item.NewDeaths}</td>
                         <td className='text-danger'>{item.Deaths}</td>
                     </tr> 
                 )))
@@ -73,7 +73,7 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-danger'>{item.NewDeaths}</td>
+                        <td id='statstr' className='text-danger'>{item.NewDeaths}</td>
                         <td className='text-danger'>{item.Deaths}</td>
                     </tr> 
                 )))
@@ -98,7 +98,7 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-success'>{item.NewRecoveries}</td>
+                        <td id='statstr2' className='text-success'>{item.NewRecoveries}</td>
                         <td className='text-success'>{item.Recovered}</td>
                     </tr> 
                 )))
@@ -109,7 +109,7 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-success'>{item.NewRecoveries}</td>
+                        <td id='statstr2' className='text-success'>{item.NewRecoveries}</td>
                         <td className='text-success'>{item.Recovered}</td>
                     </tr> 
                 )))
@@ -157,7 +157,7 @@ class Stats extends Component{
                                     <thead>
                                             <tr className='table-danger'>
                                                 <th scope="col">State/UT</th>
-                                                <th scope="col">Deaths</th>
+                                                <th id='statstr' scope="col">Deaths</th>
                                                 <th scope="col">Total</th>
                                             </tr>
                                         </thead>
@@ -175,7 +175,7 @@ class Stats extends Component{
                                         <thead>
                                             <tr className='table-success'>
                                                 <th scope="col">State/UT</th>
-                                                <th scope="col">Recovered</th>
+                                                <th id='statstr2' scope="col">Recovered</th>
                                                 <th scope="col">Total</th>
                                             </tr>
                                         </thead>
