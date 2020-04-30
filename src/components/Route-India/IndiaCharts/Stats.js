@@ -98,8 +98,8 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-dark'>{item.NewRecoveries}</td>
-                        <td className='text-dark'>{item.Recovered}</td>
+                        <td className='text-success'>{item.NewRecoveries}</td>
+                        <td className='text-success'>{item.Recovered}</td>
                     </tr> 
                 )))
             )
@@ -109,8 +109,8 @@ class Stats extends Component{
                 data.map((item =>(
                     <tr>
                         <td style={{fontWeight:"400"}}>{item.State}</td>
-                        <td className='text-dark'>{item.NewRecoveries}</td>
-                        <td className='text-dark'>{item.Recovered}</td>
+                        <td className='text-success'>{item.NewRecoveries}</td>
+                        <td className='text-success'>{item.Recovered}</td>
                     </tr> 
                 )))
             )
