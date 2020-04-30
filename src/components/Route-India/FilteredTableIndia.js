@@ -105,7 +105,7 @@ class FilteredTableIndia extends Component{
         return(
             <div className='FilteredTableIndia'>
             <div className='container-lg'>
-                <div class="d-flex justify-content-center mt-2 mb-3">
+                <div class="d-flex justify-content-start mt-2 mb-3">
                     <div class='col-sm-9 col-lg-5'>
                         <input type="text" 
                                 class="form-control" 

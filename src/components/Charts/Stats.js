@@ -93,13 +93,13 @@ class Stats extends Component{
             <div id='chart-2'>
                 <div id='card-box' className='container-lg content-row mb-2'>
                 <div className='row my-5'>
-                <div className='col-12 mb-3'>
+                <div className='col-12 mb-4'>
                     <h5 className='text-center text-muted'>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
-                    <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
-                        <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN CASES</p>
+                <div id='card-box' class="col-sm-12 col-md-4 d-flex">
+                    <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
+                        <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN CASES</p>
                                     <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-secondary'>
@@ -121,8 +121,8 @@ class Stats extends Component{
                         </div>
                     </div>
                 <div id='card-box' className='col-sm-12 col-md-4 d-flex'>
-                <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
-                            <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN DEATHS</p> 
+                <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
+                            <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-danger'>
@@ -143,9 +143,9 @@ class Stats extends Component{
                                     </table>
                                 </div>
                     </div>
-                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
-                    <div class="shadow p-3 mb-4 bg-white rounded flex-fill">
-                        <p className='text-center' style={{fontWeight:'500'}}>HIGHEST RISE IN RECOVERIES</p>
+                    <div id='card-box' class="col-sm-12 col-md-4 d-flex">
+                    <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
+                        <p className='text-center text-muted' style={{fontWeight:'500'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
                                             <tr className='table-success'>

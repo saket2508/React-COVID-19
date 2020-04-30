@@ -104,9 +104,9 @@ class India extends Component{
                         'deltarecovered':json.statewise[0].deltarecovered,
                     },
                 statewiseData: json.statewise.slice(1),
-                newCases:cases.slice(-5).reverse(),
-                newDeaths:deaths.slice(-5).reverse(),
-                newRecoveries:recovered.slice(-5).reverse(),
+                newCases:cases,
+                newDeaths:deaths,
+                newRecoveries:recovered,
                 Insights:{
                     totalTests: rawdatatests.totalsamplestested,
                     newTests:rawdatatests.samplereportedtoday,

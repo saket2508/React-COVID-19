@@ -138,7 +138,7 @@ class FilteredTable extends Component{
         return(
             <div className='FilteredTable'>
             <div className='container-lg'>
-                <div class="d-flex justify-content-center mb-3">
+                <div class="d-flex justify-content-start mb-3">
                     <div class='col-lg-6 col-sm-9 mt-2'>
                         <input type="text" 
                                 class="form-control" 
