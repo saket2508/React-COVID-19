@@ -22,6 +22,8 @@ class Charts extends Component{
         this.state={
             Name1:'Total Cases',
             Name2:'Total Cases',
+            val1:'New Cases',
+            val2:'Cases',
             CumulativeChartData: {},
             DailyChartData:{},
             AreaChart:{},
@@ -84,14 +86,14 @@ class Charts extends Component{
 
                 this.setState({
                     DailyChartData:{
-                        labels: dates2,
+                        labels: dates2.slice(-30),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',//gray border
+                            borderColor:'#1e88e5',//gray border
                             label:'COVID-19 Cases',
-                            data: dailycases,
-                            backgroundColor:'#9e9e9e'//gray bg
+                            data: dailycases.slice(-30),
+                            backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
                     },
@@ -99,11 +101,12 @@ class Charts extends Component{
                         labels: dates,
                         datasets:[
                           {
-                            fill:false,
-                            borderColor:'#9e9e9e',//gray border
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#1e88e5',
                             label:'COVID-19 Total Cases',
                             data: cases,
-                            backgroundColor:'#9e9e9e'//gray background
+                            backgroundColor:'#e3f2fd'
                           }
                         ]
                     },
@@ -114,16 +117,17 @@ class Charts extends Component{
     changeDailyVariable(item){
         if(item.id===1){
             this.setState({
+                val1:'New Cases',
                 Name1:'Total Cases',
                 DailyChartData:{
-                    labels: dates2,
+                    labels: dates2.slice(-30),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',//gray border
+                            borderColor:'#1e88e5',//gray border
                             label:'COVID-19: Cases',
-                            data: dailycases,
-                            backgroundColor:'#9e9e9e'//gray bg
+                            data: dailycases.slice(-30),
+                            backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
                 }
@@ -131,16 +135,17 @@ class Charts extends Component{
         }
         if(item.id===2){
             this.setState({
+                val1:'New Deaths',
                 Name1:'Deaths',
                 DailyChartData:{
-                    labels: dates2,
+                    labels: dates2.slice(-30),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#e57373',
+                            borderColor:'#ff5722',
                             label:'COVID-19: Deaths',
-                            data: dailydeaths,
-                            backgroundColor:'#e57373'
+                            data: dailydeaths.slice(-30),
+                            backgroundColor:'#ff5722'
                           }
                         ]
                 }
@@ -149,34 +154,17 @@ class Charts extends Component{
 
         if(item.id===3){
             this.setState({
+                val1:'New Recoveries',
                 Name1:'Recovered',
                 DailyChartData:{
-                    labels: dates2,
+                    labels:dates2.slice(-30),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#81c784',
+                            borderColor:'#7cb342',
                             label:'COVID-19: Recovered',
-                            data: dailyrecovered,
-                            backgroundColor:'#81c784'
-                          }
-                        ]
-                }
-            })
-        }
-
-        if(item.id===4){
-            this.setState({
-                Name1:'Active Cases',
-                DailyChartData:{
-                    labels: dates2,
-                        datasets:[
-                          {
-                            fill:false,
-                            borderColor:'#64b5f6',
-                            label:'COVID-19: Active Cases',
-                            data: dailyactive,
-                            backgroundColor:'#64b5f6'
+                            data: dailyrecovered.slice(-30),
+                            backgroundColor:'#7cb342'
                           }
                         ]
                 }
@@ -188,15 +176,17 @@ class Charts extends Component{
         if(item.id===1){
             this.setState({
                 Name2:'Total Cases',
+                val2:'Cases',
                 CumulativeChartData:{
                     labels: dates,
                         datasets:[
                           {
-                            fill:false,
-                            borderColor:'#9e9e9e',
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#1e88e5',
                             label:'COVID-19 Total Cases',
                             data: cases,
-                            backgroundColor:'#9e9e9e'
+                            backgroundColor:'#e3f2fd'
                           }
                         ]
                 }
@@ -205,15 +195,17 @@ class Charts extends Component{
         if(item.id===2){
             this.setState({
                 Name2:'Deaths',
+                val2:'Deaths',
                 CumulativeChartData:{
                     labels: dates,
                         datasets:[
                           {
-                            fill:false,
-                            borderColor:'#e57373',
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#ff5722',
                             label:'COVID-19: Total Deaths',
                             data: deaths,
-                            backgroundColor:'#e57373'
+                            backgroundColor:'#fbe9e7'
                           }
                         ]
                 }
@@ -223,38 +215,23 @@ class Charts extends Component{
         if(item.id===3){
             this.setState({
                 Name2:'Recovered',
+                val2:'Recoveries',
                 CumulativeChartData:{
                     labels: dates,
                         datasets:[
                           {
-                            fill:false,
-                            borderColor:'#81c784',
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#7cb342',
                             label:'COVID-19: Total Recovered',
                             data: recovered,
-                            backgroundColor:'#81c784'
+                            backgroundColor:'#f1f8e9'
                           }
                         ]
                 }
             })
         }
 
-        if(item.id===4){
-            this.setState({
-                Name2:'Active Cases',
-                CumulativeChartData:{
-                    labels: dates,
-                        datasets:[
-                          {
-                            fill:false,
-                            borderColor:'#64b5f6',
-                            label:'COVID-19: Active Cases',
-                            data: activecases,
-                            backgroundColor:'#64b5f6'
-                          }
-                        ]
-                }
-            })
-        }
     }
 
     static defaultProps = {
@@ -266,91 +243,21 @@ class Charts extends Component{
       render(){
         return (
                 <Fragment>
-                    <div className='container content-row' id="chart-2">
-                    <div className='row my-4'>
-                        <div className='col-12 d-flex mb-4'>
-                        <div className='shadow p-3 bg-white rounded flex-fill'>
-                        <div className='text-center mb-2'>
-                            <h6 style={{fontWeight:'500'}}>COVID-19 INDIA: DAILY TREND</h6>
-                            <hr></hr>
-                        </div>
-
-                        <div id='chart' className="chart-container">
-                        <Line
-                                    data={this.state.DailyChartData}
-                                    options={{
-                                        tooltips:{
-                                            mode:'index',
-                                            intersect:false
-                                        },
-                                        responsive:true,
-                                        maintainAspectRatio:false,
-                                        title:{
-                                            display:false
-                                        },
-                                        legend:{
-                                            display:this.props.displayLegend,
-                                            position:"top",
-                                            labels:{
-                                                fontFamily:  "'Noto Sans JP', sans-serif",
-                                                fontColor:'#000'
-                                            },
-                                            onClick: (e) => e.stopPropagation()
-                                        },
-                                        scales: {
-                                            xAxes: [
-                                            {
-                                                gridLines: {
-                                                    display:false
-                                                },
-                                                //barPercentage: 0.4,
-                                                ticks:{
-                                                        fontFamily:  "'Noto Sans JP', sans-serif",
-                                                        fontSize:'12',
-                                                        fontColor: '#000',
-                                                    }
-                                                }
-                                            ],
-                                            yAxes: [
-                                                {
-                                                    ticks:{
-                                                            fontFamily:  "'Noto Sans JP', sans-serif",
-                                                            fontSize:'12',
-                                                            fontColor: '#000',
-                                                        }
-                                                    }
-                                                ]
-                                            
-                                        }
-                                    }}
-                                    />
-                                    </div>
-                                    <div className='container mt-4'>
-                                        <div className='text-center'>
-                                        <div class="btn-group">
-                                            <button class="btn btn-light btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {this.state.Name1}
-                                            </button>       
-                                                <div class="dropdown-menu">
-                                                {this.state.links.map((item)=>(
-                                                        <a class="dropdown-item" key={item.id} onClick={this.changeDailyVariable.bind(this,item)}>
-                                                            {item.name}
-                                                        </a>
-                                                    ))} 
-                                                </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>         
-                        </div>
-
-                        <div className='col-12 d-flex mb-4'>
-                        <div className='shadow p-3 bg-white rounded flex-fill'>
-                        <div className='text-center mb-2'>
-                            <h6 style={{fontWeight:'500'}}>COVID-19 INDIA: CUMULATIVE TREND</h6>
-                            <hr></hr>
-                        </div>
-
+                    <div className='chart mb-4 mt-4'>
+                        <div className='container-md content-row'>
+                            <div className='row my-5'>
+                                <div className='col-12 mb-4'>
+                                    <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
+                                    <hr></hr>
+                                </div>
+                                <div className='col-12 mt-2 mb-2'>
+                        <div className='card'>
+                            <div className='card-body'>
+                                <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 India: {this.state.val2} Over Time</h6>
+                                <hr></hr>
+                            </div>
+                            <div className='card-body'>
+                                    
                         <div id='chart' className="chart-container">
                         <Line
                                     data={this.state.CumulativeChartData}
@@ -406,11 +313,11 @@ class Charts extends Component{
                                     <div className='container mt-4'>
                                         <div className='text-center'>
                                         <div class="btn-group">
-                                            <button class="btn btn-light btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 {this.state.Name2}
                                             </button>       
                                                 <div class="dropdown-menu">
-                                                {this.state.links.map((item)=>(
+                                                {this.state.links.slice(0,3).map((item)=>(
                                                         <a class="dropdown-item" key={item.id} onClick={this.changeVariable.bind(this,item)}>
                                                         {item.name}
                                                         </a>
@@ -419,11 +326,89 @@ class Charts extends Component{
                                         </div>
                                         </div>
                                     </div>
-                                </div> 
-                                </div>         
+                                </div>
+                            </div>
                         </div>
-                
+                                <div className='col-12 mt-2 mb-2'>
+                                    <div className='card'>
+                                        <div className='card-body'>
+                                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 India: {this.state.val1} Over Time</h6>
+                                            <hr></hr>
+                                        </div>
+                                        <div className='card-body'>
+                                            <div id='chart' className='chart-container'>
+                                            <Bar
+                                    data={this.state.DailyChartData}
+                                    options={{
+                                        tooltips:{
+                                            mode:'index',
+                                            intersect:false
+                                        },
+                                        responsive:true,
+                                        maintainAspectRatio:false,
+                                        title:{
+                                            display:false
+                                        },
+                                        legend:{
+                                            display:this.props.displayLegend,
+                                            position:"top",
+                                            labels:{
+                                                fontFamily:  "'Noto Sans JP', sans-serif",
+                                                fontColor:'#000'
+                                            },
+                                            onClick: (e) => e.stopPropagation()
+                                        },
+                                        scales: {
+                                            xAxes: [
+                                            {
+                                                gridLines: {
+                                                    display:false
+                                                },
+                                                //barPercentage: 0.4,
+                                                ticks:{
+                                                        fontFamily:  "'Noto Sans JP', sans-serif",
+                                                        fontSize:'12',
+                                                        fontColor: '#000',
+                                                    }
+                                                }
+                                            ],
+                                            yAxes: [
+                                                {
+                                                    ticks:{
+                                                            fontFamily:  "'Noto Sans JP', sans-serif",
+                                                            fontSize:'12',
+                                                            fontColor: '#000',
+                                                        }
+                                                    }
+                                                ]
+                                            
+                                        }
+                                    }}
+                                    />
+                                            </div>
+                                            <div className='container mt-4'>
+                                        <div className='text-center'>
+                                        <div class="btn-group">
+                                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {this.state.Name1}
+                                            </button>       
+                                                <div class="dropdown-menu">
+                                                {this.state.links.slice(0,3).map((item)=>(
+                                                        <a class="dropdown-item" key={item.id} onClick={this.changeDailyVariable.bind(this,item)}>
+                                                        {item.name}
+                                                        </a>
+                                                    ))} 
+                                                </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                            </div>
                         </div>
+
             </Fragment>
         )
       }

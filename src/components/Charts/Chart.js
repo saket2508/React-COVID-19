@@ -2,125 +2,164 @@ import React, {Component, Fragment} from "react"
 import {Bar, Line, Pie,HorizontalBar} from 'react-chartjs-3';
 import Stats from './Stats'
 
+const url='https://pomber.github.io/covid19/timeseries.json'
+
 const dates=[]
 const casesdata=[]
-const deathsdata=[]
 const recoveredata=[]
+const deathsdata=[]
 const activedata=[]
 
-const url='https://pomber.github.io/covid19/timeseries.json'
+const dailycases=[]
+const dailydeaths=[]
+const dailyrecovered=[]
+
 
 class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
-            chartData:{},
-            name:'Total Cases',
-            links:
-                [
-                    {
-                        id:1,
-                        name:'Total Cases',
-                        color:'secondary',
-                        //selected:false
-                    },
-                    {
-                        id:2,
-                        name:'Deaths',
-                        color:'danger',
-                        //selected:false
-                    },
-                    {
-                        id:3,
-                        name:'Recovered',
-                        color:'success',
-                        //selected:false
-                    },
-                    {
-                        id:4,
-                        name:'Active Cases',
-                        color:'success',
-                        //selected:false
-                    }
-                ]
+            val1:'New Cases',
+            val2:'Cases',
+            Name1:'Total Cases',
+            Name2:'Total Cases',
+            CumulativeChartData: {},
+            DailyChartData:{},
+            AreaChart:{},
+            links:[
+                {
+                    id:1,
+                    name:'Total Cases',
+                    color:'secondary',
+                    selected:false
+                },
+                {
+                    id:2,
+                    name:'Deaths',
+                    color:'danger',
+                    selected:false
+                },
+                {
+                    id:3,
+                    name:'Recovered',
+                    color:'success',
+                    selected:false
+                },
+                {
+                    id:4,
+                    name:'Active Cases',
+                    color:'primary',
+                    selected:false
+                }
+            ]
         }
     }
 
     componentDidMount(){
-        fetch(url)
-            .then(res => res.json())
-            .then(response =>{
-                response['Afghanistan'].map(item =>{
-                    let m= ""
-                    let d= item.date.slice(7,9)
-                    let month= item.date.slice(5,6)
-                    if(month==='1'){
-                        m='Jan'
-                    }
-                    if(month==='2'){
-                        m='Feb'
-                    }
-                    if(month==='3'){
-                        m='Mar'
-                    }
-                    if(month==='4'){
-                        m='Apr'
-                    }
-                    if(month==='5'){
-                        m='May'
-                    }
-                    let date =m+ ' '+d
-                    dates.push(date)
-                })
-                for(let i=0;i<dates.length;i++){
-                    let cases=0
-                    let deaths=0
-                    let recovered=0
-                    let active=0
-                    for (let key in response){
-                        cases+= Number(response[key][i].confirmed)
-                        deaths+= Number(response[key][i].deaths)
-                        recovered+= Number(response[key][i].recovered)
-                        active= cases - deaths - recovered
-                    }
-                    //console.log(sum)
-                    casesdata.push(cases)
-                    deathsdata.push(deaths)
-                    recoveredata.push(recovered)
-                    activedata.push(active)
-                }
-
-                this.setState(
-                    {
-                        chartData:{
-                            labels: dates,
-                            datasets:[
-                            {
-                                fill:false,
-                                borderColor:'#9e9e9e',//gray border
-                                label:'COVID-19 Cases',
-                                data: casesdata,
-                                backgroundColor:'#9e9e9e'//gray background
-                            },
-                        ]
-                        }
-                    }
-                )
-            })
+       this.getChartData()
     }
-    changeVariable(item){
+
+    getChartData(){
+        fetch(url)
+        .then(res => res.json())
+        .then(response =>{
+            response['Afghanistan'].map(item =>{
+                let m= ""
+                let d= item.date.slice(7,9)
+                let month= item.date.slice(5,6)
+                if(month==='1'){
+                    m='Jan'
+                }
+                if(month==='2'){
+                    m='Feb'
+                }
+                if(month==='3'){
+                    m='Mar'
+                }
+                if(month==='4'){
+                    m='Apr'
+                }
+                if(month==='5'){
+                    m='May'
+                }
+                let date =m+ ' '+d
+                dates.push(date)
+            })
+            for(let i=0;i<dates.length;i++){
+                let cases=0
+                let deaths=0
+                let recovered=0
+                let active=0
+                for (let key in response){
+                    cases+= Number(response[key][i].confirmed)
+                    deaths+= Number(response[key][i].deaths)
+                    recovered+= Number(response[key][i].recovered)
+                    active= cases - deaths - recovered
+                }
+                //console.log(sum)
+                casesdata.push(cases)
+                deathsdata.push(deaths)
+                recoveredata.push(recovered)
+                activedata.push(active)
+            }
+
+            for(let i=0;i<casesdata.length-1;i++){
+                let newcases= casesdata[i+1]-casesdata[i]
+                dailycases.push(newcases)
+                let newdeaths= deathsdata[i+1]-deathsdata[i]
+                dailydeaths.push(newdeaths)
+                let newrecoveries= recoveredata[i+1]-recoveredata[i]
+                dailyrecovered.push(newrecoveries)
+            }
+
+            this.setState(
+                {
+                    DailyChartData:{
+                        labels: dates.slice(1),
+                            datasets:[
+                              {
+                                fill:false,
+                                //borderColor:'#9e9e9e',//gray border
+                                label:'COVID-19: Cases',
+                                data: dailycases,
+                                backgroundColor:'#1e88e5'//gray bg
+                              }
+                            ]
+                    },
+                    CumulativeChartData:{
+                        labels: dates,
+                            datasets:[
+                              {
+                                fill:true,
+                                pointRadius:0,
+                                borderColor:'#1e88e5',
+                                label:'COVID-19 Total Cases',
+                                data: casesdata,
+                                backgroundColor:'#e3f2fd'
+                              }
+                            ]
+                    }
+                }
+            )
+        })
+    }
+
+
+
+    changeDailyVariable(item){
         if(item.id===1){
             this.setState({
-                name:item.name,
-                chartData:{
-                    labels: dates,
+                val1:'New Cases',
+                Name1:'Total Cases',
+                DailyChartData:{
+                    labels: dates.slice(1),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#9e9e9e',//gray border
-                            label:'COVID-19 Cases',
-                            data: casesdata,
-                            backgroundColor:'#9e9e9e'//gray background
+                            borderColor:'#1e88e5',//gray border
+                            label:'COVID-19: Cases',
+                            data: dailycases,
+                            backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
                 }
@@ -128,16 +167,17 @@ class Chart extends Component{
         }
         if(item.id===2){
             this.setState({
-                name:item.name,
-                chartData:{
-                    labels: dates,
+                val1:'New Deaths',
+                Name1:'Deaths',
+                DailyChartData:{
+                    labels: dates.slice(1),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#e57373',
-                            label:'COVID-19 Deaths',
-                            data: deathsdata,
-                            backgroundColor:'#e57373'
+                            borderColor:'#ff5722',
+                            label:'COVID-19: Deaths',
+                            data: dailydeaths,
+                            backgroundColor:'#ff5722'
                           }
                         ]
                 }
@@ -146,16 +186,79 @@ class Chart extends Component{
 
         if(item.id===3){
             this.setState({
-                name:item.name,
-                chartData:{
-                    labels: dates,
+                val1:'New Recoveries',
+                Name1:'Recovered',
+                DailyChartData:{
+                    labels: dates.slice(1),
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#81c784',
-                            label:'COVID-19 Recovered',
+                            borderColor:'#7cb342',
+                            label:'COVID-19: Recovered',
+                            data: dailyrecovered,
+                            backgroundColor:'#7cb342'
+                          }
+                        ]
+                }
+            })
+        }
+    }
+
+
+    changeVariable(item){
+        if(item.id===1){
+            this.setState({
+                val2:'Cases',
+                Name2:'Total Cases',
+                CumulativeChartData:{
+                    labels: dates,
+                        datasets:[
+                          {
+                                fill:true,
+                                pointRadius:0,
+                                borderColor:'#1e88e5',
+                                label:'COVID-19 Total Cases',
+                                data: casesdata,
+                                backgroundColor:'#e3f2fd'
+                          }
+                        ]
+                }
+            })
+        }
+        if(item.id===2){
+            this.setState({
+                val2:'Deaths',
+                Name2:'Deaths',
+                CumulativeChartData:{
+                    labels: dates,
+                        datasets:[
+                          {
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#ff5722',
+                            label:'COVID-19: Total Deaths',
+                            data: deathsdata,
+                            backgroundColor:'#fbe9e7'
+                          }
+                        ]
+                }
+            })
+        }
+
+        if(item.id===3){
+            this.setState({
+                val2:'Recoveries',
+                Name2:'Recovered',
+                CumulativeChartData:{
+                    labels: dates,
+                        datasets:[
+                          {
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#7cb342',
+                            label:'COVID-19: Total Recovered',
                             data: recoveredata,
-                            backgroundColor:'#81c784'
+                            backgroundColor:'#f1f8e9'
                           }
                         ]
                 }
@@ -164,16 +267,18 @@ class Chart extends Component{
 
         if(item.id===4){
             this.setState({
-                name:item.name,
-                chartData:{
+                val2:'Active Cases',
+                Name2:'Active Cases',
+                CumulativeChartData:{
                     labels: dates,
                         datasets:[
                           {
-                            fill:false,
-                            borderColor:'#64b5f6',
-                            label:'COVID-19 Active Cases',
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#546e7a',
+                            label:'COVID-19: Active Cases',
                             data: activedata,
-                            backgroundColor:'#64b5f6'
+                            backgroundColor:'#eceff1'
                           }
                         ]
                 }
@@ -192,90 +297,174 @@ class Chart extends Component{
 
       render(){
           const element=(
-            <div className='container content-row' id="chart-2">
-            <div className='row my-4'>
-                <div className='col-12 d-flex mb-4'>
-                <div className='shadow p-3 mb-4 bg-white rounded flex-fill'>
-                <div className='text-center mb-2'>
-                    <h6 style={{fontWeight:'500'}}>COVID-19: WORLDWIDE CUMULATIVE TREND</h6>
-                    <hr></hr>
-                </div>
-
-                <div id='chart' className="chart-container">
+              <div className='chart mb-4 mt-4'>
+                   <div className='container-md content-row'>
+                    <div className='row my-5'>
+                        <div className='col-12 mb-4'>
+                            <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
+                            <hr></hr>
+                        </div>
+                           <div className='col-12 mt-2 mb-2'>
+                            <div className='card'>
+                        <div className='card-body'>
+                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19: {this.state.val2} Over Time</h6>
+                            <hr></hr>
+                        </div>
+                        <div className='card-body'>
+                            <div id='chart' className="chart-container">
                             <Line
-                            data={this.state.chartData}
-                            options={{
-                                responsive:true,
-                                maintainAspectRatio:false,
-                                title:{
-                                    display:false,
-                                    text:'Largest Cities In '+this.props.location,
-                                    fontSize:25
-                                },
-                                legend:{
-                                    display:this.props.displayLegend,
-                                    position:"top",
-                                    labels:{
-                                        fontFamily:  "'Noto Sans JP', sans-serif",
-                                        fontColor:'#000'
-                                    },
-                                    onClick: (e) => e.stopPropagation()
-                                },
-                                tooltips:{
-                                    enabled:true,
-                                    mode:'index',
-                                    intersect:false
-                                },
-                                scales: {
-                                    xAxes: [
-                                    {
-                                        gridLines: {
-                                            display:false
+                                    data={this.state.CumulativeChartData}
+                                    options={{
+                                        responsive:true,
+                                        maintainAspectRatio:false,
+                                        title:{
+                                            display:false,
+                                            text:'Largest Cities In '+this.props.location,
+                                            fontSize:25
                                         },
-                                        ticks:{
+                                        legend:{
+                                            display:false,
+                                            position:"top",
+                                            labels:{
                                                 fontFamily:  "'Noto Sans JP', sans-serif",
-                                                fontSize:'12',
-                                                fontColor: '#000',
-                                            }
-                                        }
-                                    ],
-                                    yAxes: [
-                                        {
-                                            ticks:{
-                                                    fontFamily:  "'Noto Sans JP', sans-serif",
-                                                    fontSize:'12',
-                                                    fontColor: '#000',
+                                                fontColor:'#000'
+                                            },
+                                            onClick: (e) => e.stopPropagation()
+                                        },
+                                        tooltips:{
+                                            enabled:true,
+                                            mode:'index',
+                                            intersect:false
+                                        },
+                                        scales: {
+                                            xAxes: [
+                                            {
+                                                gridLines: {
+                                                    display:false
+                                                },
+                                                ticks:{
+                                                        fontFamily:  "'Noto Sans JP', sans-serif",
+                                                        fontSize:'12',
+                                                        fontColor: '#000',
+                                                    }
                                                 }
-                                            }
-                                        ]
-                                    
-                                }
-                            }}
-                            />
+                                            ],
+                                            yAxes: [
+                                                {
+                                                    ticks:{
+                                                            fontFamily:  "'Noto Sans JP', sans-serif",
+                                                            fontSize:'12',
+                                                            fontColor: '#000',
+                                                        }
+                                                    }
+                                                ]
+                                            
+                                        }
+                                    }}
+                                    />
                             </div>
                             <div className='container mt-4'>
-                                <div className='text-center'>
-                                <div class="btn-group">
-                                    <button class="btn btn-light btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {this.state.name}
-                                    </button>       
-                                        <div class="dropdown-menu">
-                                        {this.state.links.map((item)=>(
-                                                <a class="dropdown-item" key={item.id} onClick={this.changeVariable.bind(this,item)}>
-                                                {item.name}
-                                                </a>
-                                            ))} 
+                                        <div className='text-center'>
+                                        <div class="btn-group">
+                                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {this.state.Name2}
+                                            </button>       
+                                                <div class="dropdown-menu">
+                                                {this.state.links.map((item)=>(
+                                                        <a class="dropdown-item" key={item.id} onClick={this.changeVariable.bind(this,item)}>
+                                                        {item.name}
+                                                        </a>
+                                                    ))} 
+                                                </div>
+                                            </div>
                                         </div>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>         
+                        </div>
+                        <div className='col-12 mt-2 mb-2'>
+                            <div className='card'>
+                        <div className='card-body'>
+                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19: {this.state.val1} Over Time</h6>
+                            <hr></hr>
+                        </div>
+                        <div className='card-body'>
+                            <div id='chart' className="chart-container">
+                            <Bar
+                                    data={this.state.DailyChartData}
+                                    options={{
+                                        tooltips:{
+                                            mode:'index',
+                                            intersect:false
+                                        },
+                                        responsive:true,
+                                        maintainAspectRatio:false,
+                                        title:{
+                                            display:false
+                                        },
+                                        legend:{
+                                            display:false,
+                                            position:"top",
+                                            labels:{
+                                                fontFamily:  "'Noto Sans JP', sans-serif",
+                                                fontColor:'#000'
+                                            },
+                                            onClick: (e) => e.stopPropagation()
+                                        },
+                                        scales: {
+                                            xAxes: [
+                                            {
+                                                gridLines: {
+                                                    display:false
+                                                },
+                                                //barPercentage: 0.4,
+                                                ticks:{
+                                                        fontFamily:  "'Noto Sans JP', sans-serif",
+                                                        fontSize:'12',
+                                                        fontColor: '#000',
+                                                    }
+                                                }
+                                            ],
+                                            yAxes: [
+                                                {
+                                                    ticks:{
+                                                            fontFamily:  "'Noto Sans JP', sans-serif",
+                                                            fontSize:'12',
+                                                            fontColor: '#000',
+                                                        }
+                                                    }
+                                                ]
+                                            
+                                        }
+                                    }}
+                                    />
+                            </div>
+                            <div className='container mt-4'>
+                                        <div className='text-center'>
+                                        <div class="btn-group">
+                                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {this.state.Name1}
+                                            </button>       
+                                                <div class="dropdown-menu">
+                                                {this.state.links.slice(0,3).map((item)=>(
+                                                        <a class="dropdown-item" key={item.id} onClick={this.changeDailyVariable.bind(this,item)}>
+                                                            {item.name}
+                                                        </a>
+                                                    ))} 
+                                                </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                    </div>
+                    </div>
+                           </div>
+                       </div>
                 </div>
-            </div>
-        </div>
+              </div>
           )
         return(
             <Fragment>
+                {element}
                 <Stats flagData= {this.props.flagData}/>
             </Fragment>
         )

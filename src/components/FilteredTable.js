@@ -18,7 +18,7 @@ function TableHeader(props){
         </thead>
 
         <tr className="table-warning">
-            <td id='nowrap' style={{fontWeight:"500"}}> 
+            <td id='nowrap' style={{fontWeight:"700"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               {props.data.Name}
@@ -30,22 +30,22 @@ function TableHeader(props){
                         </div>
                     </div>
             </td>
-            <td id='nowrap' style={{fontWeight:"500"}}>
+            <td id='nowrap' style={{fontWeight:"700"}}>
                     {props.data.Cases}
                     <small><span class="badge badge-pill badge-secondary">{'+'+props.data.TodayCases}</span></small>
             </td>
-            <td id='nowrap' style={{fontWeight:"500"}}>
+            <td id='nowrap' style={{fontWeight:"700"}}>
                     {props.data.Deaths}
                     <small><span class="badge badge-pill badge-danger">{'+'+props.data.TodayDeaths}</span></small>
             </td>
-            <td id='nowrap' style={{fontWeight:"500"}}>
+            <td id='nowrap' style={{fontWeight:"700"}}>
                     {props.data.Recovered}
             </td>
-            <td style={{fontWeight:"500"}}>{props.data.Active}</td>
-            <td style={{fontWeight:"500"}}>{props.data.casespermillion}</td>
-            <td style={{fontWeight:"500"}}>{props.data.deathspermillion}</td>
-            <td style={{fontWeight:"500"}}>{props.data.testsPerOneMillion}</td>
-            <td style={{fontWeight:"500"}}>{props.data.tests}</td>
+            <td style={{fontWeight:"700"}}>{props.data.Active}</td>
+            <td style={{fontWeight:"700"}}>{props.data.casespermillion}</td>
+            <td style={{fontWeight:"700"}}>{props.data.deathspermillion}</td>
+            <td style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
+            <td style={{fontWeight:"700"}}>{props.data.tests}</td>
         </tr>
         </Fragment>
     );
@@ -72,27 +72,27 @@ class FilteredTable extends Component{
     checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
-            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="USA"){
             item.country= 'United States'
-            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
         if(item.country==="UK"){
             item.country='United Kingdom'
-            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
        if(item.country.length > 10){
-           return <td style={{fontWeight:"400"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+           return <td style={{fontWeight:"600"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
        }
         if(item.country==="MS Zaandam"){
-            return <td style={{fontWeight:"400"}}>{item.country}</td>
+            return <td style={{fontWeight:"600"}}>{item.country}</td>
         }
         if(item.country==="Diamond Princess"){
-            return <td style={{fontWeight:"400"}}>{item.country}</td>
+            return <td style={{fontWeight:"600"}}>{item.country}</td>
         }
         else{
-            return <td style={{fontWeight:"400"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
     }
     render(){

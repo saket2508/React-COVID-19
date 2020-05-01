@@ -11,20 +11,20 @@ function TableHeader(props){
                 <th scope='col'>Active</th>
         </thead>
         <tr class="table-warning">
-            <td style={{fontWeight:"500"}}>India (Total)</td>
-            <td id="nowrap" style={{fontWeight:"500"}}>
+            <td style={{fontWeight:"700"}}>India (Total)</td>
+            <td id="nowrap" style={{fontWeight:"700"}}>
                     {props.natnl.confirmed}
                     <small><span class="badge badge-pill badge-secondary">{'+'+props.natnl.deltaconfirmed}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"500"}}>
+            <td id="nowrap" style={{fontWeight:"700"}}>
                     {props.natnl.deaths}
                     <small><span class="badge badge-pill badge-danger">{'+'+props.natnl.deltadeaths}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"500"}}>
+            <td id="nowrap" style={{fontWeight:"700"}}>
                     {props.natnl.recovered}
                     <small><span class="badge badge-pill badge-success">{'+'+props.natnl.deltarecovered}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"500"}}>{props.natnl.active}</td>
+            <td id="nowrap" style={{fontWeight:"700"}}>{props.natnl.active}</td>
         </tr>
         </Fragment>
     );
@@ -40,7 +40,7 @@ class FilteredTableIndia extends Component{
     }
     checkStateValue = (item) =>{
         if(item.state.length > 21){
-            return <td style={{fontWeight:"400"}}>{item.state}</td>
+            return <td style={{fontWeight:"600"}}>{item.state}</td>
         }
         else{
             return <td id="nowrap">{item.state}</td>
@@ -76,19 +76,19 @@ class FilteredTableIndia extends Component{
             (
                 <tr>
                     {this.checkStateValue(item)}
-                    <td id="nowrap" style={{fontWeight:"400"}}>
+                    <td id="nowrap" style={{fontWeight:"600"}}>
                         {item.confirmed}
                         {this.checkConfirmedValue(item)}
                     </td>
-                    <td id="nowrap" style={{fontWeight:"400"}}>
+                    <td id="nowrap" style={{fontWeight:"600"}}>
                         {item.deaths} 
                         {this.checkDeathsValue(item)}
                     </td> 
-                    <td id="nowrap" style={{fontWeight:"400"}}>
+                    <td id="nowrap" style={{fontWeight:"600"}}>
                         {item.recovered}
                         {this.checkRecoveredValue(item)} 
                     </td>
-                    <td id="nowrap" style={{fontWeight:"400"}}>{item.active}</td>
+                    <td id="nowrap" style={{fontWeight:"600"}}>{item.active}</td>
                 </tr>
             ))}
         </tbody>
