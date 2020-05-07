@@ -20,8 +20,8 @@ class Charts extends Component{
     constructor(props){
         super(props)
         this.state={
-            Name1:'Total Cases',
-            Name2:'Total Cases',
+            Name1:'Cases',
+            Name2:'Cases',
             val1:'New Cases',
             val2:'Cases',
             CumulativeChartData: {},
@@ -30,7 +30,7 @@ class Charts extends Component{
             links:[
                 {
                     id:1,
-                    name:'Total Cases',
+                    name:'Cases',
                     color:'secondary',
                     selected:false
                 },
@@ -118,7 +118,7 @@ class Charts extends Component{
         if(item.id===1){
             this.setState({
                 val1:'New Cases',
-                Name1:'Total Cases',
+                Name1:'Cases',
                 DailyChartData:{
                     labels: dates2.slice(-30),
                         datasets:[
@@ -175,7 +175,7 @@ class Charts extends Component{
     changeVariable(item){
         if(item.id===1){
             this.setState({
-                Name2:'Total Cases',
+                Name2:'Cases',
                 val2:'Cases',
                 CumulativeChartData:{
                     labels: dates,
@@ -250,7 +250,7 @@ class Charts extends Component{
                                     <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
                                     <hr></hr>
                                 </div>
-                                <div className='col-12 mt-2 mb-2'>
+                                <div className='col-12 mt-3 mb-3'>
                         <div className='card'>
                             <div className='card-body'>
                                 <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 India: {this.state.val2} Over Time</h6>
@@ -270,7 +270,7 @@ class Charts extends Component{
                                             fontSize:25
                                         },
                                         legend:{
-                                            display:this.props.displayLegend,
+                                            display:false,
                                             position:"top",
                                             labels:{
                                                 fontFamily:  "'Noto Sans JP', sans-serif",
@@ -329,7 +329,7 @@ class Charts extends Component{
                                 </div>
                             </div>
                         </div>
-                                <div className='col-12 mt-2 mb-2'>
+                                <div className='col-12 mt-3 mb-3'>
                                     <div className='card'>
                                         <div className='card-body'>
                                             <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 India: {this.state.val1} Over Time</h6>
@@ -350,7 +350,7 @@ class Charts extends Component{
                                             display:false
                                         },
                                         legend:{
-                                            display:this.props.displayLegend,
+                                            display:false,
                                             position:"top",
                                             labels:{
                                                 fontFamily:  "'Noto Sans JP', sans-serif",

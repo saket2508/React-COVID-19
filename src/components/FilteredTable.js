@@ -1,8 +1,13 @@
 import React, { Component, Fragment} from "react"
 
+function format(item){
+    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+}
+
 function TableHeader(props){
     const tableheader=(
         <Fragment>
+            
         <thead className='thead-light'>
             <th scope='col'>        
                 Location
@@ -31,21 +36,21 @@ function TableHeader(props){
                     </div>
             </td>
             <td id='nowrap' style={{fontWeight:"700"}}>
-                    {props.data.Cases}
-                    <small><span class="badge badge-pill badge-secondary">{'+'+props.data.TodayCases}</span></small>
+                    {format(props.data.Cases)}
+                    <small><span class="badge badge-pill badge-secondary">{'+'+format(props.data.TodayCases)}</span></small>
             </td>
             <td id='nowrap' style={{fontWeight:"700"}}>
-                    {props.data.Deaths}
-                    <small><span class="badge badge-pill badge-danger">{'+'+props.data.TodayDeaths}</span></small>
+                    {format(props.data.Deaths)}
+                    <small><span class="badge badge-pill badge-danger">{'+'+format(props.data.TodayDeaths)}</span></small>
             </td>
             <td id='nowrap' style={{fontWeight:"700"}}>
-                    {props.data.Recovered}
+                    {format(props.data.Recovered)}
             </td>
-            <td style={{fontWeight:"700"}}>{props.data.Active}</td>
-            <td style={{fontWeight:"700"}}>{props.data.casespermillion}</td>
-            <td style={{fontWeight:"700"}}>{props.data.deathspermillion}</td>
-            <td style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
-            <td style={{fontWeight:"700"}}>{props.data.tests}</td>
+            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.Active)}</td>
+            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.casespermillion)}</td>
+            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.deathspermillion)}</td>
+            <td id='nowrap' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
+            <td id='nowrap' style={{fontWeight:"700"}}>{props.data.tests}</td>
         </tr>
         </Fragment>
     );
@@ -82,6 +87,10 @@ class FilteredTable extends Component{
             item.country='United Kingdom'
             return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
         }
+        if(item.country==='S. Korea'){
+            item.country='South Korea'
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+        }
        if(item.country.length > 10){
            return <td style={{fontWeight:"600"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
        }
@@ -109,18 +118,18 @@ class FilteredTable extends Component{
                             (
                                 <tr>
                                    {this.checkCountryName(item)}
-                                    <td id='nowrap'> {item.cases} 
+                                    <td id='nowrap'> {format(item.cases)} 
                                         {this.checkConfirmedValue(item)}
                                     </td>
-                                    <td id='nowrap'>{item.deaths}
+                                    <td id='nowrap'>{format(item.deaths)}
                                         {this.checkDeathsValue(item)}
                                     </td> 
-                                    <td id='nowrap'>{item.recovered}</td>
-                                    <td id='nowrap'>{item.active}</td>
-                                    <td id='statscell'>{item.casesPerOneMillion}</td>
-                                    <td id='statscell'>{item.deathsPerOneMillion}</td>
-                                    <td id='statscell'>{item.testsPerOneMillion}</td>
-                                    <td id='statscell'>{item.tests}</td>
+                                    <td id='nowrap'>{format(item.recovered)}</td>
+                                    <td id='nowrap'>{format(item.active)}</td>
+                                    <td id='statscell'>{format(item.casesPerOneMillion)}</td>
+                                    <td id='statscell'>{format(item.deathsPerOneMillion)}</td>
+                                    <td id='statscell'>{format(item.testsPerOneMillion)}</td>
+                                    <td id='statscell'>{format(item.tests)}</td>
                                    
                                 </tr>
                             ))}

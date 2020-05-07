@@ -1,8 +1,16 @@
 import React, {Component, Fragment} from "react"
-import {Bar, Line, Pie,HorizontalBar} from 'react-chartjs-3';
+import {Bar, Line} from 'react-chartjs-3';
 import Stats from './Stats'
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles';
 
 const url='https://pomber.github.io/covid19/timeseries.json'
+
+const rawdata={}
+const rawdatadaily={}
+const list=[]
 
 const dates=[]
 const casesdata=[]
@@ -14,22 +22,69 @@ const dailycases=[]
 const dailydeaths=[]
 const dailyrecovered=[]
 
+const useStyles = makeStyles({
+    height:10,
+    option: {
+        fontSize: 15,
+        '& > span': {
+        marginRight: 10,
+        fontSize: 18,
+      },
+    },
+  });
+
+function Menu(props){
+    const classes= useStyles();
+
+    return(
+        <Autocomplete
+        id="country-select-demo"
+        style={{ width: 300 }}
+        options={props.list}
+        onChange={props.onChange}
+        classes={{
+          option: classes.option,
+        }} autoHighlight
+        getOptionLabel={(option) => option}
+        renderOption={(option) => (
+          <React.Fragment>
+            <span>{option}</span>
+          </React.Fragment>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Choose a country"
+            variant="outlined"
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: 'new-password', // disable autocomplete and autofill
+            }}
+          />
+        )}
+      />
+    )
+}
+
 
 class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
+            Data:[],
+            Selected:"",
             val1:'New Cases',
             val2:'Cases',
-            Name1:'Total Cases',
-            Name2:'Total Cases',
+            Name1:'Cases',
+            Name2:'Cases',
+            rawData:{},
             CumulativeChartData: {},
             DailyChartData:{},
             AreaChart:{},
             links:[
                 {
                     id:1,
-                    name:'Total Cases',
+                    name:'Cases',
                     color:'secondary',
                     selected:false
                 },
@@ -53,11 +108,68 @@ class Chart extends Component{
                 }
             ]
         }
+        this.onChange = this.onChange.bind(this);
     }
+
+    onChange = (event, value) => {
+        if(value===null  || value==='' || value==='Worldwide'){
+            this.setState({
+                Selected:'Worldwide',
+                CumulativeChartData:{
+                    labels: dates,
+                    datasets:[
+                      {
+                        fill:true,
+                        pointRadius:0,
+                        borderColor:'#1e88e5',
+                        label:'COVID-19 Total Cases',
+                        data: this.state.Data.cases,
+                        backgroundColor:'#e3f2fd'
+                      }
+                    ]
+                }
+            })
+        }
+        else{
+            this.setState({
+                Selected: value,
+                CumulativeChartData:{
+                  labels: dates,
+                  datasets:[
+                    {
+                      fill:true,
+                      pointRadius:0,
+                      borderColor:'#1e88e5',
+                      label:'COVID-19 Total Cases',
+                      data: rawdata[value].cases,
+                      backgroundColor:'#e3f2fd'
+                    }
+                  ]
+                },
+                DailyChartData:{
+                    labels: dates.slice(1),
+                        datasets:[
+                          {
+                            fill:false,
+                            //borderColor:'#9e9e9e',//gray border
+                            label:'COVID-19: Cases',
+                            data: rawdata[value].newcases,
+                            backgroundColor:'#1e88e5'//gray bg
+                          }
+                        ]
+                },
+              }, () => {
+                // This will output an array of objects
+                // given by Autocompelte options property.
+                //console.log(this.state.Selected);
+              });
+        }
+      }
 
     componentDidMount(){
        this.getChartData()
     }
+        
 
     getChartData(){
         fetch(url)
@@ -111,9 +223,37 @@ class Chart extends Component{
                 let newrecoveries= recoveredata[i+1]-recoveredata[i]
                 dailyrecovered.push(newrecoveries)
             }
+            const worldwide={cases:casesdata,deaths:deathsdata,recovered:recoveredata,newcases:dailycases,newdeaths:dailydeaths,newrecoveries:dailyrecovered}
+            for(let key in response){
+                let list1=[]
+                let list2=[]
+                let list3=[]
+                let list4=[]
+                let list5=[]
+                let list6=[]
+                list.push(key)
+                response[key].map((item) => {
+                    list1.push(Number(item.confirmed))                   
+                    list2.push(Number(item.deaths))                   
+                    list3.push(Number(item.recovered))                   
+                })
+                for(let i=0;i<list1.length-1;i++){
+                    let newcases= list1[i+1]-list1[i]
+                    list4.push(newcases)
+                    let newdeaths= list2[i+1]-list2[i]
+                    list5.push(newdeaths)
+                    let newrecoveries= list3[i+1]-list3[i]
+                    list6.push(newrecoveries)
+                }
+                let obj={cases:list1, deaths:list2, recovered:list3, newcases: list4, newdeaths: list5, newrecoveries:list6}
+                rawdata[key]= obj
+            }
 
             this.setState(
                 {
+                    Data:worldwide,
+                    rawData:rawdata,
+                    list:list,
                     DailyChartData:{
                         labels: dates.slice(1),
                             datasets:[
@@ -148,9 +288,10 @@ class Chart extends Component{
 
     changeDailyVariable(item){
         if(item.id===1){
+            
             this.setState({
                 val1:'New Cases',
-                Name1:'Total Cases',
+                Name1:'Cases',
                 DailyChartData:{
                     labels: dates.slice(1),
                         datasets:[
@@ -209,7 +350,7 @@ class Chart extends Component{
         if(item.id===1){
             this.setState({
                 val2:'Cases',
-                Name2:'Total Cases',
+                Name2:'Cases',
                 CumulativeChartData:{
                     labels: dates,
                         datasets:[
@@ -304,10 +445,11 @@ class Chart extends Component{
                             <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
                             <hr></hr>
                         </div>
-                           <div className='col-12 mt-2 mb-2'>
+                     
+                           <div className='col-12 mt-3 mb-3'>
                             <div className='card'>
                         <div className='card-body'>
-                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19: {this.state.val2} Over Time</h6>
+                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
                             <hr></hr>
                         </div>
                         <div className='card-body'>
@@ -382,7 +524,7 @@ class Chart extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className='col-12 mt-2 mb-2'>
+                        <div className='col-12 mt-3 mb-3'>
                             <div className='card'>
                         <div className='card-body'>
                             <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19: {this.state.val1} Over Time</h6>

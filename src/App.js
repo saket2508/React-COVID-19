@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {Component, Fragment} from "react"
 import AppNavbar from './components/AppNavbar'
 import AppHeading from './components/AppHeading'
 import Table from './components/Table'
@@ -264,13 +264,13 @@ class App extends Component{
 
   render(){
     return(
-      <div>
+      <Fragment>
         <AppNavbar/>
         <AppHeading/>
-        <Figures data={this.state.Data}/>
+        <Figures data={WorldwideData}/>
         <Chart flagData={this.state.flagData}/>
         <Table sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
-      </div>
+      </Fragment>
     );
   }
 }

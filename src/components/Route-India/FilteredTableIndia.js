@@ -1,5 +1,9 @@
 import React, { Component, Fragment} from "react"
 
+function format(item){
+    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+}
+
 function TableHeader(props){
     const tableheader=(
         <Fragment>
@@ -13,18 +17,18 @@ function TableHeader(props){
         <tr class="table-warning">
             <td style={{fontWeight:"700"}}>India (Total)</td>
             <td id="nowrap" style={{fontWeight:"700"}}>
-                    {props.natnl.confirmed}
-                    <small><span class="badge badge-pill badge-secondary">{'+'+props.natnl.deltaconfirmed}</span></small>
+                    {format(props.natnl.confirmed)}
+                    <small><span class="badge badge-pill badge-secondary">{'+'+format(props.natnl.deltaconfirmed)}</span></small>
             </td>
             <td id="nowrap" style={{fontWeight:"700"}}>
-                    {props.natnl.deaths}
-                    <small><span class="badge badge-pill badge-danger">{'+'+props.natnl.deltadeaths}</span></small>
+                    {format(props.natnl.deaths)}
+                    <small><span class="badge badge-pill badge-danger">{'+'+format(props.natnl.deltadeaths)}</span></small>
             </td>
             <td id="nowrap" style={{fontWeight:"700"}}>
-                    {props.natnl.recovered}
-                    <small><span class="badge badge-pill badge-success">{'+'+props.natnl.deltarecovered}</span></small>
+                    {format(props.natnl.recovered)}
+                    <small><span class="badge badge-pill badge-success">{'+'+format(props.natnl.deltarecovered)}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"700"}}>{props.natnl.active}</td>
+            <td id="nowrap" style={{fontWeight:"700"}}>{format(props.natnl.active)}</td>
         </tr>
         </Fragment>
     );
@@ -49,18 +53,18 @@ class FilteredTableIndia extends Component{
     checkConfirmedValue= (item) =>{
         if(item.deltaconfirmed >0){
             return (
-                <small><span class="badge badge-pill badge-secondary">{'+'+item.deltaconfirmed}</span></small>
+                <small><span class="badge badge-pill badge-secondary">{'+'+format(item.deltaconfirmed)}</span></small>
             );
         }
     }
     checkDeathsValue = (item) =>{
         if(item.deltadeaths >0){
-            return <small><span class="badge badge-pill badge-danger">{'+'+item.deltadeaths}</span></small>
+            return <small><span class="badge badge-pill badge-danger">{'+'+format(item.deltadeaths)}</span></small>
         }
     }
     checkRecoveredValue = (item) => {
         if(item.deltarecovered >0){
-            return <small><span class="badge badge-pill badge-success">{'+'+item.deltarecovered}</span></small>
+            return <small><span class="badge badge-pill badge-success">{'+'+format(item.deltarecovered)}</span></small>
         }
     }
     render(){
@@ -77,18 +81,18 @@ class FilteredTableIndia extends Component{
                 <tr>
                     {this.checkStateValue(item)}
                     <td id="nowrap" style={{fontWeight:"600"}}>
-                        {item.confirmed}
+                        {format(item.confirmed)}
                         {this.checkConfirmedValue(item)}
                     </td>
                     <td id="nowrap" style={{fontWeight:"600"}}>
-                        {item.deaths} 
+                        {format(item.deaths)} 
                         {this.checkDeathsValue(item)}
                     </td> 
                     <td id="nowrap" style={{fontWeight:"600"}}>
-                        {item.recovered}
+                        {format(item.recovered)}
                         {this.checkRecoveredValue(item)} 
                     </td>
-                    <td id="nowrap" style={{fontWeight:"600"}}>{item.active}</td>
+                    <td id="nowrap" style={{fontWeight:"600"}}>{format(item.active)}</td>
                 </tr>
             ))}
         </tbody>

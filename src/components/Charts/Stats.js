@@ -6,6 +6,9 @@ const NewCasesData=[]
 const DeathsData=[]
 const NewRecoveredData=[]
 
+function format(item){
+    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+}
 
 
 class Stats extends Component{
@@ -53,9 +56,9 @@ class Stats extends Component{
                 NewRecoveredData.sort((a,b) => a.NewRecovered-b.NewRecovered)
 
                 this.setState({
-                    NewCases: NewCasesData.slice(-5).reverse(),
-                    NewDeaths:DeathsData.slice(-5).reverse(),
-                    NewRecovered:NewRecoveredData.slice(-5).reverse()
+                    NewCases: NewCasesData.slice(-6).reverse(),
+                    NewDeaths:DeathsData.slice(-6).reverse(),
+                    NewRecovered:NewRecoveredData.slice(-6).reverse()
                 })
 
             })
@@ -97,69 +100,71 @@ class Stats extends Component{
                     <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-3">
+                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN CASES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
-                                            <tr className='table-secondary'>
+                                            <tr className='table-secondary'>                 
                                                 <th scope="col">Location</th>
-                                                <th scope="col">Cases</th>
-                                                <th scope="col">Total</th>
+                                                <th id='td-2' scope="col">Cases</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {this.state.NewCases.map((item =>(
                                                 <tr>
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                        <td className='text-dark'>{item.NewCases}</td>
-                                                        <td className='text-dark'>{item.Cases}</td>
+                                                        <td id='td-2' >{format(item.NewCases)}</td>
+                                                        <td id='td-2'>{format(item.Cases)}</td>
                                                 </tr> 
                                             )))}
                                         </tbody>
                                     </table>
                        </div>
                     </div>
-                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-3'>
+
+                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-2'>
                 <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                             <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-danger'>
-                                                <th scope="col">Location</th>
-                                                <th scope="col">Deaths</th>
-                                                <th scope="col">Total</th>
+                                                <th cope="col">Location</th>
+                                                <th id='td-2' scope="col">Deaths</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         {this.state.NewDeaths.map((item =>(
                                             <tr>
                                                     <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                    <td className='text-danger'>{item.NewDeaths}</td>
-                                                    <td className='text-danger'>{item.Deaths}</td>
+                                                    <td id='td-2' className='text-danger'>{format(item.NewDeaths)}</td>
+                                                    <td id='td-2' className='text-danger'>{format(item.Deaths)}</td>
                                             </tr> 
                                         )))}
                                         </tbody>
                                     </table>
                                 </div>
                     </div>
-                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-3">
+                    
+                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
                                             <tr className='table-success'>
                                                 <th scope="col">Location</th>
-                                                <th scope="col">Recovered</th>
-                                                <th scope="col">Total</th>
+                                                <th id='td-2' scope="col">Recovered</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {this.state.NewRecovered.map((item =>(
                                                 <tr>
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                        <td className='text-success'>{item.NewRecovered}</td>
-                                                        <td className='text-success'>{item.Recovered}</td>
+                                                        <td id='td-2' className='text-success'>{format(item.NewRecovered)}</td>
+                                                        <td id='td-2' className='text-success'>{format(item.Recovered)}</td>
                                                 </tr> 
                                             )))}
                                         </tbody>

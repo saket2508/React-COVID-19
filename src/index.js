@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
@@ -9,10 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing=(
   <Router>
-    <div>
+    <Fragment>
       <Route exact path="/" component={App}/>
       <Route exact path="/india" component={India}/>
-    </div>
+    </Fragment>
   </Router>
 )
 

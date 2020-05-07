@@ -4,19 +4,23 @@ const newcases=[]
 const newdeaths=[]
 const newrecoveries=[]
 
+function format(item){
+    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+}
+
 class Stats extends Component{
     constructor(props){
         super(props)
     }
 
     getCasesRow(cases){
-        let data= cases.slice(-5).reverse()
+        let data= cases.slice(-6).reverse()
         return(
                 data.map((item =>(
                     <tr>
-                        <td style={{fontWeight:"600"}}>{item.State}</td>
-                        <td className='text-dark'>{item.NewCases}</td>
-                        <td className='text-dark'>{item.Cases}</td>
+                        <td id='wrap'  style={{fontWeight:"600"}}>{item.State}</td>
+                        <td id='td-2' className='text-dark'>{format(item.NewCases)}</td>
+                        <td id='td-2' className='text-dark'>{format(item.Cases)}</td>
                     </tr> 
                 )))
             )
@@ -24,26 +28,26 @@ class Stats extends Component{
     }
 
     getDeathsRow(deaths){
-        let data= deaths.slice(-5).reverse()
+        let data= deaths.slice(-6).reverse()
             return(
                 data.map((item =>(
                     <tr>
-                        <td style={{fontWeight:"600"}}>{item.State}</td>
-                        <td className='text-danger'>{item.NewDeaths}</td>
-                        <td className='text-danger'>{item.Deaths}</td>
+                        <td id='wrap'  style={{fontWeight:"600"}}>{item.State}</td>
+                        <td id='td-2' className='text-danger'>{format(item.NewDeaths)}</td>
+                        <td id='td-2' className='text-danger'>{format(item.Deaths)}</td>
                     </tr> 
                 )))
             )
     }
 
     getRecoveredRow(recoveries){
-        let data= recoveries.slice(-5).reverse()
+        let data= recoveries.slice(-6).reverse()
             return(
                 data.map((item =>(
                     <tr>
-                        <td style={{fontWeight:"600"}}>{item.State}</td>
-                        <td className='text-success'>{item.NewRecoveries}</td>
-                        <td className='text-success'>{item.Recovered}</td>
+                        <td id='wrap'  style={{fontWeight:"600"}}>{item.State}</td>
+                        <td id='td-2' className='text-success'>{format(item.NewRecoveries)}</td>
+                        <td id='td-2' className='text-success'>{format(item.Recovered)}</td>
                     </tr> 
                 )))
             )
@@ -65,15 +69,15 @@ class Stats extends Component{
                     <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-3">
+                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN CASES</p>
                                     <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-secondary'>
                                                 <th scope="col">State/UT</th>
-                                                <th scope="col">Cases</th>
-                                                <th scope="col">Total</th>
+                                                <th id='td-2' scope="col">Cases</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -82,15 +86,15 @@ class Stats extends Component{
                                     </table>
                         </div>
                 </div>
-                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-3'>
+                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-2'>
                 <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                             <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-danger'>
                                                 <th scope="col">State/UT</th>
-                                                <th scope="col">Deaths</th>
-                                                <th scope="col">Total</th>
+                                                <th id='td-2' scope="col">Deaths</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,15 +104,15 @@ class Stats extends Component{
                                 </div>
                     </div>
 
-                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-3">
+                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
                                             <tr className='table-success'>
                                                 <th scope="col">State/UT</th>
-                                                <th  scope="col">Recovered</th>
-                                                <th scope="col">Total</th>
+                                                <th id='td-2' scope="col">Recovered</th>
+                                                <th id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
