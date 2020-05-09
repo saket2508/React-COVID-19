@@ -26,7 +26,7 @@ function TableHeader(props){
             <td id='nowrap' style={{fontWeight:"700"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {props.data.Name}
+                              <span style={{fontWeight:'700'}}>{props.data.Name}</span>
                         </button>
                         <div class="dropdown-menu">
                             {props.list.map((element) => (
@@ -66,12 +66,12 @@ class FilteredTable extends Component{
     }
     checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
-                return <small><span class="badge badge-pill badge-secondary">{'+'+item.todayCases}</span></small>
+                return <small><span class="badge badge-pill badge-secondary">{'+'+format(item.todayCases)}</span></small>
         }
     }
     checkDeathsValue = (item) =>{
         if(item.todayDeaths >0){
-            return <small><span class="badge badge-pill badge-danger">{'+'+item.todayDeaths}</span></small>
+            return <small><span class="badge badge-pill badge-danger">{'+'+format(item.todayDeaths)}</span></small>
         }
     }
     checkCountryName = (item) =>{
@@ -126,10 +126,10 @@ class FilteredTable extends Component{
                                     </td> 
                                     <td id='nowrap'>{format(item.recovered)}</td>
                                     <td id='nowrap'>{format(item.active)}</td>
-                                    <td id='statscell'>{format(item.casesPerOneMillion)}</td>
-                                    <td id='statscell'>{format(item.deathsPerOneMillion)}</td>
-                                    <td id='statscell'>{format(item.testsPerOneMillion)}</td>
-                                    <td id='statscell'>{format(item.tests)}</td>
+                                    <td id='nowrap'>{format(item.casesPerOneMillion)}</td>
+                                    <td id='nowrap'>{format(item.deathsPerOneMillion)}</td>
+                                    <td id='nowrap'>{format(item.testsPerOneMillion)}</td>
+                                    <td id='nowrap'>{format(item.tests)}</td>
                                    
                                 </tr>
                             ))}

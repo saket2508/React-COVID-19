@@ -9,7 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const url='https://pomber.github.io/covid19/timeseries.json'
 
 const rawdata={}
-const rawdatadaily={}
+const worldwide={}
+
 const list=[]
 
 const dates=[]
@@ -41,7 +42,8 @@ function Menu(props){
         id="country-select-demo"
         style={{ width: 300 }}
         options={props.list}
-        onChange={props.onChange}
+        onChange={props.onSelectTag} // click on the show tags
+        //onInputChange={props.onInputChange} //** on every input change hitting my api*
         classes={{
           option: classes.option,
         }} autoHighlight
@@ -71,7 +73,7 @@ class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
-            Data:[],
+            Data:{},
             Selected:"",
             val1:'New Cases',
             val2:'Cases',
@@ -108,63 +110,61 @@ class Chart extends Component{
                 }
             ]
         }
-        this.onChange = this.onChange.bind(this);
+        this.onSelectTag= this.onSelectTag.bind(this)
+        
     }
 
-    onChange = (event, value) => {
-        if(value===null  || value==='' || value==='Worldwide'){
-            this.setState({
-                Selected:'Worldwide',
-                CumulativeChartData:{
-                    labels: dates,
-                    datasets:[
-                      {
-                        fill:true,
-                        pointRadius:0,
-                        borderColor:'#1e88e5',
-                        label:'COVID-19 Total Cases',
-                        data: this.state.Data.cases,
-                        backgroundColor:'#e3f2fd'
-                      }
-                    ]
-                }
-            })
+    onInputChange(event,value){
+        //console.log(value)
+        //response from api
+        /*.then((res) => {
+              this.setState({
+                labels: res
+              })
+            })*/
+        
         }
-        else{
-            this.setState({
-                Selected: value,
-                CumulativeChartData:{
-                  labels: dates,
-                  datasets:[
-                    {
-                      fill:true,
-                      pointRadius:0,
-                      borderColor:'#1e88e5',
-                      label:'COVID-19 Total Cases',
-                      data: rawdata[value].cases,
-                      backgroundColor:'#e3f2fd'
-                    }
-                  ]
-                },
-                DailyChartData:{
-                    labels: dates.slice(1),
-                        datasets:[
-                          {
-                            fill:false,
-                            //borderColor:'#9e9e9e',//gray border
-                            label:'COVID-19: Cases',
-                            data: rawdata[value].newcases,
-                            backgroundColor:'#1e88e5'//gray bg
-                          }
-                        ]
-                },
-              }, () => {
-                // This will output an array of objects
-                // given by Autocompelte options property.
-                //console.log(this.state.Selected);
-              });
-        }
-      }
+
+        onSelectTag(e, value) {
+            console.log(value)
+            //console.log(worldwide)
+            if(value!==null){
+                this.setState({
+                    Data: rawdata[value],
+                    val1:'New Cases',
+                    val2:'Cases',
+                    Name2:'Cases',
+                    Name1:'Cases',
+                    Selected:value,
+                    CumulativeChartData:{
+                        labels: dates,
+                            datasets:[
+                              {
+                                fill:true,
+                                pointRadius:0,
+                                borderColor:'#1e88e5',
+                                label:'COVID-19 Total Cases',
+                                data: rawdata[value].cases,
+                                backgroundColor:'#e3f2fd'
+                              }
+                            ]
+                    },
+                    DailyChartData:{
+                        labels: dates.slice(1),
+                            datasets:[
+                              {
+                                fill:false,
+                                //borderColor:'#9e9e9e',//gray border
+                                label:'COVID-19: Cases',
+                                data: rawdata[value].newcases,
+                                backgroundColor:'#1e88e5'//gray bg
+                              }
+                            ]
+                    },
+                })
+            }
+
+            }
 
     componentDidMount(){
        this.getChartData()
@@ -223,7 +223,14 @@ class Chart extends Component{
                 let newrecoveries= recoveredata[i+1]-recoveredata[i]
                 dailyrecovered.push(newrecoveries)
             }
-            const worldwide={cases:casesdata,deaths:deathsdata,recovered:recoveredata,newcases:dailycases,newdeaths:dailydeaths,newrecoveries:dailyrecovered}
+            worldwide.cases=casesdata
+            worldwide.deaths=deathsdata
+            worldwide.recovered=recoveredata
+            worldwide.active=activedata
+            worldwide.newcases=dailycases
+            worldwide.newdeaths=dailydeaths
+            worldwide.newrecoveries=dailyrecovered
+
             for(let key in response){
                 let list1=[]
                 let list2=[]
@@ -231,28 +238,37 @@ class Chart extends Component{
                 let list4=[]
                 let list5=[]
                 let list6=[]
+                let list7=[]
                 list.push(key)
                 response[key].map((item) => {
                     list1.push(Number(item.confirmed))                   
                     list2.push(Number(item.deaths))                   
                     list3.push(Number(item.recovered))                   
+                    list7.push(Number(item.confirmed) - Number(item.deaths) - Number(item.recovered))                   
                 })
                 for(let i=0;i<list1.length-1;i++){
-                    let newcases= list1[i+1]-list1[i]
-                    list4.push(newcases)
-                    let newdeaths= list2[i+1]-list2[i]
-                    list5.push(newdeaths)
-                    let newrecoveries= list3[i+1]-list3[i]
-                    list6.push(newrecoveries)
+                    let a= list1[i+1]-list1[i]
+                    list4.push(a)
+                    let b= list2[i+1]-list2[i]
+                    list5.push(b)
+                    let c= list3[i+1]-list3[i]
+                    list6.push(c)
                 }
-                let obj={cases:list1, deaths:list2, recovered:list3, newcases: list4, newdeaths: list5, newrecoveries:list6}
+                let obj={cases:list1, deaths:list2, recovered:list3, active:list7, newcases: list4, newdeaths: list5, newrecoveries:list6}
                 rawdata[key]= obj
             }
 
             this.setState(
                 {
-                    Data:worldwide,
-                    rawData:rawdata,
+                    Data:worldwide
+                }
+            )
+
+            this.setState(
+                {
+                    Selected:'',
+                    //Data:worldwide,
+                    //rawData:rawdata,
                     list:list,
                     DailyChartData:{
                         labels: dates.slice(1),
@@ -261,7 +277,7 @@ class Chart extends Component{
                                 fill:false,
                                 //borderColor:'#9e9e9e',//gray border
                                 label:'COVID-19: Cases',
-                                data: dailycases,
+                                data: this.state.Data.newcases,
                                 backgroundColor:'#1e88e5'//gray bg
                               }
                             ]
@@ -274,7 +290,7 @@ class Chart extends Component{
                                 pointRadius:0,
                                 borderColor:'#1e88e5',
                                 label:'COVID-19 Total Cases',
-                                data: casesdata,
+                                data: this.state.Data.cases,
                                 backgroundColor:'#e3f2fd'
                               }
                             ]
@@ -299,7 +315,7 @@ class Chart extends Component{
                             fill:false,
                             borderColor:'#1e88e5',//gray border
                             label:'COVID-19: Cases',
-                            data: dailycases,
+                            data: this.state.Data.newcases,
                             backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
@@ -317,7 +333,7 @@ class Chart extends Component{
                             fill:false,
                             borderColor:'#ff5722',
                             label:'COVID-19: Deaths',
-                            data: dailydeaths,
+                            data: this.state.Data.newdeaths,
                             backgroundColor:'#ff5722'
                           }
                         ]
@@ -336,7 +352,7 @@ class Chart extends Component{
                             fill:false,
                             borderColor:'#7cb342',
                             label:'COVID-19: Recovered',
-                            data: dailyrecovered,
+                            data: this.state.Data.newrecoveries,
                             backgroundColor:'#7cb342'
                           }
                         ]
@@ -359,7 +375,7 @@ class Chart extends Component{
                                 pointRadius:0,
                                 borderColor:'#1e88e5',
                                 label:'COVID-19 Total Cases',
-                                data: casesdata,
+                                data: this.state.Data.cases,
                                 backgroundColor:'#e3f2fd'
                           }
                         ]
@@ -378,7 +394,7 @@ class Chart extends Component{
                             pointRadius:0,
                             borderColor:'#ff5722',
                             label:'COVID-19: Total Deaths',
-                            data: deathsdata,
+                            data: this.state.Data.deaths,
                             backgroundColor:'#fbe9e7'
                           }
                         ]
@@ -398,7 +414,7 @@ class Chart extends Component{
                             pointRadius:0,
                             borderColor:'#7cb342',
                             label:'COVID-19: Total Recovered',
-                            data: recoveredata,
+                            data: this.state.Data.recovered,
                             backgroundColor:'#f1f8e9'
                           }
                         ]
@@ -418,7 +434,7 @@ class Chart extends Component{
                             pointRadius:0,
                             borderColor:'#546e7a',
                             label:'COVID-19: Active Cases',
-                            data: activedata,
+                            data: this.state.Data.active,
                             backgroundColor:'#eceff1'
                           }
                         ]
@@ -442,7 +458,7 @@ class Chart extends Component{
                    <div className='container-md content-row'>
                     <div className='row my-5'>
                         <div className='col-12 mb-4'>
-                            <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
+                            <h5 className='text-center text-muted' style={{fontWeight:'700'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
                             <hr></hr>
                         </div>
                      
@@ -527,7 +543,7 @@ class Chart extends Component{
                         <div className='col-12 mt-3 mb-3'>
                             <div className='card'>
                         <div className='card-body'>
-                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19: {this.state.val1} Over Time</h6>
+                            <h6 className='text-center text-muted' style={{fontWeight:'600'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
                             <hr></hr>
                         </div>
                         <div className='card-body'>

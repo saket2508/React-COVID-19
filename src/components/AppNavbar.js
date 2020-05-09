@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 class AppNavbar extends Component{
     navbar= (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor:'#37474f'}}>
         <div className='container-md'>
           <a className="navbar-brand" href="#">STAY HOME</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

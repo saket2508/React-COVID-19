@@ -97,10 +97,10 @@ class Stats extends Component{
                 <div id='card-box' className='container-lg content-row mb-2'>
                 <div className='row my-5'>
                 <div className='col-12 mb-4'>
-                    <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
+                    <h5 className='text-center text-muted' style={{fontWeight:'700'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
+                <div id='card-box' class="col-sm-12 col-lg-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN CASES</p>
                                    <table id='stats' className='table table-sm'>
@@ -115,8 +115,8 @@ class Stats extends Component{
                                             {this.state.NewCases.map((item =>(
                                                 <tr>
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                        <td id='td-2' >{format(item.NewCases)}</td>
-                                                        <td id='td-2'>{format(item.Cases)}</td>
+                                                        <td id='td-2' style={{fontWeight:"600"}}>{format(item.NewCases)}</td>
+                                                        <td id='td-2' style={{fontWeight:"600"}}>{format(item.Cases)}</td>
                                                 </tr> 
                                             )))}
                                         </tbody>
@@ -124,7 +124,7 @@ class Stats extends Component{
                        </div>
                     </div>
 
-                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-2'>
+                <div id='card-box' className='col-sm-12 col-lg-4 d-flex mb-2'>
                 <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                             <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
@@ -139,32 +139,32 @@ class Stats extends Component{
                                         {this.state.NewDeaths.map((item =>(
                                             <tr>
                                                     <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                    <td id='td-2' className='text-danger'>{format(item.NewDeaths)}</td>
-                                                    <td id='td-2' className='text-danger'>{format(item.Deaths)}</td>
+                                                    <td style={{fontWeight:"600"}} id='td-2' className='text-danger'>{format(item.NewDeaths)}</td>
+                                                    <td style={{fontWeight:"600"}} id='td-2' className='text-danger'>{format(item.Deaths)}</td>
                                             </tr> 
                                         )))}
                                         </tbody>
                                     </table>
                                 </div>
                     </div>
-                    
-                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
+
+                    <div id='card-box' class="col-sm-12 col-lg-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
                                             <tr className='table-success'>
                                                 <th scope="col">Location</th>
-                                                <th id='td-2' scope="col">Recovered</th>
-                                                <th id='td-2' scope="col">Total</th>
+                                                <th style={{fontWeight:"600"}} id='td-2' scope="col">Recovered</th>
+                                                <th style={{fontWeight:"600"}} id='td-2' scope="col">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {this.state.NewRecovered.map((item =>(
                                                 <tr>
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
-                                                        <td id='td-2' className='text-success'>{format(item.NewRecovered)}</td>
-                                                        <td id='td-2' className='text-success'>{format(item.Recovered)}</td>
+                                                        <td style={{fontWeight:"600"}} id='td-2' className='text-success'>{format(item.NewRecovered)}</td>
+                                                        <td style={{fontWeight:"600"}} id='td-2' className='text-success'>{format(item.Recovered)}</td>
                                                 </tr> 
                                             )))}
                                         </tbody>

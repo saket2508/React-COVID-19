@@ -66,7 +66,7 @@ class Stats extends Component{
                 <div id='card-box' className='container-lg content-row mb-2'>
                 <div className='row my-5'>
                 <div className='col-12 mb-4'>
-                    <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
+                    <h5 className='text-center text-muted' style={{fontWeight:'700'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
                 <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">

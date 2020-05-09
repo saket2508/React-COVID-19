@@ -48,7 +48,7 @@ function StatsSummary(props){
             <div class="card-body">
             <p class="h6 card-title text-center" style={{fontWeight:'600',color:'#43a047'}}>RECOVERED</p>
                 <p className='h4 text-center' style={{fontWeight:'600',color:'#43a047'}}>{format(props.data.recovered)}</p>  
-                <h6 className='text-center'><span class="badge badge-pill badge-success">+{props.data.deltarecovered}</span></h6>               
+                <h6 className='text-center'><span class="badge badge-pill badge-success">+{format(props.data.deltarecovered)}</span></h6>               
             </div>
         </div>
         <div class="card" style={{backgroundColor:'#e1f5fe'}}>               

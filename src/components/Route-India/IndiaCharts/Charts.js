@@ -86,13 +86,13 @@ class Charts extends Component{
 
                 this.setState({
                     DailyChartData:{
-                        labels: dates2.slice(-30),
+                        labels: dates2.slice(-61),
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#1e88e5',//gray border
                             label:'COVID-19 Cases',
-                            data: dailycases.slice(-30),
+                            data: dailycases.slice(-61),
                             backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
@@ -120,13 +120,13 @@ class Charts extends Component{
                 val1:'New Cases',
                 Name1:'Cases',
                 DailyChartData:{
-                    labels: dates2.slice(-30),
+                    labels: dates2.slice(-61),
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#1e88e5',//gray border
                             label:'COVID-19: Cases',
-                            data: dailycases.slice(-30),
+                            data: dailycases.slice(-61),
                             backgroundColor:'#1e88e5'//gray bg
                           }
                         ]
@@ -138,13 +138,13 @@ class Charts extends Component{
                 val1:'New Deaths',
                 Name1:'Deaths',
                 DailyChartData:{
-                    labels: dates2.slice(-30),
+                    labels: dates2.slice(-61),
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#ff5722',
                             label:'COVID-19: Deaths',
-                            data: dailydeaths.slice(-30),
+                            data: dailydeaths.slice(-61),
                             backgroundColor:'#ff5722'
                           }
                         ]
@@ -157,13 +157,13 @@ class Charts extends Component{
                 val1:'New Recoveries',
                 Name1:'Recovered',
                 DailyChartData:{
-                    labels:dates2.slice(-30),
+                    labels:dates2.slice(-61),
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#7cb342',
                             label:'COVID-19: Recovered',
-                            data: dailyrecovered.slice(-30),
+                            data: dailyrecovered.slice(-61),
                             backgroundColor:'#7cb342'
                           }
                         ]
@@ -247,7 +247,7 @@ class Charts extends Component{
                         <div className='container-md content-row'>
                             <div className='row my-5'>
                                 <div className='col-12 mb-4'>
-                                    <h5 className='text-center text-muted' style={{fontWeight:'600'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
+                                    <h5 className='text-center text-muted' style={{fontWeight:'700'}}>SPECIAL TRENDS <i class="fas fa-chart-line"></i></h5>
                                     <hr></hr>
                                 </div>
                                 <div className='col-12 mt-3 mb-3'>
