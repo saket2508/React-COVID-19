@@ -3,7 +3,7 @@ import {Container} from 'reactstrap';
 
 class RouteNavbar extends Component{
     navbar= (
-      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#37474f'}}>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className='container-md'>
       <a class="navbar-brand" href="#">STAY HOME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

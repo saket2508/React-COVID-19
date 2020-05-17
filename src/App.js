@@ -13,7 +13,7 @@ const url='https://corona.lmao.ninja/v2/countries?sort=cases'
 //FOR HEADING INFO
 const data=[]
 
-//STORES FLAG CODES
+//STORES FLAG CODES/prop data
 const codes=[]
 
 //FOR CONTINENT DATA
@@ -121,8 +121,26 @@ class App extends Component{
 
           //FLAG CODES
           let name= item.country
+          let Cases= item.cases
+          let Deaths= item.deaths
+          let Recovered= item.recovered
+          let Active= item.active
+          let Tests= item.tests
+          let Testspermillion= item.testsPerOneMillion
+          let Casespermillion= item.casesPerOneMillion
+          let Deathspermillion= item.deathsPerOneMillion
           let code= item.countryInfo.iso2
-          let obj= {Name:name,Code:code}
+          let obj= {Name:name,
+            Code:code,
+            Cases:Cases,
+            Deaths:Deaths,
+            Recovered:Recovered,
+            Active:Active,
+            Tests:Tests,
+            Testspermillion:Testspermillion,
+            Casespermillion:Casespermillion,
+            Deathspermillion:Deathspermillion
+          }
           codes.push(obj)
 
           for(let key in continents){
@@ -268,7 +286,7 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={WorldwideData}/>
-        <Chart flagData={this.state.flagData}/>
+        <Chart flagData={this.state.flagData} donutData= {WorldwideData}/>
         <Table sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </Fragment>
     );

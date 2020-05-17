@@ -110,11 +110,13 @@ class FilteredTableIndia extends Component{
             <div className='FilteredTableIndia'>
             <div className='container-lg'>
                 <div class="d-flex justify-content-start mb-3">
-                    <div class='col-sm-9 col-lg-5 mt-2'>
-                        <input type="text" 
+                    <div class='col-sm-9 col-lg-4 mt-2'>
+                        <input
                                 class="form-control form-control-sm" 
                                 value={filtertStr} 
+                                type="search"
                                 placeholder="Search A State..."
+                                aria-label="Search"
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
                     </div>
                     <div className='mt-2'>

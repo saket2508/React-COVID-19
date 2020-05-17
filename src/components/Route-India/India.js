@@ -173,13 +173,7 @@ class India extends Component{
                 <RouteNavbar/>
                 <HeadingStats insights={this.state.Insights} data= {this.state.natnlData}/>
                 <Charts/>
-                <Stats NewCases={this.state.newCases} 
-                    NewDeaths={this.state.newDeaths} 
-                    NewRecoveries={this.state.newRecoveries}
-                    changeDataCases={this.changeDataCases}
-                    changeDataDeaths={this.changeDataDeaths}
-                    changeDataRecovered={this.changeDataRecovered}/>
-
+                
                 <TableIndia data= {this.state.statewiseData} natnl={this.state.natnlData} sortValues={this.sortValues}/>
             </div>
         );
