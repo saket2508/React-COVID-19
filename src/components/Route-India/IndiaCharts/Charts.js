@@ -471,13 +471,13 @@ class Charts extends Component{
         if(item > 0){
             return (
                 <span className='ml-1'>
-                <small><i class="fas fa-arrow-up"></i><span className='ml-1'>{format(item)}</span></small>
+                <i class="fas fa-arrow-up"></i><span className='ml-1'>{format(item)}</span>
             </span>
             ) 
         }
         else{
             return( <span className='ml-1'>
-               <small> <i class="fas fa-arrow-down"></i><span className='ml-1'>{format(item*-1)}</span></small>
+              <i class="fas fa-arrow-down"></i><span className='ml-1'>{format(item*-1)}</span>
             </span> )
         }
     }
@@ -573,24 +573,28 @@ class Charts extends Component{
                                     <hr></hr>
                                 </div>
 
-                            <div className='col-md-12 col-lg-6 mt-3 mb-3'>
+                            <div className='col-sm-12 col-md-6 mt-3 mb-3'>
                         <div className='card h-100'>
                             <div className='card-body'>
                                 <div className='row'>
-                                    <div className='heading col-12 mb-1 mt-3'>
+                                    <div className='heading col-12 mb-3 mt-2'>
                                         <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
                                     </div>
 
-                                    <div className='col-lg-6 col-md-12 mb-1'>
-                                                <div className='row'>
+                                    <div className='col-xl-7 col-lg-8 mb-1'>
+                                               <div className='card'>
+                                                   <div className='card-body'>
+                                                   <div className='row'>
                                                     <div className='col-12 d-flex justify-content-start'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Cumulative Total: </small>
                                                             <small className='ml-2' style={{fontWeight:'700',color:this.state.info1.color}}>{format(this.state.info1.value)}</small>
                                                     </div>
                                                 </div>
+                                                   </div>
+                                               </div>
                                             </div>
 
-                                    <div className='col-12 mt-2'>
+                                    <div className='col-12 mt-3'>
                             <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">
                             {this.state.links.slice(0,1).map(item => (
                                     <li className='nav-item'>
@@ -670,29 +674,33 @@ class Charts extends Component{
 
 
 
-                                <div className='col-lg-6 col-md-12 mt-3 mb-3'>
+                                <div className='col-sm-12 col-md-6 mt-3 mb-3'>
                                     <div className='card h-100'>
                             
                                         <div className='card-body'>
                                         <div className='row'>
-                                            <div className='heading col-12 mb-1 mt-3'>
+                                            <div className='heading col-12 mb-3 mt-2'>
                                                 <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
                                             </div>
 
-                                            <div className='col-lg-6 col-md-12 mb-1'>
-                                                <div className='row'>
-                                                    <div className='col-12 d-flex justify-content-start'>                               
+                                            <div className='col-xl-7 col-lg-8 mb-1'>
+                                               <div className='card'>
+                                                   <div className='card-body'>
+                                                   <div className='row'>
+                                                    <div className='col-lg-12 d-flex justify-content-start'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>{this.state.info.name}</small>
                                                             <small className='ml-2' style={{fontWeight:'700',color:this.state.info.color}}>{format(this.state.info.value)}</small>
                                                     </div>
-                                                    <div className='col-12 d-flex justify-content-start'>                               
+                                                    <div className='col-lg-12 d-flex justify-content-start'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Change From Yesterday</small>
-                                                            <small className='ml-2' style={{fontWeight:'700',color:this.state.info.color}}>+{format(this.state.info.diff)}</small>
+                                                            <small className='ml-2' style={{fontWeight:'700',color:this.state.info.color}}>{this.checkIncrement(this.state.info.diff)}</small>
                                                     </div>
                                                 </div>
+                                                   </div>
+                                               </div>
                                             </div>
 
-                                            <div className='col-12 mt-2'>
+                                            <div className='col-12'>
                             <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">
                             {this.state.links.slice(0,1).map(item => (
                                     <li className='nav-item'>
@@ -765,22 +773,26 @@ class Charts extends Component{
                                         </div>
                                     </div>
 
-                                    <div className='col-lg-6 col-md-12 mt-3 mb-3'>
+                                    <div className='col-sm-12 col-md-6 mt-3 mb-3'>
                                     <div className='card h-100'>
                             
                                         <div className='card-body'>
                                         <div className='row'>
-                                            <div className='heading col-12 mb-3 mt-3'>
+                                            <div className='heading col-12 mb-3 mt-2'>
                                                 <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: Active Cases Over Time</h6>
                                             </div>
 
-                                            <div className='col-lg-6 col-md-12 mb-3'>
-                                                <div className='row'>
-                                                    <div className='col-12 d-flex justify-content-start mb-1'>                               
+                                            <div className='col-xl-7 col-lg-8 mb-3'>
+                                               <div className='card'>
+                                                   <div className='card-body'>
+                                                   <div className='row'>
+                                                    <div className='col-12 d-flex justify-content-start align-items-center mb-1'>                               
                                                             <small className='text-muted'  style={{fontWeight:'600'}}>Cumulative Total: </small>
                                                             <small className='ml-2' style={{fontWeight:'700',color:'#1e88e5'}}>{format(this.state.Data.Active)}</small>
                                                     </div>
                                                 </div>
+                                                   </div>
+                                               </div>
                                             </div>
                         
                         <div className='chart col-12 mt-3'>
@@ -841,30 +853,34 @@ class Charts extends Component{
                                         </div>
                                     </div>
 
-                                    <div className='col-lg-6 col-md-12 mt-3 mb-3'>
+                                    <div className='col-sm-12 col-md-6 mt-3 mb-3'>
                                     <div className='card h-100'>
                             
                                         <div className='card-body'>
                                         <div className='row'>
-                                            <div className='heading col-12 mb-3 mt-3'>
+                                            <div className='heading col-12 mb-3 mt-2'>
                                                 <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 India: Trend in Testing</h6>
                                             </div>
 
-                                            <div className='col-lg-6 col-md-12 mb-3'>
-                                                <div className='row'>
-                                                    <div className='col-12 d-flex justify-content-start'>                               
+                                            <div className='col-xl-7 col-lg-8 mb-3'>
+                                              <div className='card'>
+                                                  <div className='card-body'>
+                                                  <div className='row'>
+                                                    <div className='col-12 d-flex justify-content-start align-items-center'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Individuals Tested Today: </small>
                                                             <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.TodayTests)}</small>
                                                     </div>
-                                                    <div className='col-12 d-flex justify-content-start'>                               
+                                                    <div className='col-12 d-flex justify-content-start align-items-center'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Change From Yesterday: </small>
-                                                            <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>+{format(this.state.Data.TestsDiff)}</small>
+                                                            <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{this.checkIncrement(this.state.infoCard.TestsDiff)}</small>
                                                     </div>
-                                                    <div className='col-12 d-flex justify-content-start mt-1'>                               
+                                                    <div className='col-12 d-flex justify-content-start align-items-center'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Cumulative Total</small>
-                                                            <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.Tests)}</small>
+                                                            <small className='ml-3' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.Tests)}</small>
                                                     </div>
                                                 </div>
+                                                  </div>
+                                              </div>
                                             </div>
 
                         <div className='chart col-12 mt-3'>

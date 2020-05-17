@@ -707,7 +707,7 @@ class Chart extends Component{
                             <hr></hr>
                         </div>
 
-                        <div className='col-lg-6 col-sm-12 mt-3 mb-4'>
+                        <div className='col-md-6 col-sm-12 mt-3 mb-4'>
                             <div className='card h-100'>
                                 <div className='card-body'> 
                                 <div className='row mb-3'>
@@ -775,7 +775,7 @@ class Chart extends Component{
                                 </div>
                             </div>
 
-                            <div className='col-lg-6 col-sm-12 mt-3 mb-4'>
+                            <div className='col-md-6 col-sm-12 mt-3 mb-4'>
                             <div className='card h-100'>
                                 <div className='card-body'>     
                                 <div className='row mb-3'>
@@ -844,7 +844,7 @@ class Chart extends Component{
                                 </div>
                             </div>
 
-                           <div className='col-lg-6 col-md-12 mt-4 mb-3'>
+                           <div className='col-md-6 col-sm-12 mt-4 mb-3'>
                             <div className='card'>
             
                         <div className='card-body'>
@@ -867,7 +867,7 @@ class Chart extends Component{
                             </ul>   
                         </div>
 
-                            <div className='chart col-12 mt-3'>
+                        <div className='chart col-12 mt-3'>
                             <div id='chart' className="chart-container">
                             <Line
                                     data={this.state.CumulativeChartData}
@@ -926,7 +926,7 @@ class Chart extends Component{
                             </div>
                         </div>
 
-                        <div className='col-lg-6 col-md-12 mt-4 mb-3'>
+                        <div className='col-md-6 col-sm-12 mt-4 mb-3'>
                         <div className='card'>
                         <div className='card-body'>
                         <div className='row'>

@@ -100,7 +100,7 @@ class Stats extends Component{
                     <h5 className='text-center text-muted' style={{fontWeight:'700'}}>SUMMARY AND INSIGHTS <i class="far fa-chart-bar ml-1"></i></h5>
                     <hr></hr>
                 </div>
-                <div id='card-box' class="col-sm-12 col-lg-4 d-flex mb-2">
+                <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN CASES</p>
                                    <table id='stats' className='table table-sm'>
@@ -124,7 +124,7 @@ class Stats extends Component{
                        </div>
                     </div>
 
-                <div id='card-box' className='col-sm-12 col-lg-4 d-flex mb-2'>
+                <div id='card-box' className='col-sm-12 col-md-4 d-flex mb-2'>
                 <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                             <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN DEATHS</p> 
                                    <table id='stats' className='table table-sm'>
@@ -148,7 +148,7 @@ class Stats extends Component{
                                 </div>
                     </div>
 
-                    <div id='card-box' class="col-sm-12 col-lg-4 d-flex mb-2">
+                    <div id='card-box' class="col-sm-12 col-md-4 d-flex mb-2">
                     <div class="shadow p-3 mb-3 bg-white rounded flex-fill">
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN RECOVERIES</p>
                                    <table id='stats' className='table table-sm'>
