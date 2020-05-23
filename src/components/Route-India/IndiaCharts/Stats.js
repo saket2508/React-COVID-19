@@ -15,6 +15,7 @@ class Stats extends Component{
 
     getCasesRow(cases){
         let data= cases.slice(-6).reverse()
+        let i=1
         return(
                 data.map((item =>(
                     <tr>

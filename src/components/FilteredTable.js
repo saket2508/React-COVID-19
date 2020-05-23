@@ -4,11 +4,15 @@ function format(item){
     return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
 }
 
+
 function TableHeader(props){
     const tableheader=(
         <Fragment>
             
         <thead className='thead-light'>
+            <th scope='col'>
+                #
+            </th>
             <th scope='col'>        
                 Location
             </th>
@@ -23,6 +27,7 @@ function TableHeader(props){
         </thead>
 
         <tr className="table-warning">
+            <td></td>
             <td id='nowrap' style={{fontWeight:"700"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,6 +69,9 @@ class FilteredTable extends Component{
             filterStr:""
         }
     }
+
+ 
+   
     checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
                 return <small><span class="badge badge-pill badge-secondary">{'+'+format(item.todayCases)}</span></small>
@@ -77,22 +85,28 @@ class FilteredTable extends Component{
     checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}}  id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
         if(item.country==="USA"){
             item.country= 'United States'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return(
+               <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+            )
         }
         if(item.country==="UK"){
             item.country='United Kingdom'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+        }
+        if(item.country==='Libyan Arab Jamahiriya'){
+            item.country='Libya'
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
         if(item.country==='S. Korea'){
             item.country='South Korea'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
        if(item.country.length > 10){
-           return <td style={{fontWeight:"600"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+           return <td style={{fontWeight:"600"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
        }
         if(item.country==="MS Zaandam"){
             return <td style={{fontWeight:"600"}}>{item.country}</td>
@@ -101,22 +115,24 @@ class FilteredTable extends Component{
             return <td style={{fontWeight:"600"}}>{item.country}</td>
         }
         else{
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span> {item.country}</td>
+            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
     }
     render(){
         const elements= this.props.data;
         const filtertStr= this.state.filterStr;
+        //const data= this.props.DataCountries
 
         const filteredElements=(
             elements.filter(e => e.country.toLowerCase().includes(filtertStr.toLowerCase()))
         )
-        
+        let id=1
         var tableBody=(
                 <tbody>
                         {filteredElements.map((item) =>
                             (
                                 <tr>
+                                    <td id='nowrap'>{id++}</td>
                                    {this.checkCountryName(item)}
                                     <td id='nowrap'> {format(item.cases)} 
                                         {this.checkConfirmedValue(item)}
@@ -156,11 +172,7 @@ class FilteredTable extends Component{
                                 aria-label="Search"
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
                     </div>
-                    <div className='mt-2'>
-                        <button className='btn btn-sm btn-light' onClick={this.props.sortValues}>
-                            <i class="fas fa-sort"></i>
-                        </button>
-                    </div>
+                   
                 </div>
             </div>
               <div className='table-responsive-sm'>

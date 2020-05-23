@@ -8,6 +8,7 @@ function TableHeader(props){
     const tableheader=(
         <Fragment>
             <thead className='thead-light'>
+                <th scope='col'>#</th>
                 <th scope='col'>State/UT</th>
                 <th scope='col'>Confirmed</th>
                 <th scope='col'>Deaths</th>
@@ -15,6 +16,7 @@ function TableHeader(props){
                 <th scope='col'>Active</th>
         </thead>
         <tr class="table-warning">
+            <td></td>
             <td style={{fontWeight:"700"}}>India (Total)</td>
             <td id="nowrap" style={{fontWeight:"700"}}>
                     {format(props.natnl.confirmed)}
@@ -74,11 +76,13 @@ class FilteredTableIndia extends Component{
         const filteredElements=(
             elements.filter(e => e.state.toLowerCase().includes(filtertStr.toLowerCase()))
         )
+        let id=1
         var tableBody=(
             <tbody>
             {filteredElements.map((item) =>
             (
                 <tr>
+                    <td id='nowrap'>{id++}</td>
                     {this.checkStateValue(item)}
                     <td id="nowrap" style={{fontWeight:"600"}}>
                         {format(item.confirmed)}
@@ -115,14 +119,9 @@ class FilteredTableIndia extends Component{
                                 class="form-control form-control-sm" 
                                 value={filtertStr} 
                                 type="search"
-                                placeholder="Search A State..."
+                                placeholder="Search A State/UT..."
                                 aria-label="Search"
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
-                    </div>
-                    <div className='mt-2'>
-                        <button className='btn btn-sm btn-light' onClick={this.props.sortValues}>
-                            <i class="fas fa-sort"></i>
-                        </button>
                     </div>
                 </div>
             </div>

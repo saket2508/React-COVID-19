@@ -51,14 +51,32 @@ class Stats extends Component{
                     DeathsData.push(obj2)
                     NewRecoveredData.push(obj3)
                 }
-                NewCasesData.sort((a,b) => a.NewCases-b.NewCases)
-                DeathsData.sort((a,b) => a.NewDeaths-b.NewDeaths)
-                NewRecoveredData.sort((a,b) => a.NewRecovered-b.NewRecovered)
+                let newcasesData= NewCasesData.sort((a,b) => a.NewCases-b.NewCases).slice(-5).reverse()
+                let deathsData= DeathsData.sort((a,b) => a.NewDeaths-b.NewDeaths).slice(-5).reverse()
+                let newRecoveredData= NewRecoveredData.sort((a,b) => a.NewRecovered-b.NewRecovered).slice(-5).reverse()
+
+                let i=1
+                newcasesData.map((item) => {
+                    item.id=i
+                    i++
+                })
+
+                i=1
+                deathsData.map((item) => {
+                    item.id=i
+                    i++
+                })
+
+                i=1
+                newRecoveredData.map((item) => {
+                    item.id=i
+                    i++
+                })
 
                 this.setState({
-                    NewCases: NewCasesData.slice(-6).reverse(),
-                    NewDeaths:DeathsData.slice(-6).reverse(),
-                    NewRecovered:NewRecoveredData.slice(-6).reverse()
+                    NewCases: newcasesData,
+                    NewDeaths:deathsData,
+                    NewRecovered:newRecoveredData
                 })
 
             })
@@ -105,7 +123,8 @@ class Stats extends Component{
                         <p className='text-center text-muted' style={{fontWeight:'600'}}>HIGHEST RISE IN CASES</p>
                                    <table id='stats' className='table table-sm'>
                                         <thead>
-                                            <tr className='table-secondary'>                 
+                                            <tr className='table-secondary'>  
+                                                           
                                                 <th scope="col">Location</th>
                                                 <th id='td-2' scope="col">Cases</th>
                                                 <th id='td-2' scope="col">Total</th>
@@ -113,7 +132,9 @@ class Stats extends Component{
                                         </thead>
                                         <tbody>
                                             {this.state.NewCases.map((item =>(
+                                                
                                                 <tr>
+                                                        
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
                                                         <td id='td-2' style={{fontWeight:"600"}}>{format(item.NewCases)}</td>
                                                         <td id='td-2' style={{fontWeight:"600"}}>{format(item.Cases)}</td>
@@ -130,6 +151,7 @@ class Stats extends Component{
                                    <table id='stats' className='table table-sm'>
                                     <thead>
                                             <tr className='table-danger'>
+                                                
                                                 <th cope="col">Location</th>
                                                 <th id='td-2' scope="col">Deaths</th>
                                                 <th id='td-2' scope="col">Total</th>
@@ -138,6 +160,7 @@ class Stats extends Component{
                                         <tbody>
                                         {this.state.NewDeaths.map((item =>(
                                             <tr>
+                                                    
                                                     <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
                                                     <td style={{fontWeight:"600"}} id='td-2' className='text-danger'>{format(item.NewDeaths)}</td>
                                                     <td style={{fontWeight:"600"}} id='td-2' className='text-danger'>{format(item.Deaths)}</td>
@@ -154,6 +177,7 @@ class Stats extends Component{
                                    <table id='stats' className='table table-sm'>
                                         <thead>
                                             <tr className='table-success'>
+                                                
                                                 <th scope="col">Location</th>
                                                 <th style={{fontWeight:"600"}} id='td-2' scope="col">Recovered</th>
                                                 <th style={{fontWeight:"600"}} id='td-2' scope="col">Total</th>
@@ -162,6 +186,7 @@ class Stats extends Component{
                                         <tbody>
                                             {this.state.NewRecovered.map((item =>(
                                                 <tr>
+                                                        
                                                         <td style={{fontWeight:"600"}}>{this.getFlagIcon(item,codes)}{item.Country}</td>
                                                         <td style={{fontWeight:"600"}} id='td-2' className='text-success'>{format(item.NewRecovered)}</td>
                                                         <td style={{fontWeight:"600"}} id='td-2' className='text-success'>{format(item.Recovered)}</td>

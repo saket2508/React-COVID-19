@@ -1,10 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Bar, Line, Doughnut} from 'react-chartjs-3';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles';
-import { colors, Container } from "@material-ui/core";
+import {Bar, Line} from 'react-chartjs-3';
 
 const url='https://api.covid19india.org/data.json'
 
@@ -42,7 +37,7 @@ class Charts extends Component{
             Data:{},
             Name1:'Cases',
             Name2:'Cases',
-            val1:'New Cases',
+            val1:'Cases',
             val2:'Cases',
             statewiseInfo:{},
             statesData:{},
@@ -394,7 +389,7 @@ class Charts extends Component{
     changeDailyVariable(item){
         if(item.id===1){
             this.setState({
-                val1:'New Cases',
+                val1:'Cases',
                 Name1:'Cases',
                 info:{
                     color:'#757575',
@@ -418,7 +413,7 @@ class Charts extends Component{
         }
         if(item.id===2){
             this.setState({
-                val1:'New Deaths',
+                val1:'Deaths',
                 Name1:'Deaths',
                 info:{
                     color:'#ff5722',
@@ -443,7 +438,7 @@ class Charts extends Component{
 
         if(item.id===3){
             this.setState({
-                val1:'New Recoveries',
+                val1:'Recoveries',
                 Name1:'Recovered',
                 info:{
                     color:'#7cb342',
@@ -569,7 +564,8 @@ class Charts extends Component{
                         <div className='container-md content-row'>
                             <div className='row my-5'>
                                 <div className='col-12 mb-4'>
-                                    <h5 className='text-center text-muted' style={{fontWeight:'700'}}>IMPORTANT TRENDS <i class="fas fa-chart-line"></i></h5>
+                                    <h5 className='text-center text-muted mb-2' style={{fontWeight:'700'}}>IMPORTANT TRENDS <i class="fas fa-chart-line"></i></h5>
+                                    
                                     <hr></hr>
                                 </div>
 
@@ -578,7 +574,7 @@ class Charts extends Component{
                             <div className='card-body'>
                                 <div className='row'>
                                     <div className='heading col-12 mb-3 mt-2'>
-                                        <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
+                                            <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 India: Cumulative Trend in {this.state.val2}</h6>
                                     </div>
 
                                     <div className='col-xl-7 col-lg-8 mb-1'>
@@ -587,7 +583,7 @@ class Charts extends Component{
                                                    <div className='row'>
                                                     <div className='col-12 d-flex justify-content-start'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Cumulative Total: </small>
-                                                            <small className='ml-2' style={{fontWeight:'700',color:this.state.info1.color}}>{format(this.state.info1.value)}</small>
+                                                            <p className='small ml-2' style={{fontWeight:'700',color:this.state.info1.color}}>{format(this.state.info1.value)}</p>
                                                     </div>
                                                 </div>
                                                    </div>
@@ -680,7 +676,7 @@ class Charts extends Component{
                                         <div className='card-body'>
                                         <div className='row'>
                                             <div className='heading col-12 mb-3 mt-2'>
-                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
+                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 India: Daily Trend In {this.state.val1}</h6>
                                             </div>
 
                                             <div className='col-xl-7 col-lg-8 mb-1'>
@@ -866,7 +862,7 @@ class Charts extends Component{
                                               <div className='card'>
                                                   <div className='card-body'>
                                                   <div className='row'>
-                                                    <div className='col-12 d-flex justify-content-start align-items-center'>                               
+                                                    <div className='col-md-12 d-flex justify-content-start'>                               
                                                             <small className='text-muted' style={{fontWeight:'600'}}>Individuals Tested Today: </small>
                                                             <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.TodayTests)}</small>
                                                     </div>
@@ -875,8 +871,8 @@ class Charts extends Component{
                                                             <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{this.checkIncrement(this.state.infoCard.TestsDiff)}</small>
                                                     </div>
                                                     <div className='col-12 d-flex justify-content-start align-items-center'>                               
-                                                            <small className='text-muted' style={{fontWeight:'600'}}>Cumulative Total</small>
-                                                            <small className='ml-3' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.Tests)}</small>
+                                                            <small className='text-muted' style={{fontWeight:'600'}}>Cumulative Total: </small>
+                                                            <small className='ml-2' style={{fontWeight:'700',color:'#7986cb'}}>{format(this.state.infoCard.Tests)}</small>
                                                     </div>
                                                 </div>
                                                   </div>

@@ -8,8 +8,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const url='https://corona.lmao.ninja/v2/countries?sort=cases'
+const url2= 'https://pomber.github.io/covid19/timeseries.json'
 
-
+const rawdata={}
 //FOR HEADING INFO
 const data=[]
 
@@ -25,6 +26,8 @@ const continents={
   'Africa':{data:[],total:{},population:1216000000},
   'Australia/Oceania':{data:[],total:{},population:42500000}
 }
+
+
 
 const WorldwideData={
         Name: 'Worldwide',
@@ -76,6 +79,7 @@ class App extends Component{
         }
       ],
       appData:[],
+      DataCountries:{},
       flagData:[],
       Data:{
         Cases:0,
@@ -95,7 +99,7 @@ class App extends Component{
     this.getData()
   }
 
-  getData(){
+  async getData(){
     let deaths=0
     let cases=0
     let recovered=0
@@ -104,118 +108,174 @@ class App extends Component{
     let todayDeaths=0
     let todayCases=0
 
-    fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        json.map((item)=> {
+    const response= await fetch(url2)
+    response.json()
+    .then(json => {
+      console.log('First!')
+      for(let key in json){
+        let list1=[]
+        let list2=[]
+        let list3=[]
+        let list4=[]
+        let list5=[]
+        let list6=[]
+        let list7=[]
+    let country= key
+      if(country==='US'){
+        country= 'United States'
+        }
+        if(country==='Korea, South'){
+        country= 'South Korea'
+        }
 
-          data.push(item)
-
-          cases+= Number(item.cases)
-          deaths+= Number(item.deaths)
-          active+=  Number(item.active)
-          critical+= Number(item.critical)
-          recovered+= Number(item.recovered)
-          todayDeaths+= Number(item.todayDeaths)
-          todayCases+= Number(item.todayCases)
-
-          //FLAG CODES
-          let name= item.country
-          let Cases= item.cases
-          let Deaths= item.deaths
-          let Recovered= item.recovered
-          let Active= item.active
-          let Tests= item.tests
-          let Testspermillion= item.testsPerOneMillion
-          let Casespermillion= item.casesPerOneMillion
-          let Deathspermillion= item.deathsPerOneMillion
-          let code= item.countryInfo.iso2
-          let obj= {Name:name,
-            Code:code,
-            Cases:Cases,
-            Deaths:Deaths,
-            Recovered:Recovered,
-            Active:Active,
-            Tests:Tests,
-            Testspermillion:Testspermillion,
-            Casespermillion:Casespermillion,
-            Deathspermillion:Deathspermillion
-          }
-          codes.push(obj)
-
-          for(let key in continents){
-            if(item.continent===key){
-              continents[key].data.push(item)
-            }
-          }
-
-
+        json[key].map((item) => {
+            list1.push(Number(item.confirmed))                   
+            list2.push(Number(item.deaths))                   
+            list3.push(Number(item.recovered))                   
+            list7.push(Number(item.confirmed) - Number(item.deaths) - Number(item.recovered))                   
         })
+        for(let i=0;i<list1.length-1;i++){
+            let a= list1[i+1]-list1[i]
+            list4.push(a)
+            let b= list2[i+1]-list2[i]
+            list5.push(b)
+            let c= list3[i+1]-list3[i]
+            list6.push(c)
+        }
+        let obj={cases:list1, 
+            deaths:list2, 
+            recovered:list3, 
+            active:list7, 
+            newcases: list4, 
+            newdeaths: list5, 
+            newrecoveries:list6}
+        rawdata[country]= obj
+        //chart data: Cumulative And Daily for all countries
+    }
+    })
+
+    const res= await fetch(url)
+    res.json()
+    .then(json => {
+      let i=1
+      console.log('Second!')
+      let lastupdated= json[0]['updated']
+      json.map((item)=> {       
+        data.push(item)
+
+        if(lastupdated < item['updated']){
+          lastupdated= item['updated']
+        }
+        cases+= Number(item.cases)
+        deaths+= Number(item.deaths)
+        active+=  Number(item.active)
+        critical+= Number(item.critical)
+        recovered+= Number(item.recovered)
+        todayDeaths+= Number(item.todayDeaths)
+        todayCases+= Number(item.todayCases)
+
+        //FLAG CODES
+      
+        let name= item.country
+        let Cases= item.cases
+        let Deaths= item.deaths
+        let Recovered= item.recovered
+        let Active= item.active
+        let Tests= item.tests
+        let Testspermillion= item.testsPerOneMillion
+        let Casespermillion= item.casesPerOneMillion
+        let Deathspermillion= item.deathsPerOneMillion
+        let code= item.countryInfo.iso2
+        let obj= {
+          Name:name,
+          Code:code,
+          Cases:Cases,
+          Deaths:Deaths,
+          Recovered:Recovered,
+          Active:Active,
+          Tests:Tests,
+          Testspermillion:Testspermillion,
+          Casespermillion:Casespermillion,
+          Deathspermillion:Deathspermillion
+        }
+        codes.push(obj)
 
         for(let key in continents){
-          let Cases=0
-          let Deaths=0
-          let Recovered=0
-          let Critical=0
-          let Active=0
-          let TodayCases=0
-          let TodayDeaths=0
-
-          continents[key].data.map((element) =>{
-            Cases+= Number(element.cases)
-            Deaths+= Number(element.deaths)
-            Recovered+= Number(element.recovered)
-            Critical+= Number(element.critical)
-            Active+= Number(element.active)
-            TodayCases+= Number(element.todayCases)
-            TodayDeaths+= Number(element.todayDeaths)
-          })
-
-          let population= continents[key].population
-          let casespermillion= ((Cases/population)*1000000).toFixed(0)
-          let deathspermillion=((Deaths/population)*1000000).toFixed(0)
-
-          let obj={Name:key,
-            Cases:Cases,
-            Deaths:Deaths,
-            Recovered:Recovered,
-            Active:Active,
-            Critical:Critical,
-            TodayCases:TodayCases,
-            TodayDeaths:TodayDeaths,
-            casespermillion:casespermillion,
-            deathspermillion:deathspermillion
+          if(item.continent===key){
+            continents[key].data.push(item)
           }
-
-          continents[key].total= obj
         }
 
 
-        //For Worldwide data
-          const population= 7800000000
-          const casespermillion= ((cases/population)*1000000).toFixed(0)
-          const deathspermillion= ((deaths/population)*1000000).toFixed(0)
-
-          WorldwideData.Cases= cases
-          WorldwideData.Deaths= deaths
-          WorldwideData.Recovered= recovered
-          WorldwideData.Critical= critical
-          WorldwideData.Active= active
-          WorldwideData.TodayCases= todayCases
-          WorldwideData.TodayDeaths= todayDeaths
-          WorldwideData.casespermillion= casespermillion
-          WorldwideData.deathspermillion= deathspermillion
-
-
-        this.setState({
-          sorted:false,
-          appData:data,
-          flagData:codes,
-          continents:continents,
-          Data:WorldwideData,
-        })
       })
-  }
+
+      for(let key in continents){
+        let Cases=0
+        let Deaths=0
+        let Recovered=0
+        let Critical=0
+        let Active=0
+        let TodayCases=0
+        let TodayDeaths=0
+
+        continents[key].data.map((element) =>{
+          Cases+= Number(element.cases)
+          Deaths+= Number(element.deaths)
+          Recovered+= Number(element.recovered)
+          Critical+= Number(element.critical)
+          Active+= Number(element.active)
+          TodayCases+= Number(element.todayCases)
+          TodayDeaths+= Number(element.todayDeaths)
+        })
+
+        let population= continents[key].population
+        let casespermillion= ((Cases/population)*1000000).toFixed(0)
+        let deathspermillion=((Deaths/population)*1000000).toFixed(0)
+
+        let obj={Name:key,
+          Cases:Cases,
+          Deaths:Deaths,
+          Recovered:Recovered,
+          Active:Active,
+          Critical:Critical,
+          TodayCases:TodayCases,
+          TodayDeaths:TodayDeaths,
+          casespermillion:casespermillion,
+          deathspermillion:deathspermillion
+        }
+
+        continents[key].total= obj
+      } 
+
+
+      //For Worldwide data
+        const population= 7800000000
+        const casespermillion= ((cases/population)*1000000).toFixed(0)
+        const deathspermillion= ((deaths/population)*1000000).toFixed(0)
+
+        WorldwideData.Cases= cases
+        WorldwideData.lastupdated= lastupdated
+        WorldwideData.Deaths= deaths
+        WorldwideData.Recovered= recovered
+        WorldwideData.Critical= critical
+        WorldwideData.Active= active
+        WorldwideData.TodayCases= todayCases
+        WorldwideData.TodayDeaths= todayDeaths
+        WorldwideData.casespermillion= casespermillion
+        WorldwideData.deathspermillion= deathspermillion
+
+
+      this.setState({
+        sorted:false,
+        appData:data,
+        flagData:codes,
+        continents:continents,
+        Data:WorldwideData,
+        DataCountries: rawdata
+      })
+
+  })
+}
 
   changeContinent = (item) => {
     if(item.name==='Worldwide'){
@@ -286,8 +346,8 @@ class App extends Component{
         <AppNavbar/>
         <AppHeading/>
         <Figures data={WorldwideData}/>
-        <Chart flagData={this.state.flagData} donutData= {WorldwideData}/>
-        <Table sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
+        <Chart flagData={this.state.flagData} chartData= {WorldwideData}/>
+        <Table DataCountries= {this.state.DataCountries} sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </Fragment>
     );
   }

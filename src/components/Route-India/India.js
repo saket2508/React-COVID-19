@@ -58,18 +58,18 @@ class India extends Component{
         })
 
         if(this.state.sorted){
-            let data= this.state.statewiseData
-            data.sort((a,b) => a.state.localeCompare(b.state))
+            //let data= this.state.statewiseData
+            //data.sort((a,b) => a.state.localeCompare(b.state))
 
             this.setState({
-                statewiseData:data
+                statewiseData:this.state.statewiseData.sort((a,b) => a.state.localeCompare(b.state))
             })
         }
         else{
-            let data= this.state.statewiseData
-            data.sort((a,b) => Number(a.confirmed)-Number(b.confirmed)).reverse()
+            //let data= this.state.statewiseData
+            //data.sort((a,b) => Number(a.confirmed)-Number(b.confirmed)).reverse()
             this.setState({
-                statewiseData:data
+                statewiseData:this.state.statewiseData.sort((a,b) => Number(a.confirmed)-Number(b.confirmed)).reverse()
             })
         }
     }

@@ -1,18 +1,13 @@
 import React, {Component, Fragment} from "react"
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
 import Stats from './Stats'
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles';
-import { colors, Container } from "@material-ui/core";
+
 
 const url='https://pomber.github.io/covid19/timeseries.json'
 const url1= 'https://corona.lmao.ninja/v2/countries?sort=cases'
 const url2='https://api.covid19india.org/data.json'
 
-const countries_data={}
-const sum={}
+const countries_data=[]
 
 const rawdata={}
 const worldwide={}
@@ -34,15 +29,47 @@ function format(item){
     return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
 }
 
+function checkDateGlobal(item){
+    if(item===undefined){
+        return <span></span>
+    }
+    else{
+        let time_rn= new Date().getTime()
+        let last_updated= ((time_rn-item)/60000).toFixed(0)
+        return <span>Last Updated: {last_updated} mins ago</span>
+    }
+}
+
+function checkDateIndia(item){
+    if(item===undefined){
+        return <span></span>
+    }
+    else{
+        //let time= item.slice(11,16)
+        let diff=''
+        let strhours= Number(item.slice(11,13))
+        let strmins= Number(item.slice(14,16))
+        if(new Date().getHours() === strhours){
+            diff=  new Date().getMinutes() - strmins+ ' minutes ago'
+        }
+        else{
+            diff= new Date().getHours() - strhours+ ' hours ago'
+        }
+        return <span>Last Updated: {diff}</span>
+    }
+   
+}
+
 class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
             Data:{},//for bar and line chart
             India:{},
+            casesBar:[],
+            deathsBar:[],
             pieChartData2:{},
             chartCard2:{},
-            Total:{},
             countries:{},
             chartCard:{
                 confirmed:0,
@@ -50,25 +77,14 @@ class Chart extends Component{
                 recovered:0,
                 deaths:0,
             },
-            infoCard:{
-                NewCases:0,
-                casesDiff:0,
-                NewDeaths:0,
-                deathsDiff:0,
-                CasesPerMillion:0,
-                DeathsPerMillion:0
-            },
             Selected:"Global",
             val1:'New Cases',
             val2:'Cases',
             Name1:'Cases',
-            Name2:'Cases',
-            rawData:{},
+            Name2:'Cases',            
             CumulativeChartData: {},
             pieChartData:{},
-            DonutChartData:{},
             DailyChartData:{},
-            AreaChart:{},
             links:[
                 {
                     id:1,
@@ -158,58 +174,11 @@ class Chart extends Component{
             worldwide.newcases=dailycases
             worldwide.newdeaths=dailydeaths
             worldwide.newrecoveries=dailyrecovered
-            //worldwide.Casespermillion= (((casesdata.slice(-1)[0])/7590000000)*1000000).toFixed(0)
-            //worldwide.Deathspermillion= (((deathsdata.slice(-1)[0])/7590000000)*1000000).toFixed(0)
-            worldwide.Tests= 'N/A'
-            worldwide.TestsPerMillion= 'N/A'
-            //object that has worldwide stats
-
-            for(let key in response){
-                let list1=[]
-                let list2=[]
-                let list3=[]
-                let list4=[]
-                let list5=[]
-                let list6=[]
-                let list7=[]
-            let country= key
-            if(country==='US'){
-                country= 'United States'
-                }
-                if(country==='Korea, South'){
-                country= 'South Korea'
-                }
-                list.push(country)
-                response[key].map((item) => {
-                    list1.push(Number(item.confirmed))                   
-                    list2.push(Number(item.deaths))                   
-                    list3.push(Number(item.recovered))                   
-                    list7.push(Number(item.confirmed) - Number(item.deaths) - Number(item.recovered))                   
-                })
-                for(let i=0;i<list1.length-1;i++){
-                    let a= list1[i+1]-list1[i]
-                    list4.push(a)
-                    let b= list2[i+1]-list2[i]
-                    list5.push(b)
-                    let c= list3[i+1]-list3[i]
-                    list6.push(c)
-                }
-                let obj={cases:list1, 
-                    deaths:list2, 
-                    recovered:list3, 
-                    active:list7, 
-                    newcases: list4, 
-                    newdeaths: list5, 
-                    newrecoveries:list6}
-                rawdata[country]= obj
-                //chart data: Cumulative And Daily for all countries
-            }
-
+        
         this.setState(
             {
                 //Total:sum,
                 Data:worldwide,
-                countries: countries_data,
             
             }
         )
@@ -222,18 +191,14 @@ class Chart extends Component{
             let cases_sum=0
             let deaths_sum=0
             let recovered_sum=0
-
+            let time= response[0]['updated']
+           
             response.map((item) => {
-                let key= item.country
-                if(key==='USA'){
-                    key= 'United States'
+                let name= item.country
+                if(time < item['updated']){
+                    time= item['updated']
                 }
-                if(key==='UK'){
-                    key= 'United Kingdom'
-                }
-                if(key=='S. Korea'){
-                    key= 'South Korea'
-                }
+                
                 let Cases= item.cases
                 cases_sum+= Cases
 
@@ -245,24 +210,15 @@ class Chart extends Component{
 
                 let Active= item.active
 
-                let Tests= item.tests
-                let Testspermillion= item.testsPerOneMillion
-                let Casespermillion= item.casesPerOneMillion
-                let Deathspermillion= item.deathsPerOneMillion
-                let code= item.countryInfo.iso2
-                let obj= {
-                Code:code,
-                Cases:Cases,
-                Deaths:Deaths,
-                Recovered:Recovered,
-                Active:Active,
-                Tests:Tests,
-                Testspermillion:Testspermillion,
-                Casespermillion:Casespermillion,
-                Deathspermillion:Deathspermillion
-                }
-                countries_data[key]=obj
+                let obj={
+                    name: name,
+                    cases: Cases,
+                    deaths: Deaths,
+                } 
+                countries_data.push(obj)     
+                
             })
+            worldwide.time= time
             worldwide.cases_sum= cases_sum
             worldwide.deaths_sum= deaths_sum
             worldwide.recovered_sum= recovered_sum
@@ -270,13 +226,18 @@ class Chart extends Component{
             worldwide.Casespermillion= (((cases_sum)/7600000000)*1000000).toFixed(0)
             worldwide.Deathspermillion= (((deaths_sum)/7600000000)*1000000).toFixed(0)
 
+
+            let caseslist= countries_data.sort((a,b) => a.cases-b.cases).reverse().slice(0,6)
+            let deathslist= countries_data.sort((a,b) => a.deaths-b.deaths).reverse().slice(0,6)
+
+           
             this.setState(
                 {
-                    //Selected:'',
                     Data:worldwide,
-                    //rawData:rawdata,
                     list:list,
-                    //Confirmed:this.state.Data.cases[-1],
+                    countries: countries_data,
+                    casesBar:caseslist,
+                    deathsBar:deathslist,
                     DailyChartData:{
                         labels: dates.slice(1),
                             datasets:[
@@ -329,6 +290,7 @@ class Chart extends Component{
         .then(response => {
             console.log('How are you?')
             const rawDataIndia= response["statewise"][0]
+            let date= rawDataIndia['lastupdatedtime']
             let active= Number(rawDataIndia['active'])
             let confirmed= Number(rawDataIndia['confirmed'])
             let recovered= Number(rawDataIndia['recovered'])
@@ -349,6 +311,7 @@ class Chart extends Component{
                     labels: ['Active','Recovered','Deaths']
                 },
                 chartCard2:{
+                    date: date,
                     confirmed:confirmed,
                     active:active,
                     deaths:deaths,
@@ -357,162 +320,6 @@ class Chart extends Component{
             })
         })
     }
-
-    async getIndiaData(){
-        const res= await fetch(url2)
-            res.json()
-            .then(response => {
-                console.log('How are you?')
-                const rawDataIndia= response["statewise"][0]
-                let active= Number(rawDataIndia['active'])
-                let confirmed= Number(rawDataIndia['confirmed'])
-                let recovered= Number(rawDataIndia['recovered'])
-                let deaths= Number(rawDataIndia['deaths'])
-
-                this.setState({
-                    India:{
-                        confirmed: confirmed,
-                        active:active,
-                        deaths:deaths,
-                        recovered:recovered
-                    },
-                    pieChartData2:{
-                        datasets: [{
-                            data: [active,recovered,deaths],
-                            backgroundColor:['#1e88e5','#7cb342','#ff5722']
-                        }],
-                        labels: ['Active','Recovered','Deaths']
-                    },
-                    chartCard2:{
-                        confirmed:confirmed,
-                        active:active,
-                        deaths:deaths,
-                        recovered:recovered
-                    }
-                })
-            })
-    }
-        
-
-    async getChartData(){
-        const res= await fetch(url);
-            res.json()
-            .then(response =>{
-                console.log('Hi')
-                response['Afghanistan'].map(item =>{
-                    let m= ""
-                    let d= item.date.slice(7,9)
-                    let month= item.date.slice(5,6)
-                    if(month==='1'){
-                        m='Jan'
-                    }
-                    if(month==='2'){
-                        m='Feb'
-                    }
-                    if(month==='3'){
-                        m='Mar'
-                    }
-                    if(month==='4'){
-                        m='Apr'
-                    }
-                    if(month==='5'){
-                        m='May'
-                    }
-                    let date =m+ ' '+d
-                    //date formatting
-                    dates.push(date)
-                })
-                for(let i=0;i<dates.length;i++){
-                    let cases=0
-                    let deaths=0
-                    let recovered=0
-                    let active=0
-                    for (let key in response){
-                        cases+= Number(response[key][i].confirmed)
-                        deaths+= Number(response[key][i].deaths)
-                        recovered+= Number(response[key][i].recovered)
-                        active= cases - deaths - recovered
-                    }
-                    casesdata.push(cases)
-                    deathsdata.push(deaths)
-                    recoveredata.push(recovered)
-                    activedata.push(active)
-                    //worldwide cumulative data for charts
-                }
-
-                for(let i=0;i<casesdata.length-1;i++){
-                    let newcases= casesdata[i+1]-casesdata[i]
-                    dailycases.push(newcases)
-                    let newdeaths= deathsdata[i+1]-deathsdata[i]
-                    dailydeaths.push(newdeaths)
-                    let newrecoveries= recoveredata[i+1]-recoveredata[i]
-                    dailyrecovered.push(newrecoveries)
-                }
-                worldwide.cases=casesdata
-                worldwide.deaths=deathsdata
-                worldwide.recovered=recoveredata
-                worldwide.active=activedata
-                worldwide.newcases=dailycases
-                worldwide.newdeaths=dailydeaths
-                worldwide.newrecoveries=dailyrecovered
-                //worldwide.Casespermillion= (((casesdata.slice(-1)[0])/7590000000)*1000000).toFixed(0)
-                //worldwide.Deathspermillion= (((deathsdata.slice(-1)[0])/7590000000)*1000000).toFixed(0)
-                worldwide.Tests= 'N/A'
-                worldwide.TestsPerMillion= 'N/A'
-                //object that has worldwide stats
-
-                for(let key in response){
-                    let list1=[]
-                    let list2=[]
-                    let list3=[]
-                    let list4=[]
-                    let list5=[]
-                    let list6=[]
-                    let list7=[]
-                let country= key
-                if(country==='US'){
-                    country= 'United States'
-                    }
-                    if(country==='Korea, South'){
-                    country= 'South Korea'
-                    }
-                    list.push(country)
-                    response[key].map((item) => {
-                        list1.push(Number(item.confirmed))                   
-                        list2.push(Number(item.deaths))                   
-                        list3.push(Number(item.recovered))                   
-                        list7.push(Number(item.confirmed) - Number(item.deaths) - Number(item.recovered))                   
-                    })
-                    for(let i=0;i<list1.length-1;i++){
-                        let a= list1[i+1]-list1[i]
-                        list4.push(a)
-                        let b= list2[i+1]-list2[i]
-                        list5.push(b)
-                        let c= list3[i+1]-list3[i]
-                        list6.push(c)
-                    }
-                    let obj={cases:list1, 
-                        deaths:list2, 
-                        recovered:list3, 
-                        active:list7, 
-                        newcases: list4, 
-                        newdeaths: list5, 
-                        newrecoveries:list6}
-                    rawdata[country]= obj
-                    //chart data: Cumulative And Daily for all countries
-                }
-
-            this.setState(
-                {
-                    //Total:sum,
-                    Data:worldwide,
-                    countries: countries_data,
-                
-                }
-            )
-        })
-    }
-
 
 
     changeDailyVariable(item){
@@ -656,6 +463,22 @@ class Chart extends Component{
         }
     }
 
+    checkDate(item){
+        let day= item.slice(0,2)
+        let month= item.slice(3,5)
+        let m=''
+        if(month==='05'){
+            m='May'
+        }
+        if(month==='06'){
+            m='June'
+        }
+        let date= day+' '+m
+        let time= item.slice(11,16)
+        let res= date+','+' '+time+' AM'+ ' IST'
+            return <span>{res}</span>
+    }
+
     checkValues(item){
         if(item === 'N/A'){
            return( <span>
@@ -696,7 +519,8 @@ class Chart extends Component{
 
 
       render(){
-          //this.loadData(this.props)
+
+        
           const element=(
               <Fragment>
               <div className='chart mb-4 mt-4'>
@@ -712,7 +536,18 @@ class Chart extends Component{
                                 <div className='card-body'> 
                                 <div className='row mb-3'>
                                     <div className='col-12 mb-2'>
-                                        <h6 className='text-muted' style={{fontWeight:'700'}}>Coronavirus Cases- {this.state.Selected}</h6>
+                                        <div className='row mb-1'>
+                                            <div className='col-xl-12 d-flex justify-content-start'>
+                                                <h6 className='text-muted' style={{fontWeight:'700'}}>Coronavirus Cases- Worldwide</h6>
+                                            </div>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col-9'>
+                                                <div className='d-flex justify-content-start'>
+                                    <small className='text-muted' style={{fontWeight:'600'}}>{checkDateGlobal(this.state.Data.time)}</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <hr></hr>
                                     </div>
                                     <div className='col-lg-5 col-md-12 mb-2'>
@@ -775,12 +610,31 @@ class Chart extends Component{
                                 </div>
                             </div>
 
+
+
+
+
+
+
                             <div className='col-md-6 col-sm-12 mt-3 mb-4'>
                             <div className='card h-100'>
                                 <div className='card-body'>     
                                 <div className='row mb-3'>
                                 <div className='col-12 mb-2'>
-                                        <h6 className='text-muted' style={{fontWeight:'700'}}>Coronavirus Cases- India</h6>
+                                        <div className='row mb-1'>
+                                            <div className='col-xl-6 d-flex justify-content-start'>
+                                                <h6 className='text-muted' style={{fontWeight:'700'}}>Coronavirus Cases- India</h6>
+                                            </div>
+                                        </div>
+
+                                        <div className='row'>
+                                            <div className='col-12'>
+                                                <div className='d-flex justify-content-start'>
+                                    <small className='text-muted' style={{fontWeight:'600'}}>{checkDateIndia(this.state.chartCard2.date)}</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <hr></hr>
                                     </div>
                                     <div className='col-lg-5 col-md-12 mb-2'>
@@ -1003,7 +857,7 @@ class Chart extends Component{
                     </div>
                     </div>
                            </div>
-                       </div>
+                 </div>
                 </div>
                 </div>
               </Fragment>
