@@ -1,7 +1,7 @@
 import React, { Component, Fragment} from "react"
 
 function format(item){
-    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+    return new Intl.NumberFormat('en-US').format(item)
 }
 
 
@@ -10,20 +10,20 @@ function TableHeader(props){
         <Fragment>
             
         <thead className='thead-light'>
-            <th scope='col'>
+            <th scope='col' style={{textAlign:'center'}}>
                 #
             </th>
             <th scope='col'>        
                 Location
             </th>
-            <th scope='col'>Confirmed</th>
-            <th scope='col'>Deaths</th>
-            <th scope='col'>Recovered</th>
-            <th scope='col'>Active</th>
-            <th style={{wordWrap:'break-word'}} scope='col'>Cases/1M People</th>
-            <th style={{wordWrap:'break-word'}} scope='col'>Deaths/1M People</th>
-            <th style={{wordWrap:'break-word'}} scope='col'>Tests/1M People</th>
-            <th style={{wordWrap:'break-word'}} scope='col'>Total Tests</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Confirmed</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Deaths</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Recovered</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Active</th>
+            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Cases/1M People</th>
+            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Deaths/1M People</th>
+            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Tests/1M People</th>
+            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Total Tests</th>
         </thead>
 
         <tr className="table-warning">
@@ -40,27 +40,28 @@ function TableHeader(props){
                         </div>
                     </div>
             </td>
-            <td id='nowrap' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>
                     {format(props.data.Cases)}
                     <small><span class="badge badge-pill badge-secondary">{'+'+format(props.data.TodayCases)}</span></small>
             </td>
-            <td id='nowrap' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>
                     {format(props.data.Deaths)}
                     <small><span class="badge badge-pill badge-danger">{'+'+format(props.data.TodayDeaths)}</span></small>
             </td>
-            <td id='nowrap' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>
                     {format(props.data.Recovered)}
             </td>
-            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.Active)}</td>
-            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.casespermillion)}</td>
-            <td id='nowrap' style={{fontWeight:"700"}}>{format(props.data.deathspermillion)}</td>
-            <td id='nowrap' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
-            <td id='nowrap' style={{fontWeight:"700"}}>{props.data.tests}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.Active)}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.casespermillion)}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.deathspermillion)}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.tests}</td>
         </tr>
         </Fragment>
     );
     return tableheader;
 }
+
 
 class FilteredTable extends Component{
     constructor(props){
@@ -132,20 +133,20 @@ class FilteredTable extends Component{
                         {filteredElements.map((item) =>
                             (
                                 <tr>
-                                    <td id='nowrap'>{id++}</td>
+                                    <td id='nowrapid'>{id++}</td>
                                    {this.checkCountryName(item)}
-                                    <td id='nowrap'> {format(item.cases)} 
+                                    <td id='nowrap-r'> {format(item.cases)} 
                                         {this.checkConfirmedValue(item)}
                                     </td>
-                                    <td id='nowrap'>{format(item.deaths)}
+                                    <td id='nowrap-r'>{format(item.deaths)}
                                         {this.checkDeathsValue(item)}
                                     </td> 
-                                    <td id='nowrap'>{format(item.recovered)}</td>
-                                    <td id='nowrap'>{format(item.active)}</td>
-                                    <td id='nowrap'>{format(item.casesPerOneMillion)}</td>
-                                    <td id='nowrap'>{format(item.deathsPerOneMillion)}</td>
-                                    <td id='nowrap'>{format(item.testsPerOneMillion)}</td>
-                                    <td id='nowrap'>{format(item.tests)}</td>
+                                    <td id='nowrap-r'>{format(item.recovered)}</td>
+                                    <td id='nowrap-r'>{format(item.active)}</td>
+                                    <td id='nowrap-r'>{format(item.casesPerOneMillion)}</td>
+                                    <td id='nowrap-r'>{format(item.deathsPerOneMillion)}</td>
+                                    <td id='nowrap-r'>{format(item.testsPerOneMillion)}</td>
+                                    <td id='nowrap-r'>{format(item.tests)}</td>
                                    
                                 </tr>
                             ))}
@@ -175,8 +176,8 @@ class FilteredTable extends Component{
                    
                 </div>
             </div>
-              <div className='table-responsive-sm'>
-                    <table id='statstable' class="table table-bordered table-sm">
+              <div className='table-responsive-lg'>
+                    <table id='statstable' class="table table-bordered table-hover table-sm">
                         <TableHeader list={this.props.list} changeContinent={this.props.changeContinent} data= {this.props.dataw} />
                         {tableBody}
                     </table>

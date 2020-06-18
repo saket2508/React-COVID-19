@@ -2,7 +2,6 @@ import React, {Component, Fragment} from "react"
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
 import Stats from './Stats'
 
-
 const url='https://pomber.github.io/covid19/timeseries.json'
 const url1= 'https://corona.lmao.ninja/v2/countries?sort=cases'
 const url2='https://api.covid19india.org/data.json'
@@ -26,7 +25,7 @@ const dailyrecovered=[]
 
 
 function format(item){
-    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+    return new Intl.NumberFormat('en-US').format(item)
 }
 
 function checkDateGlobal(item){
@@ -136,6 +135,21 @@ class Chart extends Component{
                 }
                 if(month==='5'){
                     m='May'
+                }
+                if(month==='6'){
+                    m='June'
+                }
+                if(month==='7'){
+                    m='July'
+                }
+                if(month==='7'){
+                    m='July'
+                }
+                if(month==='8'){
+                    m='August'
+                }
+                if(month==='9'){
+                    m='September'
                 }
                 let date =m+ ' '+d
                 //date formatting
@@ -579,28 +593,30 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active</h6>
+                                                <h6 style={{fontWeight:'600'}}>Active Cases</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.active)} [{((this.state.chartCard.active/this.state.chartCard.confirmed)*100).toFixed(1)} %]</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.active)}</h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
+                                                <h6 style={{fontWeight:'600'}}>Total Recovered</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.recovered)} [{((this.state.chartCard.recovered/this.state.chartCard.confirmed)*100).toFixed(1)} %]</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.recovered)}</h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Deaths</h6>
+                                                <h6 style={{fontWeight:'600'}}>Total Deaths</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.deaths)} [{((this.state.chartCard.deaths/this.state.chartCard.confirmed)*100).toFixed(1)} %]</h6>
+                                                <div>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.deaths)}</h6>
+                                                </div>
                                             </div>
                                         </li>                                      
                                     </ul>
@@ -632,6 +648,7 @@ class Chart extends Component{
                                                 <div className='d-flex justify-content-start'>
                                     <small className='text-muted' style={{fontWeight:'600'}}>{checkDateIndia(this.state.chartCard2.date)}</small>
                                                 </div>
+                                                
                                             </div>
 
                                         </div>
@@ -666,29 +683,29 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active</h6>
+                                                <h6 style={{fontWeight:'600'}}>Active Cases</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.active)} [{((this.state.chartCard2.active/this.state.chartCard2.confirmed)*100).toFixed(1)} %]</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.active)}</h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
+                                                <h6 style={{fontWeight:'600'}}>Total Recovered</h6>
                                             </div>
-                                            <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.recovered)} [{((this.state.chartCard2.recovered/this.state.chartCard2.confirmed)*100).toFixed(1)} %]</h6>
-                                            </div>
+                                            <span className='count'>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.recovered)}</h6>
+                                            </span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Deaths</h6>
+                                                <h6 style={{fontWeight:'600'}}>Total Deaths</h6>
                                             </div>
-                                            <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.deaths)} [{((this.state.chartCard2.deaths/this.state.chartCard2.confirmed)*100).toFixed(1)} %]</h6>
-                                            </div>
+                                            <span className='count'>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.deaths)}</h6>                                            
+                                            </span>
                                         </li>                                      
                                     </ul>
                                     </div>
@@ -704,7 +721,7 @@ class Chart extends Component{
                         <div className='card-body'>
                             <div className='row'>
                             <div className='heading col-12 mb-1 mt-3'>
-                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
+                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Global: {this.state.val2} Over Time</h6>
                             </div>
                             <div className='col-12 mt-2'>
                             <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">
@@ -785,7 +802,7 @@ class Chart extends Component{
                         <div className='card-body'>
                         <div className='row'>
                         <div className='col-12 mb-1 mt-3'>
-                            <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
+                            <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Global: {this.state.val1} Over Time</h6>
                         </div>
                         <div className='col-12 mt-2'>
                         <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">

@@ -7,7 +7,7 @@ const DeathsData=[]
 const NewRecoveredData=[]
 
 function format(item){
-    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+    return new Intl.NumberFormat('en-US').format(item)
 }
 
 

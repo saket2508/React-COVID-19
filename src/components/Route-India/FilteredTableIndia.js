@@ -1,36 +1,36 @@
 import React, { Component, Fragment} from "react"
 
 function format(item){
-    return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(item)
+    return new Intl.NumberFormat('en-US').format(item)
 }
 
 function TableHeader(props){
     const tableheader=(
         <Fragment>
             <thead className='thead-light'>
-                <th scope='col'>#</th>
-                <th scope='col'>State/UT</th>
-                <th scope='col'>Confirmed</th>
-                <th scope='col'>Deaths</th>
-                <th scope='col'>Recovered</th>
-                <th scope='col'>Active</th>
+                <th style={{textAlign:'center'}} scope='col'>#</th>
+                <th id="nowrap" style={{fontWeight:'700'}} scope='col'>State/UT</th>
+                <th id="nowrap-r" style={{fontWeight:'700'}} scope='col'>Confirmed</th>
+                <th id="nowrap-r" style={{fontWeight:'700'}} scope='col'>Deaths</th>
+                <th id="nowrap-r" style={{fontWeight:'700'}} scope='col'>Recovered</th>
+                <th id="nowrap-r" style={{fontWeight:'700'}} scope='col'>Active</th>
         </thead>
         <tr class="table-warning">
             <td></td>
             <td style={{fontWeight:"700"}}>India (Total)</td>
-            <td id="nowrap" style={{fontWeight:"700"}}>
+            <td id="nowrap-r" style={{fontWeight:"700"}}>
                     {format(props.natnl.confirmed)}
                     <small><span class="badge badge-pill badge-secondary">{'+'+format(props.natnl.deltaconfirmed)}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"700"}}>
+            <td id="nowrap-r" style={{fontWeight:"700"}}>
                     {format(props.natnl.deaths)}
                     <small><span class="badge badge-pill badge-danger">{'+'+format(props.natnl.deltadeaths)}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"700"}}>
+            <td id="nowrap-r" style={{fontWeight:"700"}}>
                     {format(props.natnl.recovered)}
                     <small><span class="badge badge-pill badge-success">{'+'+format(props.natnl.deltarecovered)}</span></small>
             </td>
-            <td id="nowrap" style={{fontWeight:"700"}}>{format(props.natnl.active)}</td>
+            <td id="nowrap-r" style={{fontWeight:"700"}}>{format(props.natnl.active)}</td>
         </tr>
         </Fragment>
     );
@@ -70,7 +70,8 @@ class FilteredTableIndia extends Component{
         }
     }
     render(){
-        const elements= this.props.data;
+        const elements=  this.props.data.sort((a,b) => a.Cases-b.Cases)
+
         const filtertStr= this.state.filterStr;
 
         const filteredElements=(
@@ -82,21 +83,21 @@ class FilteredTableIndia extends Component{
             {filteredElements.map((item) =>
             (
                 <tr>
-                    <td id='nowrap'>{id++}</td>
+                    <td id='nowrapid'>{id++}</td>
                     {this.checkStateValue(item)}
-                    <td id="nowrap" style={{fontWeight:"600"}}>
+                    <td id="nowrap-r" style={{fontWeight:"600"}}>
                         {format(item.confirmed)}
                         {this.checkConfirmedValue(item)}
                     </td>
-                    <td id="nowrap" style={{fontWeight:"600"}}>
+                    <td id="nowrap-r" style={{fontWeight:"600"}}>
                         {format(item.deaths)} 
                         {this.checkDeathsValue(item)}
                     </td> 
-                    <td id="nowrap" style={{fontWeight:"600"}}>
+                    <td id="nowrap-r" style={{fontWeight:"600"}}>
                         {format(item.recovered)}
                         {this.checkRecoveredValue(item)} 
                     </td>
-                    <td id="nowrap" style={{fontWeight:"600"}}>{format(item.active)}</td>
+                    <td id="nowrap-r" style={{fontWeight:"600"}}>{format(item.active)}</td>
                 </tr>
             ))}
         </tbody>
