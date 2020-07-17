@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
-import India from './components/Route-India/India'
+//import India from './components/Route-India/India'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,7 +11,6 @@ const routing=(
   <Router>
     <Fragment>
       <Route exact path="/" component={App}/>
-      <Route exact path="/india" component={India}/>
     </Fragment>
   </Router>
 )

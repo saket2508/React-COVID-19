@@ -265,8 +265,7 @@ class App extends Component{
         WorldwideData.deathspermillion= deathspermillion
 
 
-      this.setState({
-        sorted:false,
+        this.setState({
         appData:data,
         flagData:codes,
         continents:continents,
@@ -345,9 +344,8 @@ class App extends Component{
       <Fragment>
         <AppNavbar/>
         <AppHeading/>
-        <Figures data={WorldwideData}/>
-        <Chart flagData={this.state.flagData} chartData= {WorldwideData}/>
-        <Table DataCountries= {this.state.DataCountries} sortValues={this.sortValues} data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
+        <Chart flagData={this.state.flagData}/>
+        <Table DataCountries= {this.state.DataCountries}  data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </Fragment>
     );
   }

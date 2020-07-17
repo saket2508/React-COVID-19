@@ -88,16 +88,6 @@ class FilteredTable extends Component{
             item.country='Laos'
             return <td style={{fontWeight:"600"}}  id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
-        if(item.country==="USA"){
-            item.country= 'United States'
-            return(
-               <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
-            )
-        }
-        if(item.country==="UK"){
-            item.country='United Kingdom'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
-        }
         if(item.country==='Libyan Arab Jamahiriya'){
             item.country='Libya'
             return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
@@ -169,7 +159,7 @@ class FilteredTable extends Component{
                     <input class="form-control form-control-sm" 
                                 value={filtertStr} 
                                 type="search"
-                                placeholder="Search A Country..."
+                                placeholder="Search Any Country..."
                                 aria-label="Search"
                                 onChange={ e => this.setState({ filterStr: e.target.value }) }/>
                     </div>
