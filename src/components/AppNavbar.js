@@ -6,6 +6,7 @@ class AppNavbar extends Component{
         <div className='container-md'>
         <a className="navbar-brand" href="#">
             COVID-19 TRACKER
+            <small className='ml-2'>v2.0</small>
           </a>
         </div>
     </nav>

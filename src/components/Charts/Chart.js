@@ -71,6 +71,35 @@ class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
+            selectedDate:'Beginning', 
+            date1:[
+                {
+                    id:1,
+                    name: 'Beginnning'
+                },
+                {
+                    id:2,
+                    name:'1 Month'
+                },
+                {
+                    id:3,
+                    name: '2 Weeks'
+                },
+            ],
+            date2:[
+                {
+                    id:1,
+                    name: 'Beginnning'
+                },
+                {
+                    id:2,
+                    name:'1 Month'
+                },
+                {
+                    id:3,
+                    name: '2 Weeks'
+                },
+            ],
             rawdata_ts:{},
             countries_data:{},
             worldwide:{},
@@ -109,6 +138,11 @@ class Chart extends Component{
                 {
                     id:2,
                     name:'Deaths',
+                    color:'',
+                },
+                {
+                    id:3,
+                    name:'Active',
                     color:'',
                 },
             ]
@@ -180,6 +214,7 @@ class Chart extends Component{
         for(let key in response){
 
             let country_casesdata=[]
+            let country_active_data=[]
             let country_newcasesdata=[]
             let country_deathsdata=[]
             let country_newdeathsdata=[]
@@ -187,7 +222,11 @@ class Chart extends Component{
             response[key].map((item) => {
                 let country_cases= item["confirmed"]
                 let country_deaths= item["deaths"]
+                let country_recovered= item["recovered"]
+                let country_active= country_cases- country_deaths- country_recovered
+
                 country_casesdata.push(country_cases)
+                country_active_data.push(country_active)
                 country_deathsdata.push(country_deaths)
             })
 
@@ -234,6 +273,7 @@ class Chart extends Component{
             const country={
                 cases: country_casesdata,
                 deaths: country_deathsdata,
+                active: country_active_data,
                 newcases: country_newcasesdata,
                 newdeaths: country_newdeathsdata,
                 growth_rate: avg_rate
@@ -372,7 +412,7 @@ class Chart extends Component{
                         backgroundColor:'#f5f5f5'
                       }
                     ]
-            },       
+            },
             pieChartData2:{
                 datasets: [{
                     data: [worldwide.active_data,
@@ -561,6 +601,23 @@ class Chart extends Component{
                     }
                 })
             }
+            if(this.state.Name2==="Active"){
+                this.setState({
+                    CumulativeChartData:{
+                        labels: dates,
+                            datasets:[
+                              {
+                                    fill:true,
+                                    pointRadius:0,
+                                    borderColor:'#e3f2fd',
+                                    label:'COVID-19 Total Cases',
+                                    data: india_ts.cases,
+                                    backgroundColor:'#1e88e5'
+                              }
+                            ]
+                    }
+                })
+            }
            
         }
         else{
@@ -657,6 +714,23 @@ class Chart extends Component{
                     }
                 })
             }
+            if(this.state.Name2==="Active"){
+                this.setState({
+                    CumulativeChartData:{
+                        labels: dates,
+                            datasets:[
+                              {
+                                fill:true,
+                                pointRadius:0,
+                                borderColor:'#1e88e5',
+                                label:'COVID-19: Total Deaths',
+                                data: rawdata_ts[key].active,
+                                backgroundColor:'#e3f2fd'
+                              }
+                            ]
+                    }
+                })
+            }
         }
     }
 
@@ -700,6 +774,26 @@ class Chart extends Component{
                 }
             })
         }
+        if(item.id===3){
+            this.setState({
+                val2:'Active Cases',
+                Name2:'Active',
+                CumulativeChartData:{
+                    labels: dates,
+                        datasets:[
+                          {
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#1e88e5',
+                            label:'COVID-19: Total Deaths',
+                            data: this.state.Data.active,
+                            backgroundColor:'#e3f2fd'
+                          }
+                        ]
+                }
+            })
+        }
+
 
     }
 
@@ -941,7 +1035,7 @@ class Chart extends Component{
                                     </div>
 
                                     <div className='container col-7 mt-2 d-inline-flex justify-content-center' onChange={this.changeKey} value={this.state.Selected}>
-                                        <select id='select' class="custom-select my-1 mr-sm-2">
+                                        <select id='select' class="form-control form-control-sm">
                                             {this.state.countries.map((item) => (
                                                 checkOption(item)
                                             ))} 
@@ -1051,7 +1145,7 @@ class Chart extends Component{
                                         <a class="nav-link active" key={item.id} data-toggle="tab" href="#" onClick={this.changeDailyVariable.bind(this,item)}>{item.name}</a>
                                     </li>
                                 ))}
-                                {this.state.links.slice(1).map(item => (
+                                {this.state.links.slice(1,2).map(item => (
                                     <li className='nav-item'>
                                         <a class="nav-link" key={item.id} data-toggle="tab" href="#" onClick={this.changeDailyVariable.bind(this,item)}>{item.name}</a>
                                     </li>
