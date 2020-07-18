@@ -417,7 +417,7 @@ class Chart extends Component{
                 let newcases_in= india_cases_ts[i+1]-india_cases_ts[i]
                 let newdeaths_in= india_deaths_ts[i+1]-india_deaths_ts[i]
                 india_newcases_ts.push(newcases_in)
-                india_newdeaths_ts.push(newcases_in)
+                india_newdeaths_ts.push(newdeaths_in)
             }
 
             const india_ts= {

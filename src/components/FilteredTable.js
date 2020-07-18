@@ -20,10 +20,10 @@ function TableHeader(props){
             <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Deaths</th>
             <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Recovered</th>
             <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Active</th>
-            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Cases/1M People</th>
-            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Deaths/1M People</th>
-            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Tests/1M People</th>
-            <th id='nowrap-r' style={{wordWrap:'break-word',fontWeight:"700"}} scope='col'>Total Tests</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Critical</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Total Tests</th>
+            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Tests Per Million</th>
+
         </thead>
 
         <tr className="table-warning">
@@ -52,10 +52,9 @@ function TableHeader(props){
                     {format(props.data.Recovered)}
             </td>
             <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.Active)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.casespermillion)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.deathspermillion)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.Critical)}</td>
             <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.tests}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
         </tr>
         </Fragment>
     );
@@ -133,10 +132,9 @@ class FilteredTable extends Component{
                                     </td> 
                                     <td id='nowrap-r'>{format(item.recovered)}</td>
                                     <td id='nowrap-r'>{format(item.active)}</td>
-                                    <td id='nowrap-r'>{format(item.casesPerOneMillion)}</td>
-                                    <td id='nowrap-r'>{format(item.deathsPerOneMillion)}</td>
-                                    <td id='nowrap-r'>{format(item.testsPerOneMillion)}</td>
+                                    <td id='nowrap-r'>{format(item.critical)}</td>
                                     <td id='nowrap-r'>{format(item.tests)}</td>
+                                    <td id='nowrap-r'>{format(item.testsPerOneMillion)}</td>
                                    
                                 </tr>
                             ))}

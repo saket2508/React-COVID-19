@@ -10,7 +10,7 @@ class Table extends Component{
 
     render(){
         return(
-            <div className='container'>
+            <div className='container-md'>
                 <FilteredTable DataCountries={this.props.DataCountries} sortValues={this.props.sortValues} changeContinent={this.props.changeContinent} data={this.props.data} dataw= {this.props.dataw} list={this.props.list}/>
             </div>
         );
