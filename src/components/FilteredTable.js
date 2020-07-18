@@ -4,11 +4,9 @@ function format(item){
     return new Intl.NumberFormat('en-US').format(item)
 }
 
-
 function TableHeader(props){
     const tableheader=(
         <Fragment>
-            
         <thead className='thead-light'>
             <th scope='col' style={{textAlign:'center'}}>
                 #

@@ -1,7 +1,6 @@
 import React, { Component} from "react"
 import FilteredTable from './FilteredTable'
 
-
 class Table extends Component{
    constructor(props){
        super(props)
