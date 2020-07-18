@@ -214,14 +214,29 @@ class Chart extends Component{
             }
             if(name==="West Bank and Gaza"){
                 name="Palestine"
+            }   
+
+            //seven-day avg is computed here
+            let last_seven_days_data= country_newcasesdata.slice(-7)
+            let seven_days_cumulative= country_casesdata.slice(-7)
+            let sum=0
+            for(let i=0;i<seven_days_cumulative.length;i++){
+                let growth_rate= (last_seven_days_data[i]/seven_days_cumulative[i])*100
+                sum+= growth_rate
             }
+            let avg_rate= sum/7
+            //console.log(avg_rate)
+
+
+
             countries.push(name)
 
             const country={
                 cases: country_casesdata,
                 deaths: country_deathsdata,
                 newcases: country_newcasesdata,
-                newdeaths: country_newdeathsdata
+                newdeaths: country_newdeathsdata,
+                growth_rate: avg_rate
             }
             rawdata_ts[name]= country
         }
@@ -236,6 +251,7 @@ class Chart extends Component{
         let cases_sum=0
         let deaths_sum=0
         let recovered_sum=0
+        let tests_sum=0
 
         let time= res2[0]['updated']
        
@@ -257,6 +273,9 @@ class Chart extends Component{
             let Cases= item.cases
             cases_sum+= Cases
 
+            let Tests= item.tests
+            tests_sum+= Tests
+
             let Deaths= item.deaths
             deaths_sum+= Deaths
 
@@ -265,13 +284,26 @@ class Chart extends Component{
 
             let Active= item.active
 
+            let tests_per_hundred= item.testsPerOneMillion/10000 
+
+            let cfr= (item.deaths/item.cases)*100
+
+            let rr= (item.recovered/item.cases)*100
+
+            let ar= 100-cfr-rr
+
             let obj_country={
                 cases_data: Cases,
                 lastUpdated: country_last_updated,
                 code: code,
+                Tests: Tests,
+                TestsPerHundred: tests_per_hundred,
                 deaths_data: Deaths,
                 recovered_data: Recovered,
-                active_data:Active
+                active_data:Active,
+                cfr: cfr.toFixed(1),
+                rr:rr.toFixed(1),
+                ar:ar.toFixed(1)
             } 
             countries_data[name]= obj_country   
             
@@ -280,9 +312,13 @@ class Chart extends Component{
         const worldwide={}
         worldwide.time= time
         worldwide.cases_data= cases_sum
+        worldwide.tests_data= tests_sum
         worldwide.deaths_data= deaths_sum
         worldwide.recovered_data= recovered_sum
         worldwide.active_data= cases_sum-recovered_sum-deaths_sum
+        worldwide.cfr= ((deaths_sum/cases_sum)*100).toFixed(1)
+        worldwide.rr= ((recovered_sum/cases_sum)*100).toFixed(1)
+        worldwide.ar= (100- worldwide.rr- worldwide.cfr).toFixed(1)
 
         countries_data['World']= worldwide
 
@@ -310,6 +346,9 @@ class Chart extends Component{
                 active:countries_data["India"].active_data,
                 deaths:countries_data["India"].deaths_data,
                 recovered:countries_data["India"].recovered_data,
+                cfr: countries_data["India"].cfr,
+                rr: countries_data["India"].rr,
+                ar: countries_data["India"].ar
             },
             pieChartData:{
                 datasets: [{
@@ -348,7 +387,10 @@ class Chart extends Component{
                 confirmed:worldwide.cases_data,
                 active:worldwide.active_data,
                 deaths:worldwide.deaths_data,
-                recovered:worldwide.recovered_data
+                recovered:worldwide.recovered_data,
+                cfr: worldwide.cfr,
+                rr: worldwide.rr,
+                ar: worldwide.ar
             }
         })
     }
@@ -432,18 +474,14 @@ class Chart extends Component{
                 Data: india_ts,
                 chartCard:{//for world/country-data
                     code: countries_data[key].code,
-                    lastUpdated: countries_data[key].lastUpdated,
                     confirmed:countries_data[key].cases_data,
                     active:countries_data[key].active_data,
                     deaths:countries_data[key].deaths_data,
                     recovered:countries_data[key].recovered_data,
-                },
-                chartCard:{//for world/country-data
-                    code: countries_data[key].code,
-                    confirmed:countries_data[key].cases_data,
-                    active:countries_data[key].active_data,
-                    deaths:countries_data[key].deaths_data,
-                    recovered:countries_data[key].recovered_data,
+                    lastUpdated: countries_data["India"].lastUpdated,
+                    cfr: countries_data["India"].cfr,
+                    rr: countries_data["India"].rr,
+                    ar: countries_data["India"].ar
                 },    
                 pieChartData:{
                     datasets: [{
@@ -536,6 +574,9 @@ class Chart extends Component{
                     active:countries_data[key].active_data,
                     deaths:countries_data[key].deaths_data,
                     recovered:countries_data[key].recovered_data,
+                    cfr: countries_data[key].cfr,
+                    rr: countries_data[key].rr,
+                    ar: countries_data[key].ar
                 },
                 pieChartData:{
                     datasets: [{
@@ -774,28 +815,34 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active Cases</h6>
+                                                <h6 style={{fontWeight:'600'}}>Active</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.active)}</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.active)}
+                                                    <small className='text-muted'> ({this.state.chartCard2.ar} %)</small>
+                                                </h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Total Recovered</h6>
+                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
                                             </div>
                                             <span className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.recovered)}</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.recovered)}
+                                                    <small className='text-muted'> ({this.state.chartCard2.rr} %)</small>
+                                                </h6>
                                             </span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Total Deaths</h6>
+                                                <h6 style={{fontWeight:'600'}}>Fatalities</h6>
                                             </div>
                                             <span className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.deaths)}</h6>                                            
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.deaths)}
+                                                <small className='text-muted'> ({this.state.chartCard2.cfr} %)</small>
+                                                </h6>                                            
                                             </span>
                                         </li>                                      
                                     </ul>
@@ -858,29 +905,35 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active Cases</h6>
+                                                <h6 style={{fontWeight:'600'}}>Active</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.active)}</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.active)}
+                                                    <small className='text-muted'> ({this.state.chartCard.ar} %)</small>
+                                                </h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Total Recovered</h6>
+                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
                                             </div>
                                             <div className='count'>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.recovered)}</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.recovered)}
+                                                    <small className='text-muted'> ({this.state.chartCard.rr} %)</small>
+                                                </h6>
                                             </div>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Total Deaths</h6>
+                                                <h6 style={{fontWeight:'600'}}>Fatalities</h6>
                                             </div>
                                             <div className='count'>
                                                 <div>
-                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.deaths)}</h6>
+                                                <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.deaths)}
+                                                    <small className='text-muted'> ({this.state.chartCard.cfr} %)</small>
+                                                </h6>
                                                 </div>
                                             </div>
                                         </li>                                      
