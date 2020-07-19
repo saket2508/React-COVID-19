@@ -71,7 +71,8 @@ class Chart extends Component{
     constructor(props){
         super(props)
         this.state={
-            selectedDate:'Beginning', 
+            selectedDate1:'Beginning', 
+            selectedDate2:'Beginning', 
             date1:[
                 {
                     id:1,
@@ -163,6 +164,7 @@ class Chart extends Component{
 
         let response= await response1.json()
         console.log('Hi')
+        //datetime instances are stored in a list
         response['Afghanistan'].map(item =>{
             let m= ""
             let d= item.date.slice(7,9)
@@ -210,33 +212,28 @@ class Chart extends Component{
             dates.push(date)
         })
 
-        //time-series data for every country
+        //time-series data for every country is stored
         for(let key in response){
-
             let country_casesdata=[]
             let country_active_data=[]
             let country_newcasesdata=[]
             let country_deathsdata=[]
             let country_newdeathsdata=[]
-
             response[key].map((item) => {
                 let country_cases= item["confirmed"]
                 let country_deaths= item["deaths"]
                 let country_recovered= item["recovered"]
                 let country_active= country_cases- country_deaths- country_recovered
-
                 country_casesdata.push(country_cases)
                 country_active_data.push(country_active)
                 country_deathsdata.push(country_deaths)
             })
-
+            
             for(let i=0;i<country_casesdata.length-1;i++){
-
                 let country_newcases= country_casesdata[i+1]-country_casesdata[i]
                 country_newcasesdata.push(country_newcases)
                 let country_newdeaths= country_deathsdata[i+1]-country_deathsdata[i]
                 country_newdeathsdata.push(country_newdeaths)
-               
             }
             let name= key
             if(name==="US"){
@@ -265,11 +262,7 @@ class Chart extends Component{
             }
             let avg_rate= sum/7
             //console.log(avg_rate)
-
-
-
             countries.push(name)
-
             const country={
                 cases: country_casesdata,
                 deaths: country_deathsdata,
@@ -345,8 +338,7 @@ class Chart extends Component{
                 rr:rr.toFixed(1),
                 ar:ar.toFixed(1)
             } 
-            countries_data[name]= obj_country   
-            
+            countries_data[name]= obj_country             
         })
 
         const worldwide={}
@@ -485,14 +477,18 @@ class Chart extends Component{
             let response= await res.json()
             let india_cases_ts=[] 
             let india_newcases_ts=[] 
+            let india_active_ts= []
             let india_deaths_ts=[] 
             let india_newdeaths_ts=[] 
 
             response['India'].map((item) => {
                 let cases_in=item['confirmed']
                 let deaths_in= item['deaths']
+                let recovered_in= item['recovered']
+                let active_in= cases_in-recovered_in-deaths_in
                 india_cases_ts.push(cases_in) 
                 india_deaths_ts.push(deaths_in) 
+                india_active_ts.push(active_in) 
             })
 
             for(let i=0;i<india_cases_ts.length-1;i++){
@@ -505,6 +501,7 @@ class Chart extends Component{
             const india_ts= {
                 cases: india_cases_ts,
                 deaths: india_deaths_ts,
+                active: india_active_ts,
                 newcases: india_newcases_ts,
                 newdeaths: india_newdeaths_ts
             }
@@ -610,8 +607,8 @@ class Chart extends Component{
                                     fill:true,
                                     pointRadius:0,
                                     borderColor:'#e3f2fd',
-                                    label:'COVID-19 Total Cases',
-                                    data: india_ts.cases,
+                                    label:'COVID-19 Active Cases',
+                                    data: india_ts.active,
                                     backgroundColor:'#1e88e5'
                               }
                             ]
@@ -723,7 +720,7 @@ class Chart extends Component{
                                 fill:true,
                                 pointRadius:0,
                                 borderColor:'#1e88e5',
-                                label:'COVID-19: Total Deaths',
+                                label:'COVID-19: Active Cases',
                                 data: rawdata_ts[key].active,
                                 backgroundColor:'#e3f2fd'
                               }
@@ -785,7 +782,7 @@ class Chart extends Component{
                             fill:true,
                             pointRadius:0,
                             borderColor:'#1e88e5',
-                            label:'COVID-19: Total Deaths',
+                            label:'COVID-19: Active Cases',
                             data: this.state.Data.active,
                             backgroundColor:'#e3f2fd'
                           }
@@ -865,7 +862,7 @@ class Chart extends Component{
                                 <div className='col-12 mb-2'>
                                         <div className='row'>
                                             <div className='col-xl-6 d-flex justify-content-start'>
-                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Pandemic- World</h6>
+                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Global Figures</h6>
                                             </div>
                                         </div>
 
@@ -879,7 +876,7 @@ class Chart extends Component{
                                         <hr></hr>
                                     </div>
                                     <div className='col-lg-5 col-md-12 mb-2'>
-                                        <small className='mb-2' style={{fontWeight:'600'}}>Total Coronavirus Cases</small>
+                                        <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                         <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard2.confirmed)}</h3>
                                     </div>
 
@@ -909,7 +906,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active</h6>
+                                                <h6 style={{fontWeight:'400'}}>Active</h6>
                                             </div>
                                             <div className='count'>
                                                 <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.active)}
@@ -920,7 +917,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
+                                                <h6 style={{fontWeight:'400'}}>Recovered</h6>
                                             </div>
                                             <span className='count'>
                                                 <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.recovered)}
@@ -931,7 +928,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Fatalities</h6>
+                                                <h6 style={{fontWeight:'400'}}>Fatalities</h6>
                                             </div>
                                             <span className='count'>
                                                 <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard2.deaths)}
@@ -970,7 +967,7 @@ class Chart extends Component{
                                     </div>
 
                                     <div className='col-lg-5 col-md-12 mb-2'>
-                                        <small className='mb-2' style={{fontWeight:'600'}}>Total Coronavirus Cases</small>
+                                        <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                         <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard.confirmed)}</h3>
                                     </div>
 
@@ -999,7 +996,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-1'></div>
-                                                <h6 style={{fontWeight:'600'}}>Active</h6>
+                                                <h6 style={{fontWeight:'400'}}>Active</h6>
                                             </div>
                                             <div className='count'>
                                                 <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.active)}
@@ -1010,7 +1007,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-2'></div>
-                                                <h6 style={{fontWeight:'600'}}>Recovered</h6>
+                                                <h6 style={{fontWeight:'400'}}>Recovered</h6>
                                             </div>
                                             <div className='count'>
                                                 <h6 style={{fontWeight:'600'}}>{format(this.state.chartCard.recovered)}
@@ -1021,7 +1018,7 @@ class Chart extends Component{
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
                                             <div className='title'>
                                                 <div className='dot-3'></div>
-                                                <h6 style={{fontWeight:'600'}}>Fatalities</h6>
+                                                <h6 style={{fontWeight:'400'}}>Fatalities</h6>
                                             </div>
                                             <div className='count'>
                                                 <div>
