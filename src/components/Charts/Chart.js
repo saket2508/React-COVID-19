@@ -212,6 +212,34 @@ class Chart extends Component{
             dates.push(date)
         })
 
+        let world_casesday=[]
+        let world_newcaseday=[]
+        //couldnt think of better variable names :(
+
+        for(let i=0;i<dates.length;i++){
+            let cases_day=0
+            for(let key in response){
+               cases_day+= response[key][i]["confirmed"]
+            }
+            world_casesday.push(cases_day)
+        }
+
+        for(let i=0;i<world_casesday.length-1;i++){
+            let newcases_world= world_casesday[i+1]-world_casesday[i]
+            world_newcaseday.push(newcases_world)
+        }
+
+        //console.log(world_casesday)
+        let worldwide_last_seven_days_data= world_newcaseday.slice(-7)
+        let worldwide_last_seven_days_cumulative= world_casesday.slice(-7)
+        let sum_one=0
+        for(let i=0;i<worldwide_last_seven_days_cumulative.length;i++){
+            let growth_rate_world= (worldwide_last_seven_days_data[i]/worldwide_last_seven_days_cumulative[i])*100
+            sum_one+= growth_rate_world
+        }
+        let world_avg_rate= sum_one/7
+
+
         //time-series data for every country is stored
         for(let key in response){
             let country_casesdata=[]
@@ -269,7 +297,7 @@ class Chart extends Component{
                 active: country_active_data,
                 newcases: country_newcasesdata,
                 newdeaths: country_newdeathsdata,
-                growth_rate: avg_rate
+                growth_rate: avg_rate.toFixed(1)
             }
             rawdata_ts[name]= country
         }
@@ -282,7 +310,9 @@ class Chart extends Component{
 
         console.log('Hello')
         let cases_sum=0
+        let newcases_sum=0
         let deaths_sum=0
+        let newdeaths_sum=0
         let recovered_sum=0
         let tests_sum=0
 
@@ -312,6 +342,13 @@ class Chart extends Component{
             let Deaths= item.deaths
             deaths_sum+= Deaths
 
+            let todayCases= item.todayCases
+            newcases_sum+= todayCases
+
+            let todayDeaths= item.todayDeaths
+            newdeaths_sum+= todayDeaths
+
+
             let Recovered= item.recovered
             recovered_sum+= Recovered
 
@@ -330,10 +367,12 @@ class Chart extends Component{
                 lastUpdated: country_last_updated,
                 code: code,
                 Tests: Tests,
-                TestsPerHundred: tests_per_hundred,
+                TestsPerHundred: tests_per_hundred.toFixed(1),
                 deaths_data: Deaths,
                 recovered_data: Recovered,
                 active_data:Active,
+                newcases: todayCases,
+                newdeaths: todayDeaths,
                 cfr: cfr.toFixed(1),
                 rr:rr.toFixed(1),
                 ar:ar.toFixed(1)
@@ -344,13 +383,17 @@ class Chart extends Component{
         const worldwide={}
         worldwide.time= time
         worldwide.cases_data= cases_sum
+        worldwide.newcases_data= newcases_sum
         worldwide.tests_data= tests_sum
         worldwide.deaths_data= deaths_sum
+        worldwide.newdeaths_data= newdeaths_sum
         worldwide.recovered_data= recovered_sum
+        worldwide.TestsPerHundred= ((tests_sum/7800000000)*100).toFixed(1)
         worldwide.active_data= cases_sum-recovered_sum-deaths_sum
         worldwide.cfr= ((deaths_sum/cases_sum)*100).toFixed(1)
         worldwide.rr= ((recovered_sum/cases_sum)*100).toFixed(1)
         worldwide.ar= (100- worldwide.rr- worldwide.cfr).toFixed(1)
+        worldwide.growth_rate= world_avg_rate.toFixed(1)
 
         countries_data['World']= worldwide
 
@@ -373,11 +416,15 @@ class Chart extends Component{
             },
             chartCard:{//for world/country-data
                 code:"IN",
+                TestsPerHundred: countries_data["India"].TestsPerHundred,
+                GrowthRate: rawdata_ts["India"].growth_rate,
                 lastUpdated: countries_data["India"].lastUpdated,
                 confirmed:countries_data["India"].cases_data,
                 active:countries_data["India"].active_data,
                 deaths:countries_data["India"].deaths_data,
                 recovered:countries_data["India"].recovered_data,
+                newcases: countries_data["India"].newcases,
+                newdeaths: countries_data["India"].newdeaths,
                 cfr: countries_data["India"].cfr,
                 rr: countries_data["India"].rr,
                 ar: countries_data["India"].ar
@@ -417,9 +464,13 @@ class Chart extends Component{
             chartCard2:{
                 date: worldwide.time,
                 confirmed:worldwide.cases_data,
+                TestsPerHundred: worldwide.TestsPerHundred,
+                newcases: worldwide.newcases_data,
+                newdeaths: worldwide.newdeaths_data,
                 active:worldwide.active_data,
                 deaths:worldwide.deaths_data,
                 recovered:worldwide.recovered_data,
+                GrowthRate: worldwide.growth_rate,
                 cfr: worldwide.cfr,
                 rr: worldwide.rr,
                 ar: worldwide.ar
@@ -498,12 +549,22 @@ class Chart extends Component{
                 india_newdeaths_ts.push(newdeaths_in)
             }
 
+            let last_seven_days_data= india_newcases_ts.slice(-7)
+            let seven_days_cumulative= india_cases_ts.slice(-7)
+            let sum=0
+            for(let i=0;i<seven_days_cumulative.length;i++){
+                let growth_rate= (last_seven_days_data[i]/seven_days_cumulative[i])*100
+                sum+= growth_rate
+            }
+            let avg_rate= sum/7
+
             const india_ts= {
                 cases: india_cases_ts,
                 deaths: india_deaths_ts,
                 active: india_active_ts,
                 newcases: india_newcases_ts,
-                newdeaths: india_newdeaths_ts
+                newdeaths: india_newdeaths_ts,
+                growth_rate: avg_rate.toFixed(1)
             }
 
             this.setState({
@@ -515,7 +576,11 @@ class Chart extends Component{
                     active:countries_data[key].active_data,
                     deaths:countries_data[key].deaths_data,
                     recovered:countries_data[key].recovered_data,
+                    newcases: countries_data["India"].newcases,
+                    newdeaths: countries_data["India"].newdeaths,
                     lastUpdated: countries_data["India"].lastUpdated,
+                    TestsPerHundred: countries_data["India"].TestsPerHundred,
+                    GrowthRate: india_ts.growth_rate,
                     cfr: countries_data["India"].cfr,
                     rr: countries_data["India"].rr,
                     ar: countries_data["India"].ar
@@ -624,10 +689,14 @@ class Chart extends Component{
                 chartCard:{//for world/country-data
                     code: countries_data[key].code,
                     lastUpdated: countries_data[key].lastUpdated,
+                    newcases: countries_data[key].newcases,
+                    newdeaths: countries_data[key].newdeaths,
                     confirmed:countries_data[key].cases_data,
                     active:countries_data[key].active_data,
                     deaths:countries_data[key].deaths_data,
                     recovered:countries_data[key].recovered_data,
+                    TestsPerHundred: countries_data[key].TestsPerHundred,
+                    GrowthRate: rawdata_ts[key].growth_rate,
                     cfr: countries_data[key].cfr,
                     rr: countries_data[key].rr,
                     ar: countries_data[key].ar
@@ -900,7 +969,43 @@ class Chart extends Component{
                                 </div>
 
                                 </div>
-                                <div className='row'>
+                                <div className='col-12 container mb-4'>
+                                    <div className='card text-center'>
+                                        <div className='card-body'>
+                                        <div className='row'>
+                                    <div className='col'>
+                                    <small>New Cases</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                            {format(this.state.chartCard2.newcases)}
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>New Deaths</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
+                                        {format(this.state.chartCard2.newdeaths)}
+                                        </h6>
+                                    </div>
+                                </div> 
+                                
+                                        <div className='row mt-2'>
+                                    <div className='col'>
+                                    <small>7-day growth rate</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                        {this.state.chartCard2.GrowthRate} %
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>Population tested</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
+                                            {this.state.chartCard2.TestsPerHundred} %
+                                        </h6>
+                                    </div>
+                                </div> 
+                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='row mt-2'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
@@ -989,7 +1094,41 @@ class Chart extends Component{
                                     />
                                     </div>
                                 </div>
-                                </div>    
+                                </div>   
+                    <div className='col-12 container mb-4'>
+                        <div className='card text-center'>
+                            <div className='card-body'>
+                                <div className='row'>
+                                    <div className='col'>
+                                    <small>New Cases</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                            {format(this.state.chartCard.newcases)}
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>New Deaths</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
+                                            {format(this.state.chartCard.newdeaths)}
+                                        </h6>
+                                    </div>
+                                </div> 
+                                <div className='row mt-2'>
+                                    <div className='col'>
+                                    <small>7-day growth rate</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                        {this.state.chartCard.GrowthRate} %
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>Population tested</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
+                                        {this.state.chartCard.TestsPerHundred} %
+                                        </h6>
+                                    </div>
+                                </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className='row'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">

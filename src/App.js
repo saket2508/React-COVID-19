@@ -30,7 +30,7 @@ const continents={
 
 
 const WorldwideData={
-        Name: 'Worldwide',
+        Name: 'World',
         Cases:0,
         Deaths:0,
         Recovered:0,
@@ -51,7 +51,7 @@ class App extends Component{
       list:[
         {
           id:0,
-          name:'Worldwide'
+          name:'World'
         },
         {
           id:1,
@@ -277,7 +277,7 @@ class App extends Component{
 }
 
   changeContinent = (item) => {
-    if(item.name==='Worldwide'){
+    if(item.name==='World'){
       this.setState({
         appData:data,
         Data:WorldwideData
