@@ -669,12 +669,12 @@ class Chart extends Component{
                         labels: dates,
                             datasets:[
                               {
-                                    fill:true,
-                                    pointRadius:0,
-                                    borderColor:'#e3f2fd',
-                                    label:'COVID-19 Active Cases',
-                                    data: india_ts.active,
-                                    backgroundColor:'#1e88e5'
+                                fill:true,
+                                pointRadius:0,
+                                borderColor:'#1e88e5',
+                                label:'COVID-19: Active Cases',
+                                data: india_ts.active,
+                                backgroundColor:'#e3f2fd'
                               }
                             ]
                     }
@@ -792,6 +792,7 @@ class Chart extends Component{
                                 label:'COVID-19: Active Cases',
                                 data: rawdata_ts[key].active,
                                 backgroundColor:'#e3f2fd'
+                                //'#1e88e5',
                               }
                             ]
                     }
