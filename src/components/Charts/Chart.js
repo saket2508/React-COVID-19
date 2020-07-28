@@ -325,6 +325,10 @@ class Chart extends Component{
                 name= "South Korea"
             }
 
+            if(name==="Bosnia"){
+                name="Bosnia and Herzegovina"
+            }
+
             let code= item.countryInfo.iso2
 
             let country_last_updated= item['updated']
@@ -932,17 +936,11 @@ class Chart extends Component{
                                 <div className='col-12 mb-2'>
                                         <div className='row'>
                                             <div className='col-xl-6 d-flex justify-content-start'>
-                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Global Figures</h6>
+                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 World Figures</h6>
                                             </div>
                                         </div>
 
-                                        <div className='row'>    
-                                            <div className='d-inline-flex container justify-content-between'>
-                                            <div>
-                                            <small className='text-muted' style={{fontWeight:'600'}}>{checkDateGlobal(this.state.worldwide.time)}</small>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     
                                         <hr></hr>
                                     </div>
                                     <div className='col-lg-5 col-md-12 mb-2'>
@@ -970,43 +968,8 @@ class Chart extends Component{
                                 </div>
 
                                 </div>
-                                <div className='col-12 container mb-4'>
-                                    <div className='card text-center'>
-                                        <div className='card-body'>
-                                        <div className='row'>
-                                    <div className='col'>
-                                    <small>New Cases</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                            {format(this.state.chartCard2.newcases)}
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>New Deaths</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
-                                        {format(this.state.chartCard2.newdeaths)}
-                                        </h6>
-                                    </div>
-                                </div> 
-                                
-                                        <div className='row mt-2'>
-                                    <div className='col'>
-                                    <small>7-day growth rate</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                        {this.state.chartCard2.GrowthRate} %
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>Population tested</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
-                                            {this.state.chartCard2.TestsPerHundred} %
-                                        </h6>
-                                    </div>
-                                </div> 
-                                
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row mt-2'>
+                       
+                                <div className='row mb-2'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
@@ -1045,6 +1008,44 @@ class Chart extends Component{
                                     </ul>
                                     </div>
                                 </div>
+                                <div className='row mb-4'>
+                           <div className='col-12 container'>
+                                    <div className='card text-center'>
+                                        <div className='card-body'>
+                                        <div className='row'>
+                                    <div className='col'>
+                                    <small>New Cases</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                            {format(this.state.chartCard2.newcases)}
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>New Deaths</small>
+                                        <h6 style={{fontWeight:'600', color:'#f44336'}}> 
+                                        {format(this.state.chartCard2.newdeaths)}
+                                        </h6>
+                                    </div>
+                                </div> 
+                                
+                                        <div className='row mt-2'>
+                                    <div className='col'>
+                                    <small>7-day growth rate</small>
+                                        <h6 style={{fontWeight:'600', color:'#455a64'}}>
+                                        {this.state.chartCard2.GrowthRate} %
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>Population tested</small>
+                                        <h6 style={{fontWeight:'600', color:'#4caf50'}}> 
+                                            {this.state.chartCard2.TestsPerHundred} %
+                                        </h6>
+                                    </div>
+                                </div> 
+                                
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
                                 </div>
                                
                                 </div>
@@ -1062,13 +1063,7 @@ class Chart extends Component{
                                                 {header(this.state.Selected, this.state.chartCard.code)}
                                             </div>
                                         </div>
-                                        <div className='row'>
-                                            <div className='col-9'>
-                                                <div className='d-flex justify-content-start'>
-                                    <small className='text-muted' style={{fontWeight:'600'}}>{checkDateGlobal(this.state.chartCard.lastUpdated)}</small>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    
                                         <hr></hr>
                                     </div>
 
@@ -1096,41 +1091,7 @@ class Chart extends Component{
                                     </div>
                                 </div>
                                 </div>   
-                    <div className='col-12 container mb-4'>
-                        <div className='card text-center'>
-                            <div className='card-body'>
-                                <div className='row'>
-                                    <div className='col'>
-                                    <small>New Cases</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                            {format(this.state.chartCard.newcases)}
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>New Deaths</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
-                                            {format(this.state.chartCard.newdeaths)}
-                                        </h6>
-                                    </div>
-                                </div> 
-                                <div className='row mt-2'>
-                                    <div className='col'>
-                                    <small>7-day growth rate</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                        {this.state.chartCard.GrowthRate} %
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>Population tested</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}> 
-                                        {this.state.chartCard.TestsPerHundred} %
-                                        </h6>
-                                    </div>
-                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row'>
+                                <div className='row mb-2'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
@@ -1170,19 +1131,60 @@ class Chart extends Component{
                                         </li>                                      
                                     </ul>
                                     </div>
+                                    </div>
 
-                                    <div className='container col-7 mt-2 d-inline-flex justify-content-center' onChange={this.changeKey} value={this.state.Selected}>
+                <div className='row mb-4'>
+                   <div className='col-12 container'>
+                        <div className='card text-center'>
+                            <div className='card-body'>
+                                <div className='row'>
+                                    <div className='col'>
+                                    <small>New Cases</small>
+                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
+                                            {format(this.state.chartCard.newcases)}
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>New Deaths</small>
+                                        <h6 style={{fontWeight:'600', color:'#f44336'}}> 
+                                            {format(this.state.chartCard.newdeaths)}
+                                        </h6>
+                                    </div>
+                                </div> 
+                                <div className='row mt-2'>
+                                    <div className='col'>
+                                    <small>7-day growth rate</small>
+                                        <h6 style={{fontWeight:'600', color:'#455a64'}}>
+                                        {this.state.chartCard.GrowthRate} %
+                                        </h6>
+                                    </div>
+                                    <div className='col'>
+                                    <small>Population tested</small>
+                                        <h6 style={{fontWeight:'600', color:'#4caf50'}}> 
+                                        {this.state.chartCard.TestsPerHundred} %
+                                        </h6>
+                                    </div>
+                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                   </div>
+
+                                   <div className='row'>
+                                   <div className='container col-7 mt-2 d-inline-flex justify-content-center' onChange={this.changeKey} value={this.state.Selected}>
                                         <select id='select' class="form-control form-control-sm">
                                             {this.state.countries.map((item) => (
                                                 checkOption(item)
                                             ))} 
                                         </select>
                                     </div>
+                                   </div>
                                 </div>
+              
                                 </div>
                                 </div>
                             </div>
-
+                        <div className='row'>
                            <div className='col-md-6 col-sm-12 mt-4 mb-3'>
                             <div className='card'>
             
@@ -1345,9 +1347,10 @@ class Chart extends Component{
                     </div>
                     </div>
                            </div>
+                           </div>
                  </div>
                 </div>
-                </div>
+        
               </Fragment>
           )
         return(

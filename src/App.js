@@ -108,54 +108,9 @@ class App extends Component{
     let todayDeaths=0
     let todayCases=0
 
-    const response= await fetch(url2)
-    response.json()
-    .then(json => {
-      console.log('First!')
-      for(let key in json){
-        let list1=[]
-        let list2=[]
-        let list3=[]
-        let list4=[]
-        let list5=[]
-        let list6=[]
-        let list7=[]
-    let country= key
-      if(country==='US'){
-        country= 'United States'
-        }
-        if(country==='Korea, South'){
-        country= 'South Korea'
-        }
-
-        json[key].map((item) => {
-            list1.push(Number(item.confirmed))                   
-            list2.push(Number(item.deaths))                   
-            list3.push(Number(item.recovered))                   
-            list7.push(Number(item.confirmed) - Number(item.deaths) - Number(item.recovered))                   
-        })
-        for(let i=0;i<list1.length-1;i++){
-            let a= list1[i+1]-list1[i]
-            list4.push(a)
-            let b= list2[i+1]-list2[i]
-            list5.push(b)
-            let c= list3[i+1]-list3[i]
-            list6.push(c)
-        }
-        let obj={cases:list1, 
-            deaths:list2, 
-            recovered:list3, 
-            active:list7, 
-            newcases: list4, 
-            newdeaths: list5, 
-            newrecoveries:list6}
-        rawdata[country]= obj
-        //chart data: Cumulative And Daily for all countries
-    }
-    })
 
     const res= await fetch(url)
-    res.json()
+    await res.json()
     .then(json => {
       let i=1
       console.log('Second!')
@@ -343,7 +298,7 @@ class App extends Component{
     return(
       <Fragment>
         <AppNavbar/>
-        <AppHeading/>
+        <AppHeading data={WorldwideData}/>
         <Chart flagData={this.state.flagData}/>
         <Table DataCountries= {this.state.DataCountries}  data= {this.state.appData} dataw= {this.state.Data} changeContinent={this.changeContinent} list={this.state.list}/>
       </Fragment>
