@@ -152,7 +152,7 @@ class FilteredTable extends Component{
             <div className='container-lg'>
                 <div class="d-flex justify-content-start mb-3">
                     <div class='col-lg-4 col-sm-9 mt-2'>
-                    <input class="form-control form-control-sm" 
+                    <input id="search" class="form-control form-control-sm" 
                                 value={filtertStr} 
                                 type="search"
                                 placeholder="Search Any Country..."
