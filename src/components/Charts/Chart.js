@@ -595,7 +595,7 @@ class Chart extends Component{
                         countries_data[key].recovered_data,
                         countries_data[key].deaths_data],
                         //data: [sum.Active,sum.Recovered,sum.Deaths],
-                        backgroundColor:['#1e88e5','#7cb342','#ff5722']
+                        backgroundColor:['#2979ff','#00e676','#ff1744']
                     }],
                     labels: ['Active','Recovered','Deaths']
                 },
@@ -711,7 +711,7 @@ class Chart extends Component{
                         countries_data[key].recovered_data,
                         countries_data[key].deaths_data],
                         //data: [sum.Active,sum.Recovered,sum.Deaths],
-                        backgroundColor:['#1e88e5','#7cb342','#ff5722']
+                        backgroundColor:['#2979ff','#00e676','#ff1744']
                     }],
                     labels: ['Active','Recovered','Deaths']
                 },
