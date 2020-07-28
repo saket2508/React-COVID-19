@@ -25,7 +25,7 @@ class AppNavbar extends Component{
           </button>
         </div>
         <div class="modal-body">
-          <p className='lead mb-4'>This website was created by Saket S Narayan, a third year CS student from Manipal University Jaipur. You can connect with me through Github or LinkedIn.</p>
+          <p className='lead mb-4'>This website was created by Saket S Narayan, a third year CS student from Manipal University Jaipur. You can connect with me on Github or LinkedIn.</p>
           <div className='row px-3 d-flex justify-content-around'>
             <div>      
               <h2>
