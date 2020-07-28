@@ -14,10 +14,10 @@ const dates=[]
 
 function header(item,code){
     if(item==="World"){
-        return <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Pandemic- World</h6>
+        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic- World</h6>
     }
     else{
-        return <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 Pandemic in {item}<span className='ml-1'><img src={"https://www.countryflags.io/"+code+"/flat/24.png"} alt='flag-icon'></img></span></h6>
+        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic in <span className='mr-1'><img src={"https://www.countryflags.io/"+code+"/flat/24.png"} alt='flag-icon'></img></span>{item}</h6>
     }
 }
 
@@ -439,7 +439,7 @@ class Chart extends Component{
                     countries_data["India"].recovered_data,
                     countries_data["India"].deaths_data],
                     //data: [sum.Active,sum.Recovered,sum.Deaths],
-                    backgroundColor:['#1e88e5','#7cb342','#ff5722']
+                    backgroundColor:['#2979ff','#00e676','#ff1744']
                 }],
                 labels: ['Active','Recovered','Deaths']
             },
@@ -461,7 +461,7 @@ class Chart extends Component{
                     data: [worldwide.active_data,
                         worldwide.recovered_data,
                         worldwide.deaths_data,],
-                    backgroundColor:['#1e88e5','#7cb342','#ff5722']
+                    backgroundColor:['#2979ff','#00e676','#ff1744']
                 }],
                 labels: ['Active','Recovered','Deaths']
             },
@@ -932,15 +932,14 @@ class Chart extends Component{
                             <div className='col-md-6 col-sm-12 mt-3 mb-4'>
                             <div className='card h-100'>
                                 <div className='card-body'>     
+
                                 <div className='row mb-3'>
                                 <div className='col-12 mb-2'>
                                         <div className='row'>
                                             <div className='col-xl-6 d-flex justify-content-start'>
-                                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 World Figures</h6>
+                                                <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 World Figures</h6>
                                             </div>
                                         </div>
-
-                                     
                                         <hr></hr>
                                     </div>
                                     <div className='col-lg-5 col-md-12 mb-2'>
@@ -966,10 +965,9 @@ class Chart extends Component{
                                     />
                                     </div>
                                 </div>
-
                                 </div>
                        
-                                <div className='row mb-2'>
+                                <div className='row'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
@@ -1007,46 +1005,7 @@ class Chart extends Component{
                                         </li>                                      
                                     </ul>
                                     </div>
-                                </div>
-                                <div className='row mb-4'>
-                           <div className='col-12 container'>
-                                    <div className='card text-center'>
-                                        <div className='card-body'>
-                                        <div className='row'>
-                                    <div className='col'>
-                                    <small>New Cases</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                            {format(this.state.chartCard2.newcases)}
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>New Deaths</small>
-                                        <h6 style={{fontWeight:'600', color:'#f44336'}}> 
-                                        {format(this.state.chartCard2.newdeaths)}
-                                        </h6>
-                                    </div>
-                                </div> 
-                                
-                                        <div className='row mt-2'>
-                                    <div className='col'>
-                                    <small>7-day growth rate</small>
-                                        <h6 style={{fontWeight:'600', color:'#455a64'}}>
-                                        {this.state.chartCard2.GrowthRate} %
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>Population tested</small>
-                                        <h6 style={{fontWeight:'600', color:'#4caf50'}}> 
-                                            {this.state.chartCard2.TestsPerHundred} %
-                                        </h6>
-                                    </div>
-                                </div> 
-                                
-                                        </div>
-                                    </div>
-                                </div>
-                           </div>
-                                </div>
+                                </div> </div>
                                
                                 </div>
                             </div>
@@ -1054,10 +1013,10 @@ class Chart extends Component{
                             
                         <div className='col-md-6 col-sm-12 mt-3 mb-4'>
                             <div className='card h-100'>
-                                <div className='card-body'> 
-                                <div className='row mb-3'>
+                                <div className='card-body'>
 
-                                    <div className='col-12 mb-2'>
+                                <div className='row mb-3'>
+                                    <div className='col-12 mb-1'>
                                         <div className='row'>
                                             <div className='col-xl-12 d-flex justify-content-start'>
                                                 {header(this.state.Selected, this.state.chartCard.code)}
@@ -1091,6 +1050,7 @@ class Chart extends Component{
                                     </div>
                                 </div>
                                 </div>   
+
                                 <div className='row mb-2'>
                                 <div className='col-12'>
                                     <ul className="list-group list-group-flush">
@@ -1132,44 +1092,6 @@ class Chart extends Component{
                                     </ul>
                                     </div>
                                     </div>
-
-                <div className='row mb-4'>
-                   <div className='col-12 container'>
-                        <div className='card text-center'>
-                            <div className='card-body'>
-                                <div className='row'>
-                                    <div className='col'>
-                                    <small>New Cases</small>
-                                        <h6 style={{fontWeight:'600', color:'#616161'}}>
-                                            {format(this.state.chartCard.newcases)}
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>New Deaths</small>
-                                        <h6 style={{fontWeight:'600', color:'#f44336'}}> 
-                                            {format(this.state.chartCard.newdeaths)}
-                                        </h6>
-                                    </div>
-                                </div> 
-                                <div className='row mt-2'>
-                                    <div className='col'>
-                                    <small>7-day growth rate</small>
-                                        <h6 style={{fontWeight:'600', color:'#455a64'}}>
-                                        {this.state.chartCard.GrowthRate} %
-                                        </h6>
-                                    </div>
-                                    <div className='col'>
-                                    <small>Population tested</small>
-                                        <h6 style={{fontWeight:'600', color:'#4caf50'}}> 
-                                        {this.state.chartCard.TestsPerHundred} %
-                                        </h6>
-                                    </div>
-                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                   </div>
-
                                    <div className='row'>
                                    <div className='container col-7 mt-2 d-inline-flex justify-content-center' onChange={this.changeKey} value={this.state.Selected}>
                                         <select id='select' class="form-control form-control-sm">
@@ -1191,7 +1113,7 @@ class Chart extends Component{
                         <div className='card-body'>
                             <div className='row'>
                             <div className='heading col-12 mb-1 mt-3'>
-                                <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
+                                <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 {this.state.Selected}: {this.state.val2} Over Time</h6>
                             </div>
 
                             <div className='col-12 mt-2'>
@@ -1275,7 +1197,7 @@ class Chart extends Component{
                         <div className='card-body'>
                         <div className='row'>
                         <div className='col-12 mb-1 mt-3'>
-                            <h6 className='text-muted' style={{fontWeight:'700'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
+                            <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 {this.state.Selected}: {this.state.val1} Over Time</h6>
                         </div>
                         <div className='col-12 mt-2'>
                         <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">
