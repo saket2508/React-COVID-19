@@ -1,5 +1,8 @@
 import React, {Component, Fragment} from "react"
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Grid from '@material-ui/core/Grid';
 
 const url='https://pomber.github.io/covid19/timeseries.json'
 const url1= 'https://corona.lmao.ninja/v2/countries?sort=cases'
@@ -17,7 +20,7 @@ function header(item,code){
         return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic- World</h6>
     }
     else{
-        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic in <span className='mr-1'><img src={"https://www.countryflags.io/"+code+"/flat/24.png"} alt='flag-icon'></img></span>{item}</h6>
+        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic in {item}<span className='ml-2'><img id="rounded-img" src={"https://disease.sh/assets/img/flags/"+code.toLowerCase()+".png"} alt='flag-icon'></img></span></h6>
     }
 }
 
@@ -36,36 +39,27 @@ function format(item){
     return new Intl.NumberFormat('en-US').format(item)
 }
 
-function checkDateGlobal(item){
-    if(item===undefined){
-        return <span></span>
-    }
-    else{
-        let time_rn= new Date().getTime()
-        let last_updated= ((time_rn-item)/60000).toFixed(0)
-        return <span>Last Updated: {last_updated} mins ago</span>
-    }
-}
-
-function checkDateIndia(item){
-    if(item===undefined){
-        return <span></span>
-    }
-    else{
-        //let time= item.slice(11,16)
-        let diff=''
-        let strhours= Number(item.slice(11,13))
-        let strmins= Number(item.slice(14,16))
-        if(new Date().getHours() === strhours){
-            diff=  new Date().getMinutes() - strmins+ ' minutes ago'
-        }
-        else{
-            diff= new Date().getHours() - strhours+ ' hours ago'
-        }
-        return <span>Last Updated: {diff}</span>
-    }
-   
-}
+function SearchMenu({list,changeCountry}){
+    return(
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item>
+          <Autocomplete
+          id="combo-box-demo"
+          options={list}
+          getOptionLabel={(option) => option}
+          onChange= {changeCountry}
+          style={{width: 250}}
+          renderInput={(params) => <TextField className="inputRounded" {...params} label="Search Any Country..." variant="outlined" />}
+        />
+        </Grid>
+      </Grid>
+    )
+  }
 
 class Chart extends Component{
     constructor(props){
@@ -279,6 +273,12 @@ class Chart extends Component{
             if(name==="West Bank and Gaza"){
                 name="Palestine"
             }   
+            if(name==="Taiwan*"){
+                name="Taiwan"
+            }
+            if(name==="Burma"){
+                name="Myanmar"
+            }
 
             //seven-day avg is computed here
             let last_seven_days_data= country_newcasesdata.slice(-7)
@@ -327,6 +327,14 @@ class Chart extends Component{
 
             if(name==="Bosnia"){
                 name="Bosnia and Herzegovina"
+            }
+
+            if(name==="DRC"){
+                name="Congo (Kinshasa)"
+            }
+
+            if(name==="Congo"){
+                name="Congo (Brazzaville)"
             }
 
             let code= item.countryInfo.iso2
@@ -439,7 +447,7 @@ class Chart extends Component{
                     countries_data["India"].recovered_data,
                     countries_data["India"].deaths_data],
                     //data: [sum.Active,sum.Recovered,sum.Deaths],
-                    backgroundColor:['#2979ff','#00e676','#ff1744']
+                    backgroundColor:['#2196f3','#4caf50','#f44336']
                 }],
                 labels: ['Active','Recovered','Deaths']
             },
@@ -461,7 +469,7 @@ class Chart extends Component{
                     data: [worldwide.active_data,
                         worldwide.recovered_data,
                         worldwide.deaths_data,],
-                    backgroundColor:['#2979ff','#00e676','#ff1744']
+                        backgroundColor:['#2196f3','#4caf50','#f44336']
                 }],
                 labels: ['Active','Recovered','Deaths']
             },
@@ -525,8 +533,9 @@ class Chart extends Component{
      
     }
 
-    changeKey = async (event) =>{
-        let key= event.target.value
+    changeKey = async (event, value) =>{
+      let key= value
+      if(key!==null){
         if(key==="India"){
             let res= await fetch('https://pomber.github.io/covid19/timeseries.json')
             let response= await res.json()
@@ -595,7 +604,7 @@ class Chart extends Component{
                         countries_data[key].recovered_data,
                         countries_data[key].deaths_data],
                         //data: [sum.Active,sum.Recovered,sum.Deaths],
-                        backgroundColor:['#2979ff','#00e676','#ff1744']
+                        backgroundColor:['#2196f3','#4caf50','#f44336']
                     }],
                     labels: ['Active','Recovered','Deaths']
                 },
@@ -711,7 +720,7 @@ class Chart extends Component{
                         countries_data[key].recovered_data,
                         countries_data[key].deaths_data],
                         //data: [sum.Active,sum.Recovered,sum.Deaths],
-                        backgroundColor:['#2979ff','#00e676','#ff1744']
+                        backgroundColor:['#2196f3','#4caf50','#f44336']
                     }],
                     labels: ['Active','Recovered','Deaths']
                 },
@@ -803,6 +812,7 @@ class Chart extends Component{
                 })
             }
         }
+      } 
     }
 
 
@@ -1092,15 +1102,10 @@ class Chart extends Component{
                                     </ul>
                                     </div>
                                     </div>
-                                   <div className='row'>
-                                   <div className='container col-7 mt-2 d-inline-flex justify-content-center' onChange={this.changeKey} value={this.state.Selected}>
-                                        <select id='select' class="form-control form-control-sm">
-                                            {this.state.countries.map((item) => (
-                                                checkOption(item)
-                                            ))} 
-                                        </select>
-                                    </div>
-                                   </div>
+                                    <div className='row'>
+                                        <SearchMenu list={this.state.countries} changeCountry={this.changeKey}>
+                                        </SearchMenu>
+                                    </div>    
                                 </div>
               
                                 </div>
