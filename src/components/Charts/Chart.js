@@ -952,12 +952,12 @@ class Chart extends Component{
                                         </div>
                                         <hr></hr>
                                     </div>
-                                    <div className='col-lg-5 col-md-12 mb-2'>
+                                    <div className='col-lg-6 col-md-12 mb-2'>
                                         <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                         <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard2.confirmed)}</h3>
                                     </div>
 
-                                    <div className='col-lg-7 col-sm-12 mb-3'>
+                                    <div className='col-lg-6 col-sm-12 mb-3'>
                                     <div className='chart flex-fill'>
                                     <Doughnut
                                         data={this.state.pieChartData2}
@@ -1036,12 +1036,12 @@ class Chart extends Component{
                                         <hr></hr>
                                     </div>
 
-                                    <div className='col-lg-5 col-md-12 mb-2'>
+                                    <div className='col-lg-6 col-md-12 mb-2'>
                                         <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                         <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard.confirmed)}</h3>
                                     </div>
 
-                                    <div className='col-lg-7 col-sm-12 mb-3'>
+                                    <div className='col-lg-6 col-sm-12 mb-3'>
                                     <div className='chart flex-fill'>
                                     <Doughnut
                                         data={this.state.pieChartData}
