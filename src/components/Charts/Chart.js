@@ -20,7 +20,7 @@ function header(item,code){
         return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic- World</h6>
     }
     else{
-        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic in {item}<span className='ml-2'><img id="rounded-img" src={"https://disease.sh/assets/img/flags/"+code.toLowerCase()+".png"} alt='flag-icon'></img></span></h6>
+        return <h6 className='text-muted' style={{fontWeight:'600'}}>COVID-19 Pandemic in {item}<span className='ml-2 mb-1'><img id="rounded-img" src={"https://disease.sh/assets/img/flags/"+code.toLowerCase()+".png"} alt='flag-icon'></img></span></h6>
     }
 }
 
@@ -54,7 +54,7 @@ function SearchMenu({list,changeCountry}){
           getOptionLabel={(option) => option}
           onChange= {changeCountry}
           style={{width: 250}}
-          renderInput={(params) => <TextField className="inputRounded" {...params} label="Search Any Country..." variant="outlined" />}
+          renderInput={(params) => <TextField className="inputRounded" {...params} label="Search..." variant="outlined" />}
         />
         </Grid>
       </Grid>
@@ -225,13 +225,11 @@ class Chart extends Component{
 
         //console.log(world_casesday)
         let worldwide_last_seven_days_data= world_newcaseday.slice(-7)
-        let worldwide_last_seven_days_cumulative= world_casesday.slice(-7)
-        let sum_one=0
-        for(let i=0;i<worldwide_last_seven_days_cumulative.length;i++){
-            let growth_rate_world= (worldwide_last_seven_days_data[i]/worldwide_last_seven_days_cumulative[i])*100
-            sum_one+= growth_rate_world
-        }
-        let world_avg_rate= sum_one/7
+        let weekly_change= worldwide_last_seven_days_data[6]- worldwide_last_seven_days_data[0]
+        let change= ((weekly_change/worldwide_last_seven_days_data[0])*100)/7
+        console.log(change)
+
+
 
 
         //time-series data for every country is stored
@@ -281,14 +279,11 @@ class Chart extends Component{
             }
 
             //seven-day avg is computed here
-            let last_seven_days_data= country_newcasesdata.slice(-7)
+            //let last_seven_days_data= country_newcasesdata.slice(-7)
             let seven_days_cumulative= country_casesdata.slice(-7)
-            let sum=0
-            for(let i=0;i<seven_days_cumulative.length;i++){
-                let growth_rate= (last_seven_days_data[i]/seven_days_cumulative[i])*100
-                sum+= growth_rate
-            }
-            let avg_rate= sum/7
+            let country_weekly_change= seven_days_cumulative[6]-seven_days_cumulative[0]
+            let country_change= ((country_weekly_change/seven_days_cumulative[0])*100)/7
+            let avg_rate= country_change
             //console.log(avg_rate)
             countries.push(name)
             const country={
@@ -405,7 +400,7 @@ class Chart extends Component{
         worldwide.cfr= ((deaths_sum/cases_sum)*100).toFixed(1)
         worldwide.rr= ((recovered_sum/cases_sum)*100).toFixed(1)
         worldwide.ar= (100- worldwide.rr- worldwide.cfr).toFixed(1)
-        worldwide.growth_rate= world_avg_rate.toFixed(1)
+        worldwide.growth_rate= change.toFixed(1)
 
         countries_data['World']= worldwide
 
@@ -954,7 +949,8 @@ class Chart extends Component{
                                     </div>
                                     <div className='col-lg-6 col-md-12 mb-2'>
                                         <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                        <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard2.confirmed)}</h3>
+                                        <h3 style={{fontWeight:'600',color:'#616161'}}>{format(this.state.chartCard2.confirmed)}
+                                        </h3>
                                     </div>
 
                                     <div className='col-lg-6 col-sm-12 mb-3'>
@@ -1012,8 +1008,9 @@ class Chart extends Component{
                                                 <small className='text-muted'> ({this.state.chartCard2.cfr} %)</small>
                                                 </h6>                                            
                                             </span>
-                                        </li>                                      
+                                        </li>                                            
                                     </ul>
+                                    
                                     </div>
                                 </div> </div>
                                

@@ -1,10 +1,12 @@
-import React, { Component, Fragment} from "react"
+import React, { useState, useEffect, Fragment} from "react"
+
+
 
 function format(item){
     return new Intl.NumberFormat('en-US').format(item)
 }
 
-function TableHeader(props){
+function TableHeader({ data }){
     const tableheader=(
         <Fragment>
         <thead className='thead-light'>
@@ -14,13 +16,13 @@ function TableHeader(props){
             <th scope='col'>        
                 Location
             </th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Confirmed</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Deaths</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Recovered</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Active</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Critical</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Total Tests</th>
-            <th scope='col' style={{fontWeight:"700"}} id='nowrap-r'>Tests Per Million</th>
+            <th scope='col'>Confirmed</th>
+            <th scope='col'>Deaths</th>
+            <th scope='col'>Recovered</th>
+            <th scope='col'>Active</th>
+            <th scope='col'>Critical</th>
+            <th scope='col'>Total Tests</th>
+            <th scope='col'>Tests Per Million</th>
 
         </thead>
 
@@ -29,30 +31,32 @@ function TableHeader(props){
             <td id='nowrap' style={{fontWeight:"700"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span style={{fontWeight:'700'}}>{props.data.Name}</span>
+                              <span style={{fontWeight:'700'}}>{data.data.Name}</span>
                         </button>
                         <div class="dropdown-menu">
-                            {props.list.map((element) => (
-                                <a key={element.id} class="dropdown-item" onClick={props.changeContinent.bind(this,element)}>{element.name}</a>
+                            {data.list.map((element) => (
+                                <a key={element.id} class="dropdown-item" onClick={() => {
+                                    data.changeContinent(element)
+                                }}>{element.name}</a>
                             ))}
                         </div>
                     </div>
             </td>
             <td id='nowrap-r' style={{fontWeight:"700"}}>
-                    {format(props.data.Cases)}
-                    <small><span class="badge badge-pill badge-secondary">{'+'+format(props.data.TodayCases)}</span></small>
+                    {format(data.data.Cases)}
+                    <small><span class="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
             </td>
             <td id='nowrap-r' style={{fontWeight:"700"}}>
-                    {format(props.data.Deaths)}
-                    <small><span class="badge badge-pill badge-danger">{'+'+format(props.data.TodayDeaths)}</span></small>
+                    {format(data.data.Deaths)}
+                    <small><span class="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
             </td>
             <td id='nowrap-r' style={{fontWeight:"700"}}>
-                    {format(props.data.Recovered)}
+                    {format(data.data.Recovered)}
             </td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.Active)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(props.data.Critical)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.tests}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{props.data.testsPerOneMillion}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(data.data.Active)}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(data.data.Critical)}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{data.tests}</td>
+            <td id='nowrap-r' style={{fontWeight:"700"}}>{data.data.testsPerOneMillion}</td>
         </tr>
         </Fragment>
     );
@@ -60,27 +64,24 @@ function TableHeader(props){
 }
 
 
-class FilteredTable extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            filterStr:""
-        }
-    }
+export default function FilteredTable({ dataTable }){
 
- 
-   
-    checkConfirmedValue= (item) =>{
+    const [ search, setSearch ] = useState("")
+
+
+    const checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
                 return <small><span class="badge badge-pill badge-secondary">{'+'+format(item.todayCases)}</span></small>
         }
     }
-    checkDeathsValue = (item) =>{
+
+    const checkDeathsValue = (item) =>{
         if(item.todayDeaths >0){
             return <small><span class="badge badge-pill badge-danger">{'+'+format(item.todayDeaths)}</span></small>
         }
     }
-    checkCountryName = (item) =>{
+
+    const checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
             return <td style={{fontWeight:"600"}}  id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
@@ -106,71 +107,74 @@ class FilteredTable extends Component{
             return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
         }
     }
-    render(){
-        const elements= this.props.data;
-        const filtertStr= this.state.filterStr;
-        //const data= this.props.DataCountries
 
-        const filteredElements=(
-            elements.filter(e => e.country.toLowerCase().includes(filtertStr.toLowerCase()))
+    const tableRows= (
+        dataTable.data.filter(e => e.country.toLowerCase().includes(search.toLowerCase()))
+    )
+
+    let id=1
+    let tableBody=(
+            <tbody>
+                    {tableRows.map((item) =>
+                        (
+                            <tr>
+                                <td id='nowrapid'>{id++}</td>
+                                    {checkCountryName(item)}
+                                <td id='nowrap-r'> {format(item.cases)} 
+                                    {checkConfirmedValue(item)}
+                                </td>
+                                <td id='nowrap-r'>{format(item.deaths)}
+                                    {checkDeathsValue(item)}
+                                </td> 
+                                <td id='nowrap-r'>{format(item.recovered)}</td>
+                                <td id='nowrap-r'>{format(item.active)}</td>
+                                <td id='nowrap-r'>{format(item.critical)}</td>
+                                <td id='nowrap-r'>{format(item.tests)}</td>
+                                <td id='nowrap-r'>{format(item.testsPerOneMillion)}</td>
+                               
+                            </tr>
+                        ))}
+            </tbody>
+    )
+
+    if(tableRows.length===0){
+        tableBody=(
+                <td colSpan='7' bgcolor='#ffcdd2'>
+                    <p className='small text-danger'>NO MATCHING RECORDS FOUND</p>
+                </td>
         )
-        let id=1
-        var tableBody=(
-                <tbody>
-                        {filteredElements.map((item) =>
-                            (
-                                <tr>
-                                    <td id='nowrapid'>{id++}</td>
-                                   {this.checkCountryName(item)}
-                                    <td id='nowrap-r'> {format(item.cases)} 
-                                        {this.checkConfirmedValue(item)}
-                                    </td>
-                                    <td id='nowrap-r'>{format(item.deaths)}
-                                        {this.checkDeathsValue(item)}
-                                    </td> 
-                                    <td id='nowrap-r'>{format(item.recovered)}</td>
-                                    <td id='nowrap-r'>{format(item.active)}</td>
-                                    <td id='nowrap-r'>{format(item.critical)}</td>
-                                    <td id='nowrap-r'>{format(item.tests)}</td>
-                                    <td id='nowrap-r'>{format(item.testsPerOneMillion)}</td>
-                                   
-                                </tr>
-                            ))}
-                </tbody>
-        )
-
-        if(filteredElements.length===0){
-            tableBody=(
-                    <td colSpan='7' bgcolor='#ffcdd2'>
-                        <p className='small text-danger'>NO MATCHING RECORDS FOUND</p>
-                    </td>
-            )
-        }
-
-        return(
-            <div className='FilteredTable'>
-            <div className='container-lg'>
-                <div class="d-flex justify-content-start mb-3">
-                    <div class='col-lg-4 col-sm-9 mt-2'>
-                    <input id="search" class="form-control form-control-sm" 
-                                value={filtertStr} 
-                                type="search"
-                                placeholder="Search Any Country..."
-                                aria-label="Search"
-                                onChange={ e => this.setState({ filterStr: e.target.value }) }/>
-                    </div>
-                   
-                </div>
-            </div>
-              <div className='table-responsive-lg'>
-                    <table id='statstable' class="table table-bordered table-hover table-sm">
-                        <TableHeader list={this.props.list} changeContinent={this.props.changeContinent} data= {this.props.dataw} />
-                        {tableBody}
-                    </table>
-                </div>   
-            </div>
-        );
     }
+
+    return(
+        <div className='FilteredTable'>
+        <div className='container-lg'>
+            <div class="d-flex justify-content-start mb-3">
+                <div class='col-lg-4 col-sm-9 mt-2'>
+                <input id="search" class="form-control form-control-md" 
+                            value={search} 
+                            type="search"
+                            placeholder="Search Any Country..."
+                            aria-label="Search"
+                            onChange={ e => setSearch(e.target.value) }/>
+                </div>
+               
+            </div>
+        </div>
+          <div className='table-responsive-lg'>
+                <table id='statstable' class="table table-bordered table-hover table-sm">
+                    <TableHeader {...{
+                        data:{
+                            changeContinent: dataTable.changeContinent,
+                            list:  dataTable.list,
+                            data:  dataTable.dataw
+                        }
+                    }} />
+                    {tableBody}
+                </table>
+            </div>   
+        </div>
+    )
+
 }
 
-export default FilteredTable
+
