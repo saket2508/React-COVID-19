@@ -26,14 +26,14 @@ export default function AppNavbar(){
             </div>
             <div class="modal-body">
               <p className='lead mb-4'>This website was created by Saket S Narayan, a third year CS student from Manipal University Jaipur. You can connect with me on Github or LinkedIn.</p>
-              <div className='row px-3 d-flex justify-content-around'>
-                <div>      
+              <div className='row px-3 d-flex justify-content-center'>
+                <div className="px-4">      
                   <h2>
                     <a className='text-secondary' href="https://github.com/saket2508"><i class="fab fa-github"></i></a>
                   </h2>
                 </div>
                 
-                <div>
+                <div className="px-4">
                   <h2>
                     <a className='text-secondary' href="https://www.linkedin.com/in/saket-s-narayan-636158149/">
                       <i class="fab fa-linkedin"></i>
