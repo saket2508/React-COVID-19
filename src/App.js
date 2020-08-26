@@ -225,7 +225,7 @@ export default function App(){
     return(
       <div>
         <AppNavbar/>
-        <div style={{flex:1,justifyContent:'center',marginTop:50}}>
+        <div style={{flex:1,justifyContent:'center',marginTop:90}}>
           <strong>Unable to get data. There appears to be a problem with the server :(</strong>
         </div>
       </div>

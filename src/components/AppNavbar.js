@@ -7,7 +7,7 @@ export default function AppNavbar(){
     <div>
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">   
        <div className="container-md">
-        <span className="navbar-brand mb-0 h5">COVID-19 TRACKER</span>
+        <span style={{fontWeight:'600'}} className="navbar-brand mb-0 h5">COVID-19 TRACKER</span>
           <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#staticBackdrop" href="#"><span><i class="far fa-question-circle fa-lg"></i></span></a>

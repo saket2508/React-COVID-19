@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
 
-
-const dates=[]
-
-
+const dates_chart=[]
 
 const useStyles = makeStyles({
     root:{
@@ -251,10 +251,16 @@ function Legend(data){
 
 
 export default function Chart(){
+    
+    //const dates=[]
+    const [ error, setError ]= useState(false)
+    const [ loading, setLoading ]= useState(false)
 
     //general info of every country(cases, deaths, etc)
     const [ dataCountries, setDataCountries ]= useState({})
     const [ list, setList ]= useState([])
+
+    const [ dates, setDates ]= useState([])
 
     //time-series data for every country
     const [ timeSeriesData, setTimeSeriesData ] = useState({})
@@ -378,13 +384,13 @@ export default function Chart(){
 
             if(variableTwo==="New Cases"){
                 setChartTwo({
-                    labels: dates.slice(-30),
+                    labels: dates,
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#757575',//gray border
                             label:'New Infections',
-                            data: (india_newcases_ts).slice(-30),
+                            data: (india_newcases_ts),
                             backgroundColor:'#757575'//gray bg
                           }
                         ]
@@ -392,13 +398,13 @@ export default function Chart(){
             }
             else{
                 setChartTwo({
-                    labels: dates.slice(-30),
+                    labels: dates,
                         datasets:[
                           {
                             fill:false,
                             borderColor:'#ff5722',
                             label:'New Fatalities',
-                            data: (india_newdeaths_ts).slice(-30),
+                            data: (india_newdeaths_ts),
                             backgroundColor:'#ff5722'
                           }
                         ]
@@ -458,13 +464,13 @@ export default function Chart(){
 
         if(variableTwo==="New Cases"){
             setChartTwo({
-                labels: dates.slice(-30),
+                labels: dates,
                     datasets:[
                       {
                         fill:false,
                         borderColor:'#757575',//gray border
                         label:'New Infections',
-                        data: (timeSeriesData[key].newCasesData).slice(-30),
+                        data: (timeSeriesData[key].newCasesData),
                         backgroundColor:'#757575'//gray bg
                       }
                     ]
@@ -472,13 +478,13 @@ export default function Chart(){
         }
         else{
             setChartTwo({
-                labels: dates.slice(-30),
+                labels: dates,
                     datasets:[
                       {
                         fill:false,
                         borderColor:'#ff5722',
                         label:'New Fatalities',
-                        data: (timeSeriesData[key].newDeathsData).slice(-30),
+                        data: (timeSeriesData[key].newDeathsData),
                         backgroundColor:'#ff5722'
                       }
                     ]
@@ -542,13 +548,13 @@ export default function Chart(){
         if(item.id===1){
             setVariableTwo("New Cases")
             setChartTwo({
-                labels: dates.slice(-30),
+                labels: dates,
                     datasets:[
                       {
                         fill:false,
                         borderColor:'#757575',//gray border
                         label:'New Infections',
-                        data: (timeSeriesData[selectedCountry].newCasesData).slice(-30),
+                        data: (timeSeriesData[selectedCountry].newCasesData),
                         backgroundColor:'#757575'//gray bg
                       }
                     ]
@@ -557,13 +563,13 @@ export default function Chart(){
         else{
             setVariableTwo("New Deaths")
             setChartTwo({
-                labels: dates.slice(-30),
+                labels: dates,
                     datasets:[
                       {
                         fill:false,
                         borderColor:'#ff5722',
                         label:'New Fatalities',
-                        data: (timeSeriesData[selectedCountry].newDeathsData).slice(-30),
+                        data: (timeSeriesData[selectedCountry].newDeathsData),
                         backgroundColor:'#ff5722'
                       }
                     ]
@@ -574,211 +580,294 @@ export default function Chart(){
 
     const getData= async() => {
         //list to store names of countries
+        setLoading(true)
+
         const countries=[]
-        //const dates=[]
         let months={}
 
         let countriesInfo={}
         const timeSeriesInfo={}
 
-        const [ response1, response2 ]= await Promise.all([
-            fetch('https://corona.lmao.ninja/v2/countries?sort=cases'),
-            fetch('https://pomber.github.io/covid19/timeseries.json')
-        ])
-
-        const rawdata1= await response1.json()
-
-        let world_cases=0
-        let world_deaths=0
-        let world_recovered=0
-        let world_active=0
-
-        rawdata1.map((element) => {
-            let name= element.country
-
-            if(name=== "S. Korea"){
-                name= "South Korea"
-            }
-
-            countries.push(name)
-            let cases= element.cases
-            let deaths= element.deaths
-            let active= element.active
-            let recovered= element.recovered
-
-            world_cases+= cases
-            world_deaths+= deaths
-            world_recovered+= recovered
-            world_active+= active
-
-            let obj={
-                Cases:cases,
-                Deaths:deaths,
-                Recovered:recovered,
-                Active:active,
-                flag: element.countryInfo.flag,
-                cfr: ((deaths/cases)*100).toFixed(1),
-                rr: ((recovered/cases)*100).toFixed(1),
-                ar: ((active/cases)*100).toFixed(1),
-            }
-
-            countriesInfo[name]= obj
-        })
-
-        const world_data={
-            Cases: world_cases,
-            Deaths: world_deaths,
-            Recovered: world_recovered,
-            Active: world_active,
-            cfr: ((world_deaths/world_cases)*100).toFixed(1),
-            rr: ((world_recovered/world_cases)*100).toFixed(1),
-            ar: ((world_active/world_cases)*100).toFixed(1),
-        }
-
-        countries.sort()
-        setList(countries)
-
-        const rawData2 = await response2.json()
-        rawData2["Afghanistan"].map((item) => {
-            let m= ""
-            let d= item.date.slice(7,9)
-            let month= item.date.slice(5,6)
-            if(month==='1'){
-                m='Jan'
-            }
-            if(month==='2'){
-                m='Feb'
-            }
-            if(month==='3'){
-                m='Mar'
-            }
-            if(month==='4'){
-                m='Apr'
-            }
-            if(month==='5'){
-                m='May'
-            }
-            if(month==='6'){
-                m='Jun'
-            }
-            if(month==='7'){
-                m='Jul'
-            }
-            if(month==='8'){
-                m='Aug'
-            }
-            if(month==='9'){
-                m='Sep'
-            }
-            if(month==10){
-                m='Oct'
-            }
-            if(month==11){
-                m='Nov'
-            }
-            if(month==12){
-                m='Dec'
-            }
-            let date =m+ ' '+d
-            dates.push(date)
-        })
-
-        for(let key in rawData2){
-
-            let country_name= key
-            if(country_name==="US"){
-                country_name= "USA"
-            }
-            if(country_name==="United Kingdom"){
-                country_name="UK"
-            }
-
-            let country_cases=[]
-            let country_newCases=[]
-            let country_deaths=[]
-            let country_newDeaths=[]
-            let country_active=[]
-            rawData2[key].map((item) => {
-                country_cases.push(item.confirmed)
-                country_deaths.push(item.deaths)
-                country_active.push(item.confirmed-item.deaths-item.recovered)
+        try{
+            const [ response1, response2 ]= await Promise.all([
+                fetch('https://corona.lmao.ninja/v2/countries?sort=cases'),
+                fetch('https://pomber.github.io/covid19/timeseries.json')
+            ])
+    
+            const rawdata1= await response1.json()
+    
+            let world_cases=0
+            let world_deaths=0
+            let world_recovered=0
+            let world_active=0
+    
+            rawdata1.map((element) => {
+                let name= element.country
+    
+                if(name=== "S. Korea"){
+                    name= "South Korea"
+                }
+    
+                countries.push(name)
+                let cases= element.cases
+                let deaths= element.deaths
+                let active= element.active
+                let recovered= element.recovered
+    
+                world_cases+= cases
+                world_deaths+= deaths
+                world_recovered+= recovered
+                world_active+= active
+    
+                let obj={
+                    Cases:cases,
+                    Deaths:deaths,
+                    Recovered:recovered,
+                    Active:active,
+                    flag: element.countryInfo.flag,
+                    cfr: ((deaths/cases)*100).toFixed(1),
+                    rr: ((recovered/cases)*100).toFixed(1),
+                    ar: ((active/cases)*100).toFixed(1),
+                }
+    
+                countriesInfo[name]= obj
             })
-
-            for(let i=1;i<=country_cases.length-1;i++){
-                let newInfections= country_cases[i]-country_cases[i-1]
-                let newFatalities= country_deaths[i]-country_deaths[i-1]
-                country_newCases.push(newInfections)
-                country_newDeaths.push(newFatalities)
+    
+            const world_data={
+                Cases: world_cases,
+                Deaths: world_deaths,
+                Recovered: world_recovered,
+                Active: world_active,
+                cfr: ((world_deaths/world_cases)*100).toFixed(1),
+                rr: ((world_recovered/world_cases)*100).toFixed(1),
+                ar: ((world_active/world_cases)*100).toFixed(1),
             }
-
-            let info={
-                casesData: country_cases,
-                deathsData: country_deaths,
-                activeData: country_active,
-                newCasesData: country_newCases,
-                newDeathsData: country_newDeaths
+    
+            countries.sort()
+            setList(countries)
+    
+            const rawData2 = await response2.json()
+            rawData2["Afghanistan"].map((item) => {
+                let m= ""
+                let d= item.date.slice(7,9)
+                let month= item.date.slice(5,6)
+                if(month==='1'){
+                    m='Jan'
+                }
+                if(month==='2'){
+                    m='Feb'
+                }
+                if(month==='3'){
+                    m='Mar'
+                }
+                if(month==='4'){
+                    m='Apr'
+                }
+                if(month==='5'){
+                    m='May'
+                }
+                if(month==='6'){
+                    m='Jun'
+                }
+                if(month==='7'){
+                    m='Jul'
+                }
+                if(month==='8'){
+                    m='Aug'
+                }
+                if(month==='9'){
+                    m='Sep'
+                }
+                if(month==10){
+                    m='Oct'
+                }
+                if(month==11){
+                    m='Nov'
+                }
+                if(month==12){
+                    m='Dec'
+                }
+                let date =m+ ' '+d
+                dates_chart.push(date)
+            })
+    
+            setDates(dates_chart.slice(216))
+    
+            for(let key in rawData2){
+    
+                let country_name= key
+                if(country_name==="US"){
+                    country_name= "USA"
+                }
+                if(country_name==="United Kingdom"){
+                    country_name="UK"
+                }
+    
+                let country_cases=[]
+                let country_newCases=[]
+                let country_deaths=[]
+                let country_newDeaths=[]
+                let country_active=[]
+                rawData2[key].map((item) => {
+                    country_cases.push(item.confirmed)
+                    country_deaths.push(item.deaths)
+                    country_active.push(item.confirmed-item.deaths-item.recovered)
+                })
+    
+                for(let i=1;i<=country_cases.length-1;i++){
+                    let newInfections= country_cases[i]-country_cases[i-1]
+                    let newFatalities= country_deaths[i]-country_deaths[i-1]
+                    country_newCases.push(newInfections)
+                    country_newDeaths.push(newFatalities)
+                }
+    
+                let info={
+                    casesData: country_cases,
+                    deathsData: country_deaths,
+                    activeData: country_active,
+                    newCasesData: country_newCases,
+                    newDeathsData: country_newDeaths
+                }
+    
+                timeSeriesInfo[country_name]= info
             }
-
-            timeSeriesInfo[country_name]= info
-        }
-        console.log(countriesInfo)
-        setDataCountries(countriesInfo)
-        setTimeSeriesData(timeSeriesInfo)
-        setSelectedItem(countriesInfo["India"])
-        setWorldData(world_data)
-
-        setPieChartOne({
-            datasets: [{
-                data: [world_data.Active,
-                    world_data.Recovered,
-                    world_data.Deaths],
-                backgroundColor:['#2196f3','#4caf50','#f44336']
-            }],
-            labels: ['Active','Recovered','Deaths']
-        })
-
-        setPieChartTwo({
-            datasets: [{
-                data: [countriesInfo["India"].Active,
-                countriesInfo["India"].Recovered,
-                countriesInfo["India"].Deaths],
-                backgroundColor:['#2196f3','#4caf50','#f44336']
-            }],
-            labels: ['Active','Recovered','Deaths']
-        })
-
-
-        setChartTwo({
-                labels: dates.slice(-30),
+            console.log(countriesInfo)
+            setDataCountries(countriesInfo)
+            setTimeSeriesData(timeSeriesInfo)
+            setSelectedItem(countriesInfo["India"])
+            setWorldData(world_data)
+            console.log(timeSeriesInfo)
+            setPieChartOne({
+                datasets: [{
+                    data: [world_data.Active,
+                        world_data.Recovered,
+                        world_data.Deaths],
+                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                }],
+                labels: ['Active','Recovered','Deaths']
+            })
+    
+            setPieChartTwo({
+                datasets: [{
+                    data: [countriesInfo["India"].Active,
+                    countriesInfo["India"].Recovered,
+                    countriesInfo["India"].Deaths],
+                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                }],
+                labels: ['Active','Recovered','Deaths']
+            })
+    
+    
+            setChartTwo({
+                    labels: dates_chart.slice(216),
+                        datasets:[
+                          {
+                            fill:false,
+                            //borderColor:'#9e9e9e',//gray border
+                            label:'New Infections',
+                            data: (timeSeriesInfo["India"].newCasesData),
+                            backgroundColor:'#757575'//gray bg
+                          }
+                        ]
+            })
+    
+            setChartOne({
+                labels: dates_chart.slice(216),
                     datasets:[
                       {
-                        fill:false,
-                        //borderColor:'#9e9e9e',//gray border
-                        label:'New Infections',
-                        data: (timeSeriesInfo["India"].newCasesData).slice(-30),
-                        backgroundColor:'#757575'//gray bg
+                            fill:true,
+                            pointRadius:0,
+                            borderColor:'#424242',
+                            label:'Total Cases',
+                            data:  timeSeriesInfo["India"].casesData,
+                            backgroundColor:'#f5f5f5'
                       }
                     ]
-        })
+            })
 
-        setChartOne({
-            labels: dates,
-                datasets:[
-                  {
-                        fill:true,
-                        pointRadius:0,
-                        borderColor:'#424242',
-                        label:'Total Cases',
-                        data:  timeSeriesInfo["India"].casesData,
-                        backgroundColor:'#f5f5f5'
-                  }
-                ]
-        })
+            setLoading(false)
+        }
+        catch(error){
+            setLoading(false)
+            setError(true)
+            console.log(error)
+        }
 
     }
 
     const classes= useStyles()
 
+    if(error){
+        return(
+        <div style={{flex:1,justifyContent:'center',marginTop:50}}>
+            <strong>Unable to get plot data. There appears to be a problem with the server :(</strong>
+        </div>
+        )
+    }
+    if(loading){
+        return(
+            <div style={{marginTop:30, marginBottom: 60}} className="container-lg">
+                <Grid container spacing={5}>
+                    <Grid item xs={12} sm={6}>
+                        <Card className={classes.card}>
+                            <CardHeader
+                                title={
+                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+                                }/>
+                            <CardContent>
+                                <React.Fragment>
+                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                    <Skeleton animation="wave" height={10} width="80%" />
+                                </React.Fragment>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Card className={classes.card}>
+                            <CardHeader
+                                title={
+                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+                                }/>
+                            <CardContent>
+                                <React.Fragment>
+                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                    <Skeleton animation="wave" height={10} width="80%" />
+                                </React.Fragment>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Card className={classes.card}>
+                            <CardHeader
+                                title={
+                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+                                }/>
+                            <CardContent>
+                                <React.Fragment>
+                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                    <Skeleton animation="wave" height={10} width="80%" />
+                                </React.Fragment>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Card className={classes.card}>
+                            <CardHeader
+                                title={
+                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+                                }/>
+                            <CardContent>
+                                <React.Fragment>
+                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                    <Skeleton animation="wave" height={10} width="80%" />
+                                </React.Fragment>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </div>
+        )
+    }
     return(
         <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
             <Grid container spacing={5}>
