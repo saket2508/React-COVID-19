@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
@@ -384,7 +383,7 @@ export default function Chart(){
 
             if(variableTwo==="New Cases"){
                 setChartTwo({
-                    labels: dates,
+                    labels: dates.slice(1,dates.length),
                         datasets:[
                           {
                             fill:false,
@@ -398,7 +397,7 @@ export default function Chart(){
             }
             else{
                 setChartTwo({
-                    labels: dates,
+                    labels: dates.slice(1,dates.length),
                         datasets:[
                           {
                             fill:false,
@@ -464,7 +463,7 @@ export default function Chart(){
 
         if(variableTwo==="New Cases"){
             setChartTwo({
-                labels: dates,
+                labels: dates.slice(1,dates.length),
                     datasets:[
                       {
                         fill:false,
@@ -478,7 +477,7 @@ export default function Chart(){
         }
         else{
             setChartTwo({
-                labels: dates,
+                labels: dates.slice(1,dates.length),
                     datasets:[
                       {
                         fill:false,
@@ -548,7 +547,7 @@ export default function Chart(){
         if(item.id===1){
             setVariableTwo("New Cases")
             setChartTwo({
-                labels: dates,
+                labels: dates.slice(1,dates.length),
                     datasets:[
                       {
                         fill:false,
@@ -563,7 +562,7 @@ export default function Chart(){
         else{
             setVariableTwo("New Deaths")
             setChartTwo({
-                labels: dates,
+                labels: dates.slice(1,dates.length),
                     datasets:[
                       {
                         fill:false,
@@ -647,6 +646,7 @@ export default function Chart(){
             setList(countries)
     
             const rawData2 = await response2.json()
+            
             rawData2["Afghanistan"].map((item) => {
                 let m= ""
                 let d= item.date.slice(7,9)
@@ -689,9 +689,10 @@ export default function Chart(){
                 }
                 let date =m+ ' '+d
                 dates_chart.push(date)
+                console.log(date)
             })
     
-            setDates(dates_chart.slice(216))
+            setDates(dates_chart.slice(dates_chart.length/2))
     
             for(let key in rawData2){
     
@@ -759,7 +760,7 @@ export default function Chart(){
     
     
             setChartTwo({
-                    labels: dates_chart.slice(216),
+                    labels: dates_chart.slice(1,dates_chart.length/2),
                         datasets:[
                           {
                             fill:false,
@@ -772,7 +773,7 @@ export default function Chart(){
             })
     
             setChartOne({
-                labels: dates_chart.slice(216),
+                labels: dates_chart.slice(dates_chart.length/2),
                     datasets:[
                       {
                             fill:true,

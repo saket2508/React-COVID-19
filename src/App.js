@@ -234,14 +234,12 @@ export default function App(){
 
   if(loading){
    return(
-      <div>
+      <Fragment>
       <AppNavbar/>
       <div style={{marginTop:50}}>
-        <div class="d-flex justify-content-center">
-          <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
-        </div>
+        <h5 style={{fontWeight:400}} className="text-muted text-center">LOADING DATA...</h5>
       </div>
-    </div>
+    </Fragment>
    )
   }
 
