@@ -1,6 +1,22 @@
 import React, { useState, useEffect, Fragment} from "react"
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 
-
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+     
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    large: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+        marginRight:3
+      },
+  }));
 
 function format(item){
     return new Intl.NumberFormat('en-US').format(item)
@@ -66,6 +82,8 @@ function TableHeader({ data }){
 
 export default function FilteredTable({ dataTable }){
 
+    const classes= useStyles();
+
     const [ search, setSearch ] = useState("")
 
 
@@ -84,18 +102,46 @@ export default function FilteredTable({ dataTable }){
     const checkCountryName = (item) =>{
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
-            return <td style={{fontWeight:"600"}}  id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+            return(
+                <td style={{fontWeight:"600"}}>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
         }
         if(item.country==='Libyan Arab Jamahiriya'){
             item.country='Libya'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+            return(
+                <td style={{fontWeight:"600"}}>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
         }
         if(item.country==='S. Korea'){
-            item.country='South Korea'
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+            item.country="South Korea"
+            return(
+                <td style={{fontWeight:"600"}}>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
         }
        if(item.country.length > 10){
-           return <td style={{fontWeight:"600"}}><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+        return(
+            <td style={{fontWeight:"600"}}>
+                <div className={classes.root}>
+                    <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                    <span className="my-auto mx-1">{item.country}</span>
+                </div>
+            </td>
+        )
        }
         if(item.country==="MS Zaandam"){
             return <td style={{fontWeight:"600"}}>{item.country}</td>
@@ -104,7 +150,14 @@ export default function FilteredTable({ dataTable }){
             return <td style={{fontWeight:"600"}}>{item.country}</td>
         }
         else{
-            return <td style={{fontWeight:"600"}} id='nowrap'><span class="mr-1"><img src={"https://www.countryflags.io/"+item.countryInfo.iso2+"/flat/32.png"} alt='flag-icon'></img></span>{item.country}</td>
+            return(
+                <td style={{fontWeight:"600"}}>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
         }
     }
 

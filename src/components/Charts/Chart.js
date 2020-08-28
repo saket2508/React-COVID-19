@@ -7,16 +7,17 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Bar, Line, Doughnut} from 'react-chartjs-3';
+import Avatar from '@material-ui/core/Avatar';
 
 const dates_chart=[]
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root:{
         marginTop:40,
         marginBottom:40,
     },
     heading:{
-        marginBottom:15,
+        marginBottom:1,
         flex:1,
         flexDirection:"row"
     },
@@ -28,8 +29,13 @@ const useStyles = makeStyles({
         width: '100%',
         transitionDuration: '0.3s',
         height: '100%'
-    }
-})
+    },
+    avatar:{
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+
+    },
+  }));
 
 const PieChart = ({...chartData}) => {
     return(
@@ -195,14 +201,16 @@ function format(item){
     return new Intl.NumberFormat('en-US').format(item)
 }
 
-function chartTitle(selectedCountry, selectedItem){
-   return(
-            <Typography variant="h6" component="h5" color="textSecondary">
-                COVID-19 Pandemic in {selectedCountry}
-                <img style={{height:20, width:30, marginLeft:5, marginBottom:3}} src={selectedItem.flag}></img>
-            </Typography>
-   )
-}
+function ChartTitle(selectedCountry, selectedItem){
+    return(
+             <h6 className="text-muted" style={{fontWeight:'600'}}>
+                 COVID-19 Pandemic in {selectedCountry}
+                 <img style={{height:18, width:27, marginLeft:5, marginBottom:3}} src={selectedItem.flag}></img>
+             </h6>
+    )
+ }
+  
+
   
 function Legend(data){
     return(
@@ -301,6 +309,16 @@ export default function Chart(){
         if(key==="India"){
             setSelectedCountry(key)
             setSelectedItem(dataCountries[key])
+
+            setPieChartTwo({
+                datasets: [{
+                    data: [dataCountries["India"].Active,
+                    dataCountries["India"].Recovered,
+                    dataCountries["India"].Deaths],
+                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                }],
+                labels: ['Active','Recovered','Deaths']
+            })
 
             let res= await fetch("https://pomber.github.io/covid19/timeseries.json")
             let response= await res.json()
@@ -414,6 +432,16 @@ export default function Chart(){
         else{
             setSelectedCountry(key)
             setSelectedItem(dataCountries[key])
+
+            setPieChartTwo({
+                datasets: [{
+                    data: [dataCountries[key].Active,
+                    dataCountries[key].Recovered,
+                    dataCountries[key].Deaths],
+                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                }],
+                labels: ['Active','Recovered','Deaths']
+            })
 
         if(variableOne==="Cases"){
             setChartOne({
@@ -869,98 +897,100 @@ export default function Chart(){
             </div>
         )
     }
-    return(
-        <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
-            <Grid container spacing={5}>
-                <Grid item xs={12} sm={6}>
-                <Card className={classes.card}>
-                    <CardContent>
-                    <div className={classes.heading}>
-                        <Typography variant="h6" color="textSecondary">
-                            COVID-19 World Figures
-                        </Typography>
-                            <hr></hr>
-                       </div>              
-                        <div className='row mt-4 mb-4'>
-                            <div className='col-lg-6 col-md-12 mb-2'>
-                                <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                <h3 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h3>
+    else{
+        return(
+            <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
+                <Grid container spacing={5}>
+                    <Grid item xs={12} sm={6}>
+                    <Card className={classes.card}>
+                        <CardContent>
+                        <div className={classes.heading}>
+                            <h6 className="text-muted" style={{fontWeight:'600'}}>
+                                COVID-19 World Figures
+                            </h6>
+                                <hr></hr>
+                           </div>              
+                            <div className='row mt-4 mb-4'>
+                                <div className='col-lg-6 col-md-12 mb-2'>
+                                    <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
+                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h3>
+                                </div>
+                                <PieChart {...pieChartOne}/>
                             </div>
-                            <PieChart {...pieChartOne}/>
-                        </div>
-                        <Legend {...worldData}/>
-                    </CardContent>
-                </Card>
+                            <Legend {...worldData}/>
+                        </CardContent>
+                    </Card>
+                    </Grid>
+    
+                    <Grid item xs={12} sm={6}>
+                    <Card className={classes.card}>
+                        <CardContent>
+                           <div className={classes.heading}>
+                            {ChartTitle(selectedCountry, selectedItem)}
+                                <hr></hr>
+                           </div>       
+                            <div className='row mt-4 mb-4'>
+                                <div className='col-lg-6 col-md-12 mb-2'>
+                                    <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
+                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
+                                </div>
+                                <PieChart {...pieChartTwo}/>
+                            </div>
+                            <Legend {...selectedItem}/>
+    
+                            <div className='row mt-2'>
+                                <div className="container d-flex col-7 justify-content-center">
+                                    <select id="select" value={selectedCountry} onChange={(event) => changeValue(event)} style={{borderRadius:50}} className="custom-select custom-select-md">
+                                            {list.map((item) => {
+                                                if(item==="India"){
+                                                    return <option selected>{item}</option>
+                                                }
+                                                else{
+                                                    return <option value={item}>{item}</option>
+                                                }
+                                            })}
+                                    </select>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    </Grid>
+                  <Grid item xs={12} sm={6}>
+                      <Card className= {classes.card}>
+                          <CardContent>
+                                <div className={classes.heading}>
+                                    <h6 className="text-muted" style={{fontWeight:'600'}}>
+                                        {selectedCountry}: {variableOne} Over Time
+                                    </h6>
+                                </div>
+    
+                                <div className="row mt-2">
+                                    <Tabs data= {options} handleChange= {changeCumulativeVariable}/>
+                                     {/* Cumulative Trend */}
+                                    <LinePlot {...chartOne}/>
+                                </div>
+                          </CardContent>
+                      </Card>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                      <Card className= {classes.card}>
+                          <CardContent>
+                                <div className={classes.heading}>
+                                    <h6 className="text-muted" style={{fontWeight:'600'}}>
+                                        {selectedCountry}: {variableTwo} Over Time
+                                    </h6>
+                                </div>
+    
+                                <div className="row mt-2">
+                                    <Tabs data= {options.slice(0,-1)} handleChange= {changeDailyVariable}/>
+                                    {/* Daily Trend */}
+                                    <BarPlot {...chartTwo}/>
+                                </div>
+                          </CardContent>
+                      </Card>
+                  </Grid>
                 </Grid>
-
-                <Grid item xs={12} sm={6}>
-                <Card className={classes.card}>
-                    <CardContent>
-                       <div className={classes.heading}>
-                        {chartTitle(selectedCountry, selectedItem)}
-                            <hr></hr>
-                       </div>       
-                        <div className='row mt-4 mb-4'>
-                            <div className='col-lg-6 col-md-12 mb-2'>
-                                <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                <h3 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
-                            </div>
-                            <PieChart {...pieChartTwo}/>
-                        </div>
-                        <Legend {...selectedItem}/>
-
-                        <div className='row mt-2'>
-                            <div className="container d-flex col-7 justify-content-center">
-                                <select id="select" value={selectedCountry} onChange={(event) => changeValue(event)} style={{borderRadius:50}} className="custom-select custom-select-md">
-                                        {list.map((item) => {
-                                            if(item==="India"){
-                                                return <option selected>{item}</option>
-                                            }
-                                            else{
-                                                return <option value={item}>{item}</option>
-                                            }
-                                        })}
-                                </select>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-                </Grid>
-              <Grid item xs={12} sm={6}>
-                  <Card className= {classes.card}>
-                      <CardContent>
-                            <div className={classes.heading}>
-                                <Typography variant="h6" component="h5" color="textSecondary">
-                                    {selectedCountry}: {variableOne} Over Time
-                                </Typography>
-                            </div>
-
-                            <div className="row mt-2">
-                                <Tabs data= {options} handleChange= {changeCumulativeVariable}/>
-                                 {/* Cumulative Trend */}
-                                <LinePlot {...chartOne}/>
-                            </div>
-                      </CardContent>
-                  </Card>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                  <Card className= {classes.card}>
-                      <CardContent>
-                            <div className={classes.heading}>
-                                <Typography variant="h6" component="h5" color="textSecondary">
-                                    {selectedCountry}: {variableTwo} Over Time
-                                </Typography>
-                            </div>
-
-                            <div className="row mt-2">
-                                <Tabs data= {options.slice(0,-1)} handleChange= {changeDailyVariable}/>
-                                {/* Daily Trend */}
-                                <BarPlot {...chartTwo}/>
-                            </div>
-                      </CardContent>
-                  </Card>
-              </Grid>
-            </Grid>
-        </div>
-    )
+            </div>
+        )
+    }
 }
