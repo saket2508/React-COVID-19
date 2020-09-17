@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
-import {Bar, Line, Doughnut} from 'react-chartjs-3';
-import Avatar from '@material-ui/core/Avatar';
+import SearchBar from './searchBar';
+import PieChart from './pieChart';
+import LinePlot from './linePlot';
+import BarPlot from './barPlot';
+import CardLoading from './cardLoading';
+import Legend from './legend';
+import TabsMenu from './tabsMenu';
+import './chart.css';
 
 const dates_chart=[]
 
@@ -30,232 +35,35 @@ const useStyles = makeStyles((theme) => ({
         transitionDuration: '0.3s',
         height: '100%'
     },
+    cardTitle:{
+        display:'flex',
+        flexDirection:'row',
+        flexWrap:'wrap',
+        jalignItems:'center'
+    },
     avatar:{
-        width: theme.spacing(5),
-        height: theme.spacing(5),
-
+        width: theme.spacing(3.5),
+        height: theme.spacing(3.5),
+        marginLeft: theme.spacing(0.65),
+        marginRight: theme.spacing(0.65),
+        marginTop:theme.spacing(0.5)
     },
   }));
-
-const PieChart = ({...chartData}) => {
-    return(
-        <div className='col-lg-6 col-sm-12 mb-3'>
-                                    <div className='chart flex-fill'>
-                                    <Doughnut
-                                        data={chartData}
-                                        options={{
-                                            legend:{
-                                                display:false,
-                                                position:"bottom",
-                                                labels:{
-                                                    fontFamily:  "'Noto Sans JP', sans-serif",
-                                                    fontColor:'#000'
-                                                },
-                                                onClick: (e) => e.stopPropagation()
-                                            }
-                                        }}
-                                    />
-                                    </div>
-                                </div>
-    )
-}
-
-
-const LinePlot = ({...chartData}) => {
-    return( 
-        <div className='chart col-12 mt-3'>
-                            <div id='chart' className="chart-container">
-                            <Line
-                                    data={chartData}
-                                    options={{
-                                        responsive:true,
-                                        maintainAspectRatio:false,
-                                        title:{
-                                            display:false,
-                                            //text:'Largest Cities In '+this.props.location,
-                                            fontSize:25
-                                        },
-                                        legend:{
-                                            display:false,
-                                            position:"top",
-                                            labels:{
-                                                fontFamily:  "'Noto Sans JP', sans-serif",
-                                                fontColor:'#000'
-                                            },
-                                            onClick: (e) => e.stopPropagation()
-                                        },
-                                        tooltips:{
-                                            enabled:true,
-                                            mode:'index',
-                                            intersect:false
-                                        },
-                                        scales: {
-                                            xAxes: [
-                                            {
-                                                gridLines: {
-                                                    display:false
-                                                },
-                                                ticks:{
-                                                        fontFamily:  "'Noto Sans JP', sans-serif",
-                                                        fontSize:'12',
-                                                        fontColor: '#000',
-                                                    }
-                                                }
-                                            ],
-                                            yAxes: [
-                                                {
-                                                    ticks:{
-                                                            fontFamily:  "'Noto Sans JP', sans-serif",
-                                                            fontSize:'12',
-                                                            fontColor: '#000',
-                                                        }
-                                                    }
-                                                ]
-                                            
-                                        }
-                                    }}
-                                    />
-                            </div>
-                            </div>
-    )
-}
-
-const BarPlot = ({...chartData}) => {
-    return(
-        <div className='col-12 mt-3'>
-                        <div id='chart' className="chart-container">
-                            <Bar
-                                    data={chartData}
-                                    options={{
-                                        tooltips:{
-                                            mode:'index',
-                                            intersect:false
-                                        },
-                                        responsive:true,
-                                        maintainAspectRatio:false,
-                                        title:{
-                                            display:false
-                                        },
-                                        legend:{
-                                            display:false,
-                                            position:"top",
-                                            labels:{
-                                                fontFamily:  "'Noto Sans JP', sans-serif",
-                                                fontColor:'#000'
-                                            },
-                                            onClick: (e) => e.stopPropagation()
-                                        },
-                                        scales: {
-                                            xAxes: [
-                                            {
-                                                gridLines: {
-                                                    display:false
-                                                },
-                                                //barPercentage: 0.4,
-                                                ticks:{
-                                                        fontFamily:  "'Noto Sans JP', sans-serif",
-                                                        fontSize:'12',
-                                                        fontColor: '#000',
-                                                    }
-                                                }
-                                            ],
-                                            yAxes: [
-                                                {
-                                                    ticks:{
-                                                            fontFamily:  "'Noto Sans JP', sans-serif",
-                                                            fontSize:'12',
-                                                            fontColor: '#000',
-                                                        }
-                                                    }
-                                                ]
-                                            
-                                        }
-                                    }}
-                                    />
-                            </div>
-                        </div>
-    )
-}
-
-function Tabs({data, handleChange}){
-    return(
-        <div className='col-12 mt-2'>
-                            <ul class="nav nav-tabs nav-tabs-card nav-tabs-xs d-flex align-content-center">
-                            {data.slice(0,1).map(item => (
-                                    <li className='nav-item'>
-                                        <a className='nav-link active' key={item.id} data-toggle="tab" href="#" onClick={() => handleChange(item)} >{item.name}</a>
-                                    </li>
-                                ))}
-                                {data.slice(1).map(item => (
-                                    <li className='nav-item'>
-                                        <a className='nav-link' key={item.id} data-toggle="tab" href="#" onClick={() => handleChange(item)} >{item.name}</a>
-                                    </li>
-                                ))}
-                            </ul>   
-                        </div>
-    )
-}
-
 
 function format(item){
     return new Intl.NumberFormat('en-US').format(item)
 }
 
-function ChartTitle(selectedCountry, selectedItem){
+const ChartTitle = ({selectedCountry, selectedItem}) =>{
+    const classes= useStyles()
     return(
-             <h6 className="text-muted" style={{fontWeight:'600'}}>
-                 COVID-19 Pandemic in {selectedCountry}
-                 <img style={{height:18, width:27, marginLeft:5, marginBottom:3}} src={selectedItem.flag}></img>
-             </h6>
-    )
- }
-  
-
-  
-function Legend(data){
-    return(
-        <div className='row'>
-        <div className='col-12'>
-            <ul className="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
-                    <div className='title'>
-                        <div className='dot-1'></div>
-                        <h6 style={{fontWeight:'400'}}>Active</h6>
-                    </div>
-                    <div className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Active)}
-                            <small className='text-muted'> ({data.ar} %)</small>
-                        </h6>
-                    </div>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
-                    <div className='title'>
-                        <div className='dot-2'></div>
-                        <h6 style={{fontWeight:'400'}}>Recovered</h6>
-                    </div>
-                    <span className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Recovered)}
-                            <small className='text-muted'> ({data.rr} %)</small>
-                        </h6>
-                    </span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>
-                    <div className='title'>
-                        <div className='dot-3'></div>
-                        <h6 style={{fontWeight:'400'}}>Fatalities</h6>
-                    </div>
-                    <span className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Deaths)}
-                        <small className='text-muted'> ({data.cfr} %)</small>
-                        </h6>                                            
-                    </span>
-                </li>                                            
-            </ul>
-            </div>
+        <div className={classes.cardTitle}>
+            <Typography variant="h6" style={{color:"#757575"}}>COVID-19: {selectedCountry} Stats</Typography>
+            <Avatar className={classes.avatar} alt="flag" src={selectedItem.flag}/>
+            {/* <img alt="flag" src={selectedItem.flag} style={{marginLeft:'7px', height:'20px', width:'28px', marginTop:'7px'}}/> */}
         </div>
     )
-}
-
+ }
 
 export default function Chart(){
     
@@ -305,8 +113,14 @@ export default function Chart(){
     },[])
 
     const changeValue = async(event) => {
-        let key= event.target.value
-        if(key==="India"){
+        let key= ""
+        if(event.target.value!==""){
+            key = event.target.value
+        }
+        if(key===""){
+            console.log('empty input')
+        }
+        else if(key==="India"){
             setSelectedCountry(key)
             setSelectedItem(dataCountries[key])
 
@@ -835,66 +649,7 @@ export default function Chart(){
     }
     if(loading){
         return(
-            <div style={{marginTop:30, marginBottom: 60}} className="container-lg">
-                <Grid container spacing={5}>
-                    <Grid item xs={12} sm={6}>
-                        <Card className={classes.card}>
-                            <CardHeader
-                                title={
-                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-                                }/>
-                            <CardContent>
-                                <React.Fragment>
-                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                    <Skeleton animation="wave" height={10} width="80%" />
-                                </React.Fragment>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
-                            <CardHeader
-                                title={
-                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-                                }/>
-                            <CardContent>
-                                <React.Fragment>
-                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                    <Skeleton animation="wave" height={10} width="80%" />
-                                </React.Fragment>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
-                            <CardHeader
-                                title={
-                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-                                }/>
-                            <CardContent>
-                                <React.Fragment>
-                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                    <Skeleton animation="wave" height={10} width="80%" />
-                                </React.Fragment>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
-                            <CardHeader
-                                title={
-                                    <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-                                }/>
-                            <CardContent>
-                                <React.Fragment>
-                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                    <Skeleton animation="wave" height={10} width="80%" />
-                                </React.Fragment>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
-            </div>
+            <CardLoading/>
         )
     }
     else{
@@ -905,9 +660,10 @@ export default function Chart(){
                     <Card className={classes.card}>
                         <CardContent>
                         <div className={classes.heading}>
-                            <h6 className="text-muted" style={{fontWeight:'600'}}>
-                                COVID-19 World Figures
-                            </h6>
+                            {/* <h5 className="text-muted" style={{fontWeight:'500'}}>
+                                World Figures
+                            </h5> */}
+                            <Typography variant="h6" style={{color:"#757575"}}>COVID-19: World Figures</Typography>
                                 <hr></hr>
                            </div>              
                             <div className='row mt-4 mb-4'>
@@ -926,7 +682,8 @@ export default function Chart(){
                     <Card className={classes.card}>
                         <CardContent>
                            <div className={classes.heading}>
-                            {ChartTitle(selectedCountry, selectedItem)}
+                            {/* {ChartTitle(selectedCountry, selectedItem)} */}
+                            <ChartTitle selectedCountry={selectedCountry} selectedItem={selectedItem}/>
                                 <hr></hr>
                            </div>       
                             <div className='row mt-4 mb-4'>
@@ -937,21 +694,8 @@ export default function Chart(){
                                 <PieChart {...pieChartTwo}/>
                             </div>
                             <Legend {...selectedItem}/>
-    
-                            <div className='row mt-2'>
-                                <div className="container d-flex col-7 justify-content-center">
-                                    <select id="select" value={selectedCountry} onChange={(event) => changeValue(event)} style={{borderRadius:50}} className="custom-select custom-select-md">
-                                            {list.map((item) => {
-                                                if(item==="India"){
-                                                    return <option selected>{item}</option>
-                                                }
-                                                else{
-                                                    return <option value={item}>{item}</option>
-                                                }
-                                            })}
-                                    </select>
-                                </div>
-                            </div>
+
+                            <SearchBar selectedCountry = {selectedCountry} changeValue = {changeValue} list={list}/>
                         </CardContent>
                     </Card>
                     </Grid>
@@ -959,13 +703,11 @@ export default function Chart(){
                       <Card className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <h6 className="text-muted" style={{fontWeight:'600'}}>
-                                        {selectedCountry}: {variableOne} Over Time
-                                    </h6>
+                                    <Typography variant="h6" style={{color:'#757575'}}>{selectedCountry}: {variableOne} Over Time</Typography>
                                 </div>
     
                                 <div className="row mt-2">
-                                    <Tabs data= {options} handleChange= {changeCumulativeVariable}/>
+                                    <TabsMenu data= {options} handleChange= {changeCumulativeVariable}/>
                                      {/* Cumulative Trend */}
                                     <LinePlot {...chartOne}/>
                                 </div>
@@ -976,13 +718,11 @@ export default function Chart(){
                       <Card className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <h6 className="text-muted" style={{fontWeight:'600'}}>
-                                        {selectedCountry}: {variableTwo} Over Time
-                                    </h6>
+                                    <Typography variant="h6" style={{color:'#757575'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
                                 </div>
     
                                 <div className="row mt-2">
-                                    <Tabs data= {options.slice(0,-1)} handleChange= {changeDailyVariable}/>
+                                    <TabsMenu data= {options.slice(0,-1)} handleChange= {changeDailyVariable}/>
                                     {/* Daily Trend */}
                                     <BarPlot {...chartTwo}/>
                                 </div>
