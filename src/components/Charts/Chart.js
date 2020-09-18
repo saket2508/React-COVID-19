@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
         jalignItems:'center'
     },
     avatar:{
-        width: theme.spacing(3.5),
-        height: theme.spacing(3.5),
+        width: theme.spacing(4),
+        height: theme.spacing(4),
         marginLeft: theme.spacing(0.65),
         marginRight: theme.spacing(0.65),
-        marginTop:theme.spacing(0.5)
+        marginTop:theme.spacing(0.25)
     },
   }));
 
@@ -58,7 +58,7 @@ const ChartTitle = ({selectedCountry, selectedItem}) =>{
     const classes= useStyles()
     return(
         <div className={classes.cardTitle}>
-            <Typography variant="h6" style={{color:"#757575"}}>COVID-19: {selectedCountry} Stats</Typography>
+            <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
             <Avatar className={classes.avatar} alt="flag" src={selectedItem.flag}/>
             {/* <img alt="flag" src={selectedItem.flag} style={{marginLeft:'7px', height:'20px', width:'28px', marginTop:'7px'}}/> */}
         </div>
@@ -424,7 +424,7 @@ export default function Chart(){
         setLoading(true)
 
         const countries=[]
-        let months={}
+        const monthsDict= {'1':'Jan','2':'Feb','3':'Mar','4':'Apr','5':'May','6':'Jun','7':'Jul','8':'Aug','9':'Sep','10':'Oct','11':'Nov','12':'Dec'}
 
         let countriesInfo={}
         const timeSeriesInfo={}
@@ -493,42 +493,7 @@ export default function Chart(){
                 let m= ""
                 let d= item.date.slice(7,9)
                 let month= item.date.slice(5,6)
-                if(month==='1'){
-                    m='Jan'
-                }
-                if(month==='2'){
-                    m='Feb'
-                }
-                if(month==='3'){
-                    m='Mar'
-                }
-                if(month==='4'){
-                    m='Apr'
-                }
-                if(month==='5'){
-                    m='May'
-                }
-                if(month==='6'){
-                    m='Jun'
-                }
-                if(month==='7'){
-                    m='Jul'
-                }
-                if(month==='8'){
-                    m='Aug'
-                }
-                if(month==='9'){
-                    m='Sep'
-                }
-                if(month==10){
-                    m='Oct'
-                }
-                if(month==11){
-                    m='Nov'
-                }
-                if(month==12){
-                    m='Dec'
-                }
+                m = monthsDict[month]
                 let date =m+ ' '+d
                 dates_chart.push(date)
                 console.log(date)
@@ -544,6 +509,20 @@ export default function Chart(){
                 }
                 if(country_name==="United Kingdom"){
                     country_name="UK"
+                }
+
+                if(country_name==="Korea, South"){
+                    country_name="South Korea"
+                }
+                if(country_name==="Taiwan*"){
+                    country_name="Taiwan"
+                }
+                if(country_name==="United Arab Emirates"){
+                    country_name="UAE"
+                }
+
+                if(country_name==="West Bank and Gaza"){
+                    country_name="Palestine"
                 }
     
                 let country_cases=[]
@@ -657,13 +636,13 @@ export default function Chart(){
             <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
+                    <Card variant="outlined" className={classes.card}>
                         <CardContent>
                         <div className={classes.heading}>
                             {/* <h5 className="text-muted" style={{fontWeight:'500'}}>
                                 World Figures
                             </h5> */}
-                            <Typography variant="h6" style={{color:"#757575"}}>COVID-19: World Figures</Typography>
+                            <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: World Figures</Typography>
                                 <hr></hr>
                            </div>              
                             <div className='row mt-4 mb-4'>
@@ -679,7 +658,7 @@ export default function Chart(){
                     </Grid>
     
                     <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
+                    <Card variant="outlined" className={classes.card}>
                         <CardContent>
                            <div className={classes.heading}>
                             {/* {ChartTitle(selectedCountry, selectedItem)} */}
@@ -700,10 +679,10 @@ export default function Chart(){
                     </Card>
                     </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card className= {classes.card}>
+                      <Card variant="outlined" className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <Typography variant="h6" style={{color:'#757575'}}>{selectedCountry}: {variableOne} Over Time</Typography>
+                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
                                 </div>
     
                                 <div className="row mt-2">
@@ -715,10 +694,10 @@ export default function Chart(){
                       </Card>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card className= {classes.card}>
+                      <Card variant="outlined" className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <Typography variant="h6" style={{color:'#757575'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
+                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
                                 </div>
     
                                 <div className="row mt-2">

@@ -1,7 +1,6 @@
 import React from "react";
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
-
-
+import { makeStyles } from '@material-ui/core/styles';
 
 function Modal(){
   return(
@@ -43,9 +42,9 @@ export default function AppNavbar(){
 
   return(
     <React.Fragment>
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">   
-        <div className="container-lg">
-          <span style={{fontWeight:'500'}} className="navbar-brand mb-0 h5">COVID-19 TRACKER</span>
+      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#616161'}}>   
+        <div className="container">
+          <span style={{fontWeight:'400'}} className="navbar-brand mb-0 h5">COVID-19 TRACKER</span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="modal" data-target="#staticBackdrop" href="#"><InfoTwoToneIcon style={{fontSize:30}}/></a>
@@ -53,6 +52,19 @@ export default function AppNavbar(){
             </ul>
         </div>
       </nav>
+      {/* <div className={classes.root}>
+        <AppBar className={classes.appBar} position="static">
+          <Toolbar variant="dense">
+            <IconButton edge="start" className={classes.iconButton} color="inherit" aria-label="menu">
+              <InfoTwoToneIcon/>
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              COVID-19 Tracker
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div> */}
+
       <Modal/>
       </React.Fragment>
   )
