@@ -236,7 +236,7 @@ export default function App(){
    return(
       <Fragment>
       <AppNavbar/>
-      <div style={{marginTop:50}}>
+      <div style={{marginTop:100}}>
         <h5 style={{fontWeight:400}} className="text-muted text-center">LOADING DATA...</h5>
       </div>
     </Fragment>
@@ -250,14 +250,16 @@ export default function App(){
           data: rawData
         }}/>
         <Chart/>
-        <Table {...{
-          tableData:{
-            data: appData, 
-            dataw: data, 
-            changeContinent: changeContinent,
-            list: list
-          }
-        }}/>
+        <div className="FilteredTable">
+          <Table {...{
+            tableData:{
+              data: appData, 
+              dataw: data, 
+              changeContinent: changeContinent,
+              list: list
+            }
+          }}/>
+        </div>
       </Fragment>
   )
 

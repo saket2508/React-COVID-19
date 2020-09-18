@@ -1,13 +1,25 @@
   
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&display=swap');
 
 #india{
   align-self: center;
   position: relative;
 }
+
+/* .FilteredTable{
+  font-family: 'Open Sans', sans-serif;
+} */
+
+.heading{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+
 .list-group-item{
   font-size: small;
 }
+
 .btn-custom{
   color:black;
   background-color: #ffeeba;
@@ -136,11 +148,11 @@ body{
 
 #c4{
   margin-top: 50px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 #t1{
-  font-weight: 600;
+  font-weight: 500;
 }
 
 #chart-1{
@@ -199,18 +211,18 @@ th{
   white-space: nowrap;
   vertical-align: middle;
   text-align: left;
-  font-weight: 600;
+  font-weight: 400;
 }
 #nowrapid
 {
   white-space: nowrap;
   vertical-align: middle;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .thead td{
-  font-weight: 600;
+  font-weight: 500;
 }
 
 #india td{
@@ -218,7 +230,7 @@ th{
   font-size: small;
 }
 thead td{
-  font-weight: 700;
+  font-weight: 500;
 }
 
 #label{
@@ -236,12 +248,12 @@ thead td{
   vertical-align: middle;
 }
 #stats{
-  font-size: 600;
+  font-size: 400;
   font-size: small;
 }
 
 td{
-  font-weight: 600;
+  font-weight: 400;
 }
 #statstable td{
   font-size: small;

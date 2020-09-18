@@ -44,10 +44,10 @@ function TableHeader({ data }){
 
         <tr className="table-warning">
             <td></td>
-            <td id='nowrap' style={{fontWeight:"700"}}> 
+            <td id='nowrap' style={{fontWeight:"500"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span style={{fontWeight:'700'}}>{data.data.Name}</span>
+                              <span style={{fontWeight:'500'}}>{data.data.Name}</span>
                         </button>
                         <div class="dropdown-menu">
                             {data.list.map((element) => (
@@ -58,21 +58,21 @@ function TableHeader({ data }){
                         </div>
                     </div>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>
                     {format(data.data.Cases)}
                     <small><span class="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>
                     {format(data.data.Deaths)}
                     <small><span class="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>
                     {format(data.data.Recovered)}
             </td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(data.data.Active)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{format(data.data.Critical)}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{data.tests}</td>
-            <td id='nowrap-r' style={{fontWeight:"700"}}>{data.data.testsPerOneMillion}</td>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>{format(data.data.Active)}</td>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>{format(data.data.Critical)}</td>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>{data.tests}</td>
+            <td id='nowrap-r' style={{fontWeight:"500"}}>{data.data.testsPerOneMillion}</td>
         </tr>
         </Fragment>
     );
@@ -103,7 +103,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
             return(
-                <td style={{fontWeight:"600"}}>
+                <td style={{fontWeight:"400"}}>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -114,7 +114,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==='Libyan Arab Jamahiriya'){
             item.country='Libya'
             return(
-                <td style={{fontWeight:"600"}}>
+                <td style={{fontWeight:"400"}}>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -125,7 +125,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==='S. Korea'){
             item.country="South Korea"
             return(
-                <td style={{fontWeight:"600"}}>
+                <td style={{fontWeight:"400"}}>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -135,7 +135,7 @@ export default function FilteredTable({ dataTable }){
         }
        if(item.country.length > 10){
         return(
-            <td style={{fontWeight:"600"}}>
+            <td style={{fontWeight:"400"}}>
                 <div className={classes.root}>
                     <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                     <span className="my-auto mx-1">{item.country}</span>
@@ -144,14 +144,14 @@ export default function FilteredTable({ dataTable }){
         )
        }
         if(item.country==="MS Zaandam"){
-            return <td style={{fontWeight:"600"}}>{item.country}</td>
+            return <td style={{fontWeight:"400"}}>{item.country}</td>
         }
         if(item.country==="Diamond Princess"){
-            return <td style={{fontWeight:"600"}}>{item.country}</td>
+            return <td style={{fontWeight:"400"}}>{item.country}</td>
         }
         else{
             return(
-                <td style={{fontWeight:"600"}}>
+                <td style={{fontWeight:"400"}}>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>

@@ -42,9 +42,9 @@ export default function AppNavbar(){
 
   return(
     <React.Fragment>
-      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#616161'}}>   
+      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#424242'}}>   
         <div className="container">
-          <span style={{fontWeight:'400'}} className="navbar-brand mb-0 h5">COVID-19 TRACKER</span>
+          <span style={{fontWeight:'400'}} className="navbar-brand mb-0 h5 heading">COVID-19 TRACKER</span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="modal" data-target="#staticBackdrop" href="#"><InfoTwoToneIcon style={{fontSize:30}}/></a>

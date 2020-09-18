@@ -16,7 +16,7 @@ const Legend = (data) =>{
                         <h6 style={{fontWeight:'400'}}>Active</h6>
                     </div>
                     <div className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Active)}
+                        <h6 style={{fontWeight:'500'}}>{format(data.Active)}
                             <small className='text-muted'> ({data.ar} %)</small>
                         </h6>
                     </div>
@@ -27,7 +27,7 @@ const Legend = (data) =>{
                         <h6 style={{fontWeight:'400'}}>Recovered</h6>
                     </div>
                     <span className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Recovered)}
+                        <h6 style={{fontWeight:'500'}}>{format(data.Recovered)}
                             <small className='text-muted'> ({data.rr} %)</small>
                         </h6>
                     </span>
@@ -38,7 +38,7 @@ const Legend = (data) =>{
                         <h6 style={{fontWeight:'400'}}>Fatalities</h6>
                     </div>
                     <span className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Deaths)}
+                        <h6 style={{fontWeight:'500'}}>{format(data.Deaths)}
                         <small className='text-muted'> ({data.cfr} %)</small>
                         </h6>                                            
                     </span>

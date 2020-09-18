@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     cardTitle:{
+        marginBottom:0.5,
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(4),
         marginLeft: theme.spacing(0.65),
         marginRight: theme.spacing(0.65),
-        marginTop:theme.spacing(0.25)
+        //marginTop:theme.spacing(0.25)
     },
   }));
 
@@ -58,7 +59,8 @@ const ChartTitle = ({selectedCountry, selectedItem}) =>{
     const classes= useStyles()
     return(
         <div className={classes.cardTitle}>
-            <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
+            {/* <Typography variant="h6" className={classes.heading}>COVID-19: {selectedCountry} Stats</Typography>*/}
+            <h5 className="heading" style={{color:'#757575'}}>COVID-19: {selectedCountry} Stats</h5>
             <Avatar className={classes.avatar} alt="flag" src={selectedItem.flag}/>
             {/* <img alt="flag" src={selectedItem.flag} style={{marginLeft:'7px', height:'20px', width:'28px', marginTop:'7px'}}/> */}
         </div>
@@ -638,17 +640,20 @@ export default function Chart(){
                     <Grid item xs={12} sm={6}>
                     <Card variant="outlined" className={classes.card}>
                         <CardContent>
-                        <div className={classes.heading}>
+                        <div className={classes.cardTitle}>
                             {/* <h5 className="text-muted" style={{fontWeight:'500'}}>
                                 World Figures
                             </h5> */}
-                            <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: World Figures</Typography>
-                                <hr></hr>
-                           </div>              
+                            {/* <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: World Figures</Typography> */}
+                           <div className={classes.cardTitle}>
+                                <h5 className="heading" style={{color:'#757575'}}>COVID-19: World Figures</h5>
+                           </div>
+                           </div>
+                           <hr></hr>              
                             <div className='row mt-4 mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h3>
+                                    <h3 style={{fontWeight:'500',color:'#757575'}}>{format(worldData.Cases)}</h3>
                                 </div>
                                 <PieChart {...pieChartOne}/>
                             </div>
@@ -660,15 +665,15 @@ export default function Chart(){
                     <Grid item xs={12} sm={6}>
                     <Card variant="outlined" className={classes.card}>
                         <CardContent>
-                           <div className={classes.heading}>
+                           <div className={classes.cardTitle}>
                             {/* {ChartTitle(selectedCountry, selectedItem)} */}
                             <ChartTitle selectedCountry={selectedCountry} selectedItem={selectedItem}/>
-                                <hr></hr>
-                           </div>       
+                           </div>
+                           <hr></hr>       
                             <div className='row mt-4 mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
+                                    <h3 style={{fontWeight:'500',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
                             </div>
@@ -682,7 +687,8 @@ export default function Chart(){
                       <Card variant="outlined" className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
+                                    {/* <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography> */}
+                                    <h5 className="heading" style={{color:'#757575'}}>{selectedCountry}: {variableOne} Over Time</h5>
                                 </div>
     
                                 <div className="row mt-2">
@@ -697,7 +703,8 @@ export default function Chart(){
                       <Card variant="outlined" className= {classes.card}>
                           <CardContent>
                                 <div className={classes.heading}>
-                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
+                                    {/* <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography> */}
+                                    <h5 className="heading" style={{color:'#757575'}}>{selectedCountry}: {variableTwo} Over Time</h5>
                                 </div>
     
                                 <div className="row mt-2">
