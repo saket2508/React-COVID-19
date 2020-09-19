@@ -1,4 +1,4 @@
-# COVID19-tracker-website
+# Coronavirus-React
 
 #### 1. This website displays live statistics of the COVID-19 pandemic with data of confirmed cases, deaths, recovered, and the prevalence of the outbreak per million people in all countries/regions.It is live [here](https://covid19-tracker-dashboard.netlify.app/).
 
