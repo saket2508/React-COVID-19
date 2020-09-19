@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
-     
+      fontWeight:'500'
     },
     small: {
       width: theme.spacing(3),
@@ -103,7 +103,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
             return(
-                <td style={{fontWeight:"400"}}>
+                <td>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -114,7 +114,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==='Libyan Arab Jamahiriya'){
             item.country='Libya'
             return(
-                <td style={{fontWeight:"400"}}>
+                <td>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -125,7 +125,7 @@ export default function FilteredTable({ dataTable }){
         if(item.country==='S. Korea'){
             item.country="South Korea"
             return(
-                <td style={{fontWeight:"400"}}>
+                <td>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -135,7 +135,7 @@ export default function FilteredTable({ dataTable }){
         }
        if(item.country.length > 10){
         return(
-            <td style={{fontWeight:"400"}}>
+            <td>
                 <div className={classes.root}>
                     <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                     <span className="my-auto mx-1">{item.country}</span>
@@ -144,14 +144,14 @@ export default function FilteredTable({ dataTable }){
         )
        }
         if(item.country==="MS Zaandam"){
-            return <td style={{fontWeight:"400"}}>{item.country}</td>
+            return <td>{item.country}</td>
         }
         if(item.country==="Diamond Princess"){
-            return <td style={{fontWeight:"400"}}>{item.country}</td>
+            return <td>{item.country}</td>
         }
         else{
             return(
-                <td style={{fontWeight:"400"}}>
+                <td>
                     <div className={classes.root}>
                         <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
                         <span className="my-auto mx-1">{item.country}</span>
@@ -206,7 +206,7 @@ export default function FilteredTable({ dataTable }){
                 <input id="search" class="form-control form-control-md" 
                             value={search} 
                             type="search"
-                            placeholder="Search Any Country..."
+                            placeholder="Search..."
                             aria-label="Search"
                             onChange={ e => setSearch(e.target.value) }/>
                 </div>

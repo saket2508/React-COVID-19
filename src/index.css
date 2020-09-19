@@ -211,14 +211,14 @@ th{
   white-space: nowrap;
   vertical-align: middle;
   text-align: left;
-  font-weight: 400;
+  font-weight: 500;
 }
 #nowrapid
 {
   white-space: nowrap;
   vertical-align: middle;
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .thead td{

@@ -47,12 +47,25 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(4),
         marginLeft: theme.spacing(0.65),
         marginRight: theme.spacing(0.65),
-        //marginTop:theme.spacing(0.25)
+        marginTop:theme.spacing(-0.25)
     },
   }));
 
 function format(item){
     return new Intl.NumberFormat('en-US').format(item)
+}
+
+const TodayCases = ({data}) => {
+    if(data===0){
+        return<div></div>
+    }
+    else{
+        return(
+            <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
+                <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+{format(data)}</div>
+            </div>
+        )
+    }
 }
 
 const ChartTitle = ({selectedCountry, selectedItem}) =>{
@@ -71,7 +84,7 @@ export default function Chart(){
     
     //const dates=[]
     const [ error, setError ]= useState(false)
-    const [ loading, setLoading ]= useState(false)
+    const [ loading, setLoading ]= useState(true)
 
     //general info of every country(cases, deaths, etc)
     const [ dataCountries, setDataCountries ]= useState({})
@@ -423,7 +436,7 @@ export default function Chart(){
 
     const getData= async() => {
         //list to store names of countries
-        setLoading(true)
+        // setLoading(true)
 
         const countries=[]
         const monthsDict= {'1':'Jan','2':'Feb','3':'Mar','4':'Apr','5':'May','6':'Jun','7':'Jul','8':'Aug','9':'Sep','10':'Oct','11':'Nov','12':'Dec'}
@@ -440,6 +453,7 @@ export default function Chart(){
             const rawdata1= await response1.json()
     
             let world_cases=0
+            let world_newCases=0
             let world_deaths=0
             let world_recovered=0
             let world_active=0
@@ -453,17 +467,20 @@ export default function Chart(){
     
                 countries.push(name)
                 let cases= element.cases
+                let newCases = element.todayCases
                 let deaths= element.deaths
                 let active= element.active
                 let recovered= element.recovered
     
                 world_cases+= cases
+                world_newCases+= newCases
                 world_deaths+= deaths
                 world_recovered+= recovered
                 world_active+= active
     
                 let obj={
                     Cases:cases,
+                    NewCases:newCases,
                     Deaths:deaths,
                     Recovered:recovered,
                     Active:active,
@@ -478,6 +495,7 @@ export default function Chart(){
     
             const world_data={
                 Cases: world_cases,
+                NewCases: world_newCases,
                 Deaths: world_deaths,
                 Recovered: world_recovered,
                 Active: world_active,
@@ -654,6 +672,10 @@ export default function Chart(){
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                     <h3 style={{fontWeight:'500',color:'#757575'}}>{format(worldData.Cases)}</h3>
+                                    {/* <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
+                                        <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+6,108</div>
+                                    </div> */}
+                                    <TodayCases data={worldData.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartOne}/>
                             </div>
@@ -674,6 +696,10 @@ export default function Chart(){
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                     <h3 style={{fontWeight:'500',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
+                                    {/* <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
+                                        <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+6,108</div>
+                                    </div> */}
+                                    <TodayCases data={selectedItem.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
                             </div>

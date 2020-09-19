@@ -250,7 +250,6 @@ export default function App(){
           data: rawData
         }}/>
         <Chart/>
-        <div className="FilteredTable">
           <Table {...{
             tableData:{
               data: appData, 
@@ -259,7 +258,6 @@ export default function App(){
               list: list
             }
           }}/>
-        </div>
       </Fragment>
   )
 

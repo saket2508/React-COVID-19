@@ -42,7 +42,7 @@ export default function AppNavbar(){
 
   return(
     <React.Fragment>
-      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#424242'}}>   
+      <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor:'#263238'}}>   
         <div className="container">
           <span style={{fontWeight:'400'}} className="navbar-brand mb-0 h5 heading">COVID-19 TRACKER</span>
             <ul class="navbar-nav ml-auto">
@@ -52,18 +52,6 @@ export default function AppNavbar(){
             </ul>
         </div>
       </nav>
-      {/* <div className={classes.root}>
-        <AppBar className={classes.appBar} position="static">
-          <Toolbar variant="dense">
-            <IconButton edge="start" className={classes.iconButton} color="inherit" aria-label="menu">
-              <InfoTwoToneIcon/>
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              COVID-19 Tracker
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div> */}
 
       <Modal/>
       </React.Fragment>
