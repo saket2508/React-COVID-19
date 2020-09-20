@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -49,33 +50,17 @@ const CardLoading = () => {
                 <Card className={classes.card}>
                     <CardHeader
                         title={
-                            <Skeleton animation="wave" height={40} variant="rect" width="100%" style={{ marginBottom: 20 }} />
+                           <Typography variant="h6">
+                                <Skeleton animation="wave" style={{ marginBottom: 6 }} />
+                           </Typography>
                         }/>
                     <CardContent>
                     <React.Fragment>
-                            <Skeleton animation="wave" height={120} variant="rect" width="100%" style={{ marginBottom: 20 }} />  
+                            <Skeleton animation="wave" height={100} variant="rect" width="100%" style={{ marginBottom: 20 }} />  
 
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
-
-                        </React.Fragment>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-            <Card className={classes.card}>
-                    <CardHeader
-                        title={
-                            <Skeleton animation="wave" height={40} variant="rect" width="100%" style={{ marginBottom: 20 }} />
-                        }/>
-                    <CardContent>
-                    <React.Fragment>
-                            <Skeleton animation="wave" height={120} variant="rect" width="100%" style={{ marginBottom: 20 }} />  
-                            
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={20} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
 
                         </React.Fragment>
                     </CardContent>
@@ -85,12 +70,18 @@ const CardLoading = () => {
             <Card className={classes.card}>
             <CardHeader
                         title={
-                            <Skeleton animation="wave" height={40} variant="rect" width="100%" style={{ marginBottom: 20 }} />
+                        <Typography variant="h6">
+                            <Skeleton animation="wave" style={{ marginBottom: 6 }} />
+                       </Typography>
                         }/>
                     <CardContent>
                     <React.Fragment>
-                            <Skeleton animation="wave" height={210} variant="rect" width="100%" style={{ marginBottom: 30 }} />  
-                    </React.Fragment>
+                            <Skeleton animation="wave" height={100} variant="rect" width="100%" style={{ marginBottom: 20 }} />  
+
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                        </React.Fragment>
                     </CardContent>
                 </Card>
             </Grid>
@@ -98,11 +89,28 @@ const CardLoading = () => {
             <Card className={classes.card}>
             <CardHeader
                         title={
-                            <Skeleton animation="wave" height={40} variant="rect" width="100%" style={{ marginBottom: 20 }} />
+                        <Typography variant="h6">
+                            <Skeleton animation="wave" style={{ marginBottom: 6 }} />
+                       </Typography>
+                        }/>
+                    <CardContent>
+                        <React.Fragment>
+                            <Skeleton animation="wave" height={200} variant="rect" style={{ marginBottom: 5 }} /> 
+                        </React.Fragment>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            <Card className={classes.card}>
+            <CardHeader
+                        title={
+                        <Typography variant="h6">
+                            <Skeleton animation="wave" style={{ marginBottom: 6 }} />
+                       </Typography>
                         }/>
                     <CardContent>
                     <React.Fragment>
-                            <Skeleton animation="wave" height={210} variant="rect" width="100%" style={{ marginBottom: 30 }} />  
+                            <Skeleton animation="wave" height={200} variant="rect" style={{ marginBottom: 5 }} />  
                         </React.Fragment>
                     </CardContent>
                 </Card>

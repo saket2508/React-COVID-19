@@ -4,7 +4,7 @@ import {Bar, Line, Doughnut} from 'react-chartjs-3';
 
 const BarPlot = ({...chartData}) => {
     return(
-        <div className='col-12 mt-3'>
+        <div className='col-12'>
                         <div id='chart' className="chart-container">
                             <Bar
                                     data={chartData}

@@ -3,7 +3,7 @@ import {Bar, Line, Doughnut} from 'react-chartjs-3';
 
 const LinePlot = ({...chartData}) => {
     return( 
-        <div className='chart col-12 mt-3'>
+        <div className='chart col-12'>
                             <div id='chart' className="chart-container">
                             <Line
                                     data={chartData}

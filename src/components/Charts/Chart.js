@@ -13,6 +13,7 @@ import CardLoading from './cardLoading';
 import Legend from './legend';
 import TabsMenu from './tabsMenu';
 import './chart.css';
+import { CardHeader } from '@material-ui/core';
 
 const dates_chart=[]
 
@@ -36,18 +37,16 @@ const useStyles = makeStyles((theme) => ({
         height: '100%'
     },
     cardTitle:{
-        marginBottom:0.5,
+        marginBottom:0,
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
-        jalignItems:'center'
+        alignItems:'center'
     },
     avatar:{
         width: theme.spacing(4),
         height: theme.spacing(4),
         marginLeft: theme.spacing(0.65),
-        marginRight: theme.spacing(0.65),
-        marginTop:theme.spacing(-0.25)
     },
   }));
 
@@ -72,11 +71,10 @@ const ChartTitle = ({selectedCountry, selectedItem}) =>{
     const classes= useStyles()
     return(
         <div className={classes.cardTitle}>
-            {/* <Typography variant="h6" className={classes.heading}>COVID-19: {selectedCountry} Stats</Typography>*/}
-            <h5 className="heading" style={{color:'#757575'}}>COVID-19: {selectedCountry} Stats</h5>
-            <Avatar className={classes.avatar} alt="flag" src={selectedItem.flag}/>
-            {/* <img alt="flag" src={selectedItem.flag} style={{marginLeft:'7px', height:'20px', width:'28px', marginTop:'7px'}}/> */}
+            <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
+            <Avatar src={selectedItem.flag} className={classes.avatar} alt="flag-icon"/>
         </div>
+
     )
  }
 
@@ -656,25 +654,17 @@ export default function Chart(){
             <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
-                    <Card variant="outlined" className={classes.card}>
+                    <Card className={classes.card}>
+                        <CardHeader
+                            title={
+                                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: World Figures</Typography>
+                            }    
+                        />
                         <CardContent>
-                        <div className={classes.cardTitle}>
-                            {/* <h5 className="text-muted" style={{fontWeight:'500'}}>
-                                World Figures
-                            </h5> */}
-                            {/* <Typography variant="h6" style={{color:"#757575", fontWeight:'400'}}>COVID-19: World Figures</Typography> */}
-                           <div className={classes.cardTitle}>
-                                <h5 className="heading" style={{color:'#757575'}}>COVID-19: World Figures</h5>
-                           </div>
-                           </div>
-                           <hr></hr>              
-                            <div className='row mt-4 mb-4'>
+                            <div className='row mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                     <h3 style={{fontWeight:'500',color:'#757575'}}>{format(worldData.Cases)}</h3>
-                                    {/* <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
-                                        <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+6,108</div>
-                                    </div> */}
                                     <TodayCases data={worldData.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartOne}/>
@@ -685,20 +675,17 @@ export default function Chart(){
                     </Grid>
     
                     <Grid item xs={12} sm={6}>
-                    <Card variant="outlined" className={classes.card}>
+                    <Card className={classes.card}>
+                        <CardHeader
+                            title={
+                                <ChartTitle selectedCountry={selectedCountry} selectedItem={selectedItem}/>
+                            }
+                        />
                         <CardContent>
-                           <div className={classes.cardTitle}>
-                            {/* {ChartTitle(selectedCountry, selectedItem)} */}
-                            <ChartTitle selectedCountry={selectedCountry} selectedItem={selectedItem}/>
-                           </div>
-                           <hr></hr>       
-                            <div className='row mt-4 mb-4'>
+                            <div className='row mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
                                     <h3 style={{fontWeight:'500',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
-                                    {/* <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
-                                        <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+6,108</div>
-                                    </div> */}
                                     <TodayCases data={selectedItem.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
@@ -710,32 +697,30 @@ export default function Chart(){
                     </Card>
                     </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card variant="outlined" className= {classes.card}>
+                      <Card className= {classes.card}>
+                          <CardHeader
+                                title={
+                                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
+                                }
+                            />
                           <CardContent>
-                                <div className={classes.heading}>
-                                    {/* <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography> */}
-                                    <h5 className="heading" style={{color:'#757575'}}>{selectedCountry}: {variableOne} Over Time</h5>
-                                </div>
-    
-                                <div className="row mt-2">
+                                <div className="row">
                                     <TabsMenu data= {options} handleChange= {changeCumulativeVariable}/>
-                                     {/* Cumulative Trend */}
                                     <LinePlot {...chartOne}/>
                                 </div>
                           </CardContent>
                       </Card>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card variant="outlined" className= {classes.card}>
+                      <Card className= {classes.card}>
+                          <CardHeader
+                                title={
+                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
+                                }
+                            />
                           <CardContent>
-                                <div className={classes.heading}>
-                                    {/* <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography> */}
-                                    <h5 className="heading" style={{color:'#757575'}}>{selectedCountry}: {variableTwo} Over Time</h5>
-                                </div>
-    
-                                <div className="row mt-2">
+                                <div className="row">
                                     <TabsMenu data= {options.slice(0,-1)} handleChange= {changeDailyVariable}/>
-                                    {/* Daily Trend */}
                                     <BarPlot {...chartTwo}/>
                                 </div>
                           </CardContent>

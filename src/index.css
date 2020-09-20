@@ -1,5 +1,5 @@
   
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
 #india{
   align-self: center;
@@ -120,7 +120,7 @@
     background-color: #2196f3;
 }
 body{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
 }
 .text-secondary{
@@ -152,7 +152,7 @@ body{
 }
 
 #t1{
-  font-weight: 500;
+  font-weight: 400;
 }
 
 #chart-1{
