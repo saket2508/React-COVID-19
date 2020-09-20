@@ -63,11 +63,14 @@ const rawData={
 
 
 export default function App(){
+
   const [ appData, setAppData ]= useState([])
   const [ data, setData ]= useState(rawData)
   const [ dataContinents, setDataContinents ]= useState(continents)
   const [ loading, setLoading ]= useState(false)
   const [ error, setError ]= useState(false)
+
+  
 
   useEffect(() => {
     getData()

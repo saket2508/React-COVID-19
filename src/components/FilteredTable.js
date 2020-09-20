@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
-      fontWeight:'500'
+      fontWeight:'600'
     },
     small: {
       width: theme.spacing(3),
@@ -44,10 +44,10 @@ function TableHeader({ data }){
 
         <tr className="table-warning">
             <td></td>
-            <td id='nowrap' style={{fontWeight:"500"}}> 
+            <td id='nowrap' style={{fontWeight:"600"}}> 
                     <div class="btn-group">
                         <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span style={{fontWeight:'500'}}>{data.data.Name}</span>
+                              <span style={{fontWeight:'600'}}>{data.data.Name}</span>
                         </button>
                         <div class="dropdown-menu">
                             {data.list.map((element) => (
@@ -58,21 +58,21 @@ function TableHeader({ data }){
                         </div>
                     </div>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Cases)}
                     <small><span class="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Deaths)}
                     <small><span class="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Recovered)}
             </td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>{format(data.data.Active)}</td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>{format(data.data.Critical)}</td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>{data.tests}</td>
-            <td id='nowrap-r' style={{fontWeight:"500"}}>{data.data.testsPerOneMillion}</td>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>{format(data.data.Active)}</td>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>{format(data.data.Critical)}</td>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>{data.tests}</td>
+            <td id='nowrap-r' style={{fontWeight:"600"}}>{data.data.testsPerOneMillion}</td>
         </tr>
         </Fragment>
     );

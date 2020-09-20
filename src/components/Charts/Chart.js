@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
-        alignItems:'center'
+        alignItems:'center',
     },
     avatar:{
         width: theme.spacing(4),
@@ -70,11 +70,13 @@ const TodayCases = ({data}) => {
 const ChartTitle = ({selectedCountry, selectedItem}) =>{
     const classes= useStyles()
     return(
-        <div className={classes.cardTitle}>
-            <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
-            <Avatar src={selectedItem.flag} className={classes.avatar} alt="flag-icon"/>
+        <div>
+            <div className={classes.cardTitle}>
+                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
+                <Avatar src={selectedItem.flag} className={classes.avatar} alt="flag-icon"/>
+            </div>
+            <hr></hr>
         </div>
-
     )
  }
 
@@ -125,10 +127,10 @@ export default function Chart(){
         getData()
     },[])
 
-    const changeValue = async(event) => {
+    const changeValue = async(value) => {
         let key= ""
-        if(event.target.value!==""){
-            key = event.target.value
+        if(value!==""){
+            key = value
         }
         if(key===""){
             console.log('empty input')
@@ -654,17 +656,21 @@ export default function Chart(){
             <div style={{marginTop: 30, marginBottom: 60}} className="container-lg">
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
+                    <Card variant="outlined" className={classes.card}>
                         <CardHeader
                             title={
-                                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: World Figures</Typography>
+                                <div>
+                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: World Figures</Typography>
+                                    <hr></hr>
+                                </div>
+                                
                             }    
                         />
                         <CardContent>
                             <div className='row mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'500',color:'#757575'}}>{format(worldData.Cases)}</h3>
+                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h3>
                                     <TodayCases data={worldData.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartOne}/>
@@ -675,7 +681,7 @@ export default function Chart(){
                     </Grid>
     
                     <Grid item xs={12} sm={6}>
-                    <Card className={classes.card}>
+                    <Card variant="outlined" className={classes.card}>
                         <CardHeader
                             title={
                                 <ChartTitle selectedCountry={selectedCountry} selectedItem={selectedItem}/>
@@ -685,7 +691,7 @@ export default function Chart(){
                             <div className='row mb-4'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'500',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
+                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
                                     <TodayCases data={selectedItem.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
@@ -697,7 +703,7 @@ export default function Chart(){
                     </Card>
                     </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card className= {classes.card}>
+                      <Card variant="outlined" className= {classes.card}>
                           <CardHeader
                                 title={
                                 <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
@@ -712,7 +718,7 @@ export default function Chart(){
                       </Card>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                      <Card className= {classes.card}>
+                      <Card variant="outlined" className= {classes.card}>
                           <CardHeader
                                 title={
                                     <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
