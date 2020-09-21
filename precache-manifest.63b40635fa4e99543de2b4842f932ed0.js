@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ab14b09f57886412f8025176b28a534e",
+    "revision": "82b202a25810736292a68483518c6bc2",
     "url": "/Coronavirus-React/index.html"
   },
   {
-    "revision": "eae77b9b32e0981097c4",
+    "revision": "ede6423ee937c31950ff",
     "url": "/Coronavirus-React/static/css/2.11829350.chunk.css"
   },
   {
-    "revision": "15f62d0d8e5c7792665f",
+    "revision": "b307b59948ff77fb8e02",
     "url": "/Coronavirus-React/static/css/main.0879ec8d.chunk.css"
   },
   {
-    "revision": "eae77b9b32e0981097c4",
-    "url": "/Coronavirus-React/static/js/2.066feefd.chunk.js"
+    "revision": "ede6423ee937c31950ff",
+    "url": "/Coronavirus-React/static/js/2.6c973ff9.chunk.js"
   },
   {
     "revision": "32aeafb3e2d0a73f27822c8ed8045b88",
-    "url": "/Coronavirus-React/static/js/2.066feefd.chunk.js.LICENSE.txt"
+    "url": "/Coronavirus-React/static/js/2.6c973ff9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "15f62d0d8e5c7792665f",
-    "url": "/Coronavirus-React/static/js/main.d6d2354f.chunk.js"
+    "revision": "b307b59948ff77fb8e02",
+    "url": "/Coronavirus-React/static/js/main.223289fb.chunk.js"
   },
   {
     "revision": "c5312b75c51e8b91ea9a",
