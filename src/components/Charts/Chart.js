@@ -464,6 +464,14 @@ export default function Chart(){
                 if(name=== "S. Korea"){
                     name= "South Korea"
                 }
+
+                if(name==="Syrian Arab Republic"){
+                    name="Syria"
+                }
+
+                if(name==="Lao People's Democratic Republic"){
+                    name="Laos"
+                }
     
                 countries.push(name)
                 let cases= element.cases
@@ -543,6 +551,9 @@ export default function Chart(){
 
                 if(country_name==="West Bank and Gaza"){
                     country_name="Palestine"
+                }
+                if(country_name==="Syrian Arab Republic"){
+                    country_name="Syria"
                 }
     
                 let country_cases=[]

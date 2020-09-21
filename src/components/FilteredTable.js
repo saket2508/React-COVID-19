@@ -122,6 +122,17 @@ export default function FilteredTable({ dataTable }){
                 </td>
             )
         }
+        if(item.country==='Syrian Arab Republic'){
+            item.country='Syria'
+            return(
+                <td>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
+        }
         if(item.country==='S. Korea'){
             item.country="South Korea"
             return(

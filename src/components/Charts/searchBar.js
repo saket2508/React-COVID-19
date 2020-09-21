@@ -11,11 +11,18 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300,
+    marginTop: theme.spacing(2),
+    // width: 300,
     '& > * + *': {
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(2),
     },
   },
+  margin:{
+    marginTop: theme.spacing(3),
+  },
+  searchBar:{
+      borderRadius:"25px",
+  }
 }));
 
 const SearchBar = ({selectedCountry, changeValue, list}) => {
@@ -42,15 +49,16 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
     //             </select>
     //         </div>
     // </div>
-            <Grid container
+            <Grid className={classes.margin}
                 container
                 direction="row"
                 justify="center"
                 alignItems="center">
-                    <Grid item>
-                        <div className={classes.root}>
+                    <Grid item xs={9} sm={6}>                   
                             <Autocomplete
-                                className="inputRounded"
+                                fullWidth={true}
+                                //className="inputRounded"
+                                size="small"
                                 id="country-select-demo"
                                 options={list}
                                 getOptionLabel={(option) => option}
@@ -58,12 +66,12 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
                                 onChange={(e, value) => handleInputChange(value)}
                                 renderInput={(params) => (
                                     <TextField {...params} 
-                                        variant="outlined" 
+                                        variant="filled" 
                                         label="Search" 
-                                        placeholder="Search..." />
+                                        placeholder="Search..."
+                                         />
                                 )}
                             />
-                        </div>
                     </Grid>
             </Grid>
     )

@@ -58,7 +58,8 @@ const CardLoading = () => {
 
                             <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
                             <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 15 }} />
+
 
                         </React.Fragment>
                     </CardContent>
@@ -76,7 +77,7 @@ const CardLoading = () => {
 
                             <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
                             <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
-                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 5 }} />
+                            <Skeleton animation="wave" height={10} variant="rect" style={{ marginBottom: 15 }} />
                         </React.Fragment>
                     </CardContent>
                 </Card>
