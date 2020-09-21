@@ -1,20 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const routing=(
-  <Router>
-    <Fragment>
-      <Route exact path="/" component={App}/>
-    </Fragment>
-  </Router>
-)
-
-ReactDOM.render( routing,
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
