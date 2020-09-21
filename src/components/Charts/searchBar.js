@@ -30,7 +30,7 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
 
     const handleInputChange = (value) => {
         if(value!==null){
-            console.log(value)
+            //console.log(value)
             changeValue(value)
         }
     }
@@ -58,7 +58,7 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
                             <Autocomplete
                                 fullWidth={true}
                                 //className="inputRounded"
-                                size="small"
+                                //size="small"
                                 id="country-select-demo"
                                 options={list}
                                 getOptionLabel={(option) => option}

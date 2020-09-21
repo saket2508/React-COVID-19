@@ -175,7 +175,7 @@ export default function App(){
       setData(rawData)
       setDataContinents(continents)
       setLoading(false)
-      console.log(data)
+      //console.log(data)
     }
     catch(error){
       setLoading(false)
@@ -187,37 +187,30 @@ export default function App(){
   const changeContinent = (item) => {
 
     if(item.name==='World'){
-      console.log("World")
       setAppData(world_data)
       setData(rawData)
     }
     if(item.name==='North America'){
-      console.log("North America")
       setAppData(continents['North America'].data)
       setData(continents['North America'].total)
     }
     if(item.name==='South America'){
-      console.log("South America")
       setAppData(continents['South America'].data)
       setData(continents['South America'].total)
     }
     if(item.name==='Europe'){
-      console.log("Europe")
       setAppData(continents['Europe'].data)
       setData(continents['Europe'].total)
     }
     if(item.name==='Asia'){
-      console.log("Asia")
       setAppData(continents['Asia'].data)
       setData(continents['Asia'].total)
     }
     if(item.name==='Africa'){
-      console.log("Africa")
       setAppData(continents['Africa'].data)
       setData(continents['Africa'].total)
     }
     if(item.name==='Australia/Oceania'){
-      console.log("Australia/Oceania")
       setAppData(continents['Australia/Oceania'].data)
       setData(continents['Australia/Oceania'].total)
     }
@@ -237,12 +230,12 @@ export default function App(){
 
   if(loading){
    return(
-      <Fragment>
-      <AppNavbar/>
-      <div style={{marginTop:100}}>
-        <h5 style={{fontWeight:400}} className="text-muted text-center">LOADING DATA...</h5>
-      </div>
-    </Fragment>
+    <Fragment>
+    <AppNavbar/>
+    <div style={{marginTop:100}}>
+      <h5 style={{fontWeight:400}} className="text-muted text-center">LOADING DATA...</h5>
+    </div>
+  </Fragment>
    )
   }
 

@@ -61,7 +61,7 @@ const TodayCases = ({data}) => {
     else{
         return(
             <div style={{display:'flex', flexWrap:'wrap', flexDirection:'row', paddingLeft:2, marginTop:2,alignItems:'center'}}>
-                <div style={{color:'#9e9e9e', fontWeight:'500', fontSize:'10'}}>+{format(data)}</div>
+                <div style={{color:'#9e9e9e', fontWeight:'600', fontSize:'10'}}>+{format(data)}</div>
             </div>
         )
     }
@@ -133,7 +133,7 @@ export default function Chart(){
             key = value
         }
         if(key===""){
-            console.log('empty input')
+            //console.log('empty input')
         }
         else if(key==="India"){
             setSelectedCountry(key)
@@ -524,7 +524,7 @@ export default function Chart(){
                 m = monthsDict[month]
                 let date =m+ ' '+d
                 dates_chart.push(date)
-                console.log(date)
+               //console.log(date)
             })
     
             setDates(dates_chart.slice(dates_chart.length/2))
@@ -584,12 +584,12 @@ export default function Chart(){
     
                 timeSeriesInfo[country_name]= info
             }
-            console.log(countriesInfo)
+            //console.log(countriesInfo)
             setDataCountries(countriesInfo)
             setTimeSeriesData(timeSeriesInfo)
             setSelectedItem(countriesInfo["India"])
             setWorldData(world_data)
-            console.log(timeSeriesInfo)
+            //console.log(timeSeriesInfo)
             setPieChartOne({
                 datasets: [{
                     data: [world_data.Active,
