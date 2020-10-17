@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(3),
     },
     large: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
+        width: theme.spacing(3.5),
+        height: theme.spacing(3.5),
         marginRight:3
       },
   }));
@@ -190,7 +190,7 @@ export default function FilteredTable({ dataTable }){
                                 <td id='nowrap-r'>{format(item.deaths)}
                                     {checkDeathsValue(item)}
                                 </td> 
-                                <td id='nowrap-r'>{format(item.recovered)}</td>
+                                {item.recovered != 0 ? <td id='nowrap-r'>{format(item.recovered)}</td> : <td id='nowrap-r'>N/A</td>}
                                 <td id='nowrap-r'>{format(item.active)}</td>
                                 <td id='nowrap-r'>{format(item.critical)}</td>
                                 <td id='nowrap-r'>{format(item.tests)}</td>

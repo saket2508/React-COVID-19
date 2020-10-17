@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems:'center',
     },
     avatar:{
-        width: theme.spacing(4),
-        height: theme.spacing(4),
+        width: theme.spacing(3.5),
+        height: theme.spacing(3.5),
         marginLeft: theme.spacing(0.65),
     },
   }));
@@ -74,6 +74,8 @@ const ChartTitle = ({selectedCountry, selectedItem}) =>{
             <div className={classes.cardTitle}>
                 <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
                 <Avatar src={selectedItem.flag} className={classes.avatar} alt="flag-icon"/>
+                {/* <img src={selectedItem.flag} style={{height:24, width:32}}/> */}
+                {/* <img className='ml-1' src={`https://www.countryflags.io/${selectedItem.code}/flat/32.png`}></img> */}
             </div>
             <hr></hr>
         </div>
@@ -492,6 +494,7 @@ export default function Chart(){
                     Deaths:deaths,
                     Recovered:recovered,
                     Active:active,
+                    code: element.countryInfo.iso2,
                     flag: element.countryInfo.flag,
                     cfr: ((deaths/cases)*100).toFixed(1),
                     rr: ((recovered/cases)*100).toFixed(1),
@@ -519,8 +522,9 @@ export default function Chart(){
             
             rawData2["Afghanistan"].map((item) => {
                 let m= ""
-                let d= item.date.slice(7,9)
-                let month= item.date.slice(5,6)
+                let d= item.date.slice(item.date.indexOf('-', 5)+1,item.date.length)
+                // let month= item.date.slice(5,6)
+                let month = item.date.slice(5, item.date.indexOf('-', 5))
                 m = monthsDict[month]
                 let date =m+ ' '+d
                 dates_chart.push(date)

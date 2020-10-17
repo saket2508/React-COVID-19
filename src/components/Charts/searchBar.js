@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { borders } from '@material-ui/system';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +58,8 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
                     <Grid item xs={9} sm={6}>                   
                             <Autocomplete
                                 fullWidth={true}
-                                //className="inputRounded"
-                                //size="small"
+                                className="inputRounded"
+                                // size="small"
                                 id="country-select-demo"
                                 options={list}
                                 getOptionLabel={(option) => option}
@@ -66,7 +67,8 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
                                 onChange={(e, value) => handleInputChange(value)}
                                 renderInput={(params) => (
                                     <TextField {...params} 
-                                        variant="filled" 
+                                        borderRadius={16}
+                                        variant="outlined" 
                                         label="Search" 
                                         placeholder="Search..."
                                          />

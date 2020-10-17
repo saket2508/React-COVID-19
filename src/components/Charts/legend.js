@@ -27,9 +27,11 @@ const Legend = (data) =>{
                         <h6 style={{fontWeight:'400'}}>Recovered</h6>
                     </div>
                     <span className='count'>
-                        <h6 style={{fontWeight:'600'}}>{format(data.Recovered)}
+                       {data.Recovered!=0 ? <h6 style={{fontWeight:'600'}}>{format(data.Recovered)}
                             <small className='text-muted'> ({data.rr} %)</small>
-                        </h6>
+                        </h6> : <h6 style={{fontWeight:'600'}}>N/A
+                            <small className='text-muted'> ({data.rr} %)</small>
+                        </h6>}
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center" style={{fontWeight:'600',color:'#616161'}}>

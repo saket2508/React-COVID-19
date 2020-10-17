@@ -196,6 +196,7 @@ th{
   font-size: small;
 }
 
+
 #wrap{
   overflow-wrap: break-word;
 }
@@ -211,6 +212,7 @@ th{
   text-align: left;
   font-weight: 600;
 }
+
 #nowrapid
 {
   white-space: nowrap;
