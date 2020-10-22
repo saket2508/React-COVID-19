@@ -90,7 +90,7 @@
     border-radius: 4px;
     height: 12px;
     width: 12px;
-    background-color: #f44336;
+    background-color: #ff7043;
   }
 .dot-2 {   
     margin-bottom: 0.4rem; 
@@ -100,7 +100,7 @@
     border-radius: 4px;
     height: 12px;
     width: 12px;
-    background-color:#4caf50;
+    background-color:#9ccc65;
   }
 
 .inputRounded .MuiOutlinedInput-root{
@@ -115,7 +115,7 @@
     border-radius: 4px;
     height: 12px;
     width: 12px;
-    background-color: #2196f3;
+    background-color: #42a5f5;
 }
 body{
   font-family: 'Open Sans', sans-serif;

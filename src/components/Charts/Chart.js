@@ -146,7 +146,7 @@ export default function Chart(){
                     data: [dataCountries["India"].Active,
                     dataCountries["India"].Recovered,
                     dataCountries["India"].Deaths],
-                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                    backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
             })
@@ -206,7 +206,7 @@ export default function Chart(){
                           {
                             fill:true,
                             pointRadius:0,
-                            borderColor:'#ff5722',
+                            borderColor:'#ff7043',
                             label:'Total Deaths',
                             data: india_deaths_ts,
                             backgroundColor:'#fbe9e7'
@@ -250,7 +250,7 @@ export default function Chart(){
                         datasets:[
                           {
                             fill:false,
-                            borderColor:'#ff5722',
+                            borderColor:'#ff7043',
                             label:'New Fatalities',
                             data: (india_newdeaths_ts),
                             backgroundColor:'#ff5722'
@@ -269,7 +269,7 @@ export default function Chart(){
                     data: [dataCountries[key].Active,
                     dataCountries[key].Recovered,
                     dataCountries[key].Deaths],
-                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                    backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
             })
@@ -296,7 +296,7 @@ export default function Chart(){
                       {
                         fill:true,
                         pointRadius:0,
-                        borderColor:'#ff5722',
+                        borderColor:'#ff7043',
                         label:'Total Deaths',
                         data: timeSeriesData[key].deathsData,
                         backgroundColor:'#fbe9e7'
@@ -340,7 +340,7 @@ export default function Chart(){
                     datasets:[
                       {
                         fill:false,
-                        borderColor:'#ff5722',
+                        borderColor:'#ff7043',
                         label:'New Fatalities',
                         data: (timeSeriesData[key].newDeathsData),
                         backgroundColor:'#ff5722'
@@ -376,7 +376,7 @@ export default function Chart(){
                       {
                         fill:true,
                         pointRadius:0,
-                        borderColor:'#ff5722',
+                        borderColor:'#ff7043',
                         label:'Total Deaths',
                         data: timeSeriesData[selectedCountry].deathsData,
                         backgroundColor:'#fbe9e7'
@@ -425,7 +425,7 @@ export default function Chart(){
                     datasets:[
                       {
                         fill:false,
-                        borderColor:'#ff5722',
+                        borderColor:'#ff7043',
                         label:'New Fatalities',
                         data: (timeSeriesData[selectedCountry].newDeathsData),
                         backgroundColor:'#ff5722'
@@ -599,7 +599,7 @@ export default function Chart(){
                     data: [world_data.Active,
                         world_data.Recovered,
                         world_data.Deaths],
-                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                        backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
             })
@@ -609,7 +609,7 @@ export default function Chart(){
                     data: [countriesInfo["India"].Active,
                     countriesInfo["India"].Recovered,
                     countriesInfo["India"].Deaths],
-                    backgroundColor:['#2196f3','#4caf50','#f44336']
+                    backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
             })
