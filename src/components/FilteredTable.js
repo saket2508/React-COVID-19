@@ -100,6 +100,28 @@ export default function FilteredTable({ dataTable }){
     }
 
     const checkCountryName = (item) =>{
+        if(item.country === "USA"){
+            item.country = "United States"
+            return(
+                <td>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
+        }
+        if(item.country === "UK"){
+            item.country = "United Kingdom"
+            return(
+                <td>
+                    <div className={classes.root}>
+                        <Avatar className={classes.large} alt={item.country} src={item.countryInfo.flag}/>
+                        <span className="my-auto mx-1">{item.country}</span>
+                    </div>
+                </td>
+            )
+        }
         if(item.country==="Lao People's Democratic Republic"){
             item.country='Laos'
             return(

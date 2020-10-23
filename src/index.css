@@ -87,7 +87,7 @@
     margin-right: 0.4rem; 
     display: inline-block;
     position: relative;
-    border-radius: 4px;
+    border-radius: 6px;
     height: 12px;
     width: 12px;
     background-color: #ff7043;
@@ -97,7 +97,7 @@
     margin-right: 0.4rem; 
     display: inline-block;
     position: relative;    
-    border-radius: 4px;
+    border-radius: 6px;
     height: 12px;
     width: 12px;
     background-color:#9ccc65;
@@ -112,7 +112,7 @@
     margin-right: 0.4rem;    
     display: inline-block;
     position: relative;  
-    border-radius: 4px;
+    border-radius: 6px;
     height: 12px;
     width: 12px;
     background-color: #42a5f5;
@@ -194,6 +194,7 @@ ul{
 
 th{
   font-size: small;
+  font-weight: 700;
 }
 
 

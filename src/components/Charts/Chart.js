@@ -72,12 +72,13 @@ const ChartTitle = ({selectedCountry, selectedItem}) =>{
     return(
         <div>
             <div className={classes.cardTitle}>
-                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography>
+                {/* <Typography variant="h6" style={{fontWeight:'400'}}>COVID-19: {selectedCountry} Stats</Typography> */}
+                <div style={{fontWeight:'400', fontSize:'18px'}}>COVID-19: {selectedCountry} Stats</div>
                 <Avatar src={selectedItem.flag} className={classes.avatar} alt="flag-icon"/>
                 {/* <img src={selectedItem.flag} style={{height:24, width:32}}/> */}
                 {/* <img className='ml-1' src={`https://www.countryflags.io/${selectedItem.code}/flat/32.png`}></img> */}
             </div>
-            <hr></hr>
+           
         </div>
     )
  }
@@ -474,7 +475,7 @@ export default function Chart(){
                 if(name==="Lao People's Democratic Republic"){
                     name="Laos"
                 }
-    
+                
                 countries.push(name)
                 let cases= element.cases
                 let newCases = element.todayCases
@@ -674,18 +675,20 @@ export default function Chart(){
                     <Card variant="outlined" className={classes.card}>
                         <CardHeader
                             title={
-                                <div>
-                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>COVID-19: World Figures</Typography>
-                                    <hr></hr>
+                               <div>
+                                    <div className={classes.cardTitle}>
+                                    {/* <Typography variant="h6" style={{fontWeight:'400'}}>COVID-19: World Figures</Typography>   */}
+                                    <div style={{fontWeight:'400', fontSize:'18px'}}>COVID-19: World Figures</div>
                                 </div>
+                               </div>
                                 
                             }    
                         />
                         <CardContent>
-                            <div className='row mb-4'>
+                            <div className='row mb-3'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h3>
+                                    <h4 style={{fontWeight:'600',color:'#757575'}}>{format(worldData.Cases)}</h4>
                                     <TodayCases data={worldData.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartOne}/>
@@ -703,10 +706,10 @@ export default function Chart(){
                             }
                         />
                         <CardContent>
-                            <div className='row mb-4'>
+                            <div className='row mb-3'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
                                     <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h3 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h3>
+                                    <h4 style={{fontWeight:'600',color:'#757575'}}>{format(selectedItem.Cases)}</h4>
                                     <TodayCases data={selectedItem.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
@@ -721,7 +724,8 @@ export default function Chart(){
                       <Card variant="outlined" className= {classes.card}>
                           <CardHeader
                                 title={
-                                <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
+                                // <Typography variant="h6" style={{fontWeight:'400'}}>{selectedCountry}: {variableOne} Over Time</Typography>
+                                <div style={{fontWeight:'400', fontSize:'18px'}}>{selectedCountry}: {variableOne} Over Time</div>
                                 }
                             />
                           <CardContent>
@@ -736,7 +740,8 @@ export default function Chart(){
                       <Card variant="outlined" className= {classes.card}>
                           <CardHeader
                                 title={
-                                    <Typography variant="h6" style={{color:'#757575', fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
+                                    // <Typography variant="h6" style={{fontWeight:'400'}}>{selectedCountry}: {variableTwo} Over Time</Typography>
+                                    <div style={{fontWeight:'400', fontSize:'18px'}}>{selectedCountry}: {variableTwo} Over Time</div>
                                 }
                             />
                           <CardContent>
