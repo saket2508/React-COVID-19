@@ -16,8 +16,8 @@ export default function AppHeading({ data }){
                 </p>
             </div>
             <div style={{flex:1,flexDirection:'row'}} className='mt-3'>
-                <RefreshIcon fontSize="small" style={{color:'#9e9e9e', fontWeight:'300', marginBottom:1}}/>
-                <span style={{fontStyle:'italic', fontSize:16, fontWeight:'300', marginLeft:2, color:"#9e9e9e"}} >{checkDateGlobal(data.lastupdated)}</span>
+                <RefreshIcon fontSize="small" style={{color:'#757575', marginBottom:1}}/>
+                <span style={{fontStyle:'italic', fontSize:16, fontWeight:'300', marginLeft:2, color:"#757575"}} >{checkDateGlobal(data.lastupdated)}</span>
             </div>
         </div>
     )

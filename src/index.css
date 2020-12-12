@@ -24,10 +24,17 @@
   color:black;
   background-color: #ffeeba;
 }
+
+.btn-custom:focus,.btn-custom:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
 .btn-custom2{
   color:#495057;
   background-color: #e9ecef;
-} 
+}
+
 #select{
   background-size: .6rem;
   border: 2px solid #e8e8e9;

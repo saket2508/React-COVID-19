@@ -46,7 +46,7 @@ function TableHeader({ data }){
             <td></td>
             <td id='nowrap' style={{fontWeight:"600"}}> 
                     <div class="btn-group">
-                        <button class="btn btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-custom btn-sm shadow-none dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span style={{fontWeight:'600'}}>{data.data.Name}</span>
                         </button>
                         <div class="dropdown-menu">
