@@ -99,7 +99,7 @@ export default function Chart(){
     const [ timeSeriesData, setTimeSeriesData ] = useState({})
 
     //self-explanatory
-    const [ selectedCountry, setSelectedCountry ]= useState("India")
+    const [ selectedCountry, setSelectedCountry ]= useState("Canada")
     const [ selectedItem, setSelectedItem ]= useState({})
     const [ worldData, setWorldData ]= useState({})
 
@@ -138,15 +138,15 @@ export default function Chart(){
         if(key===""){
             //console.log('empty input')
         }
-        else if(key==="India"){
+        else if(key==="Canada"){
             setSelectedCountry(key)
             setSelectedItem(dataCountries[key])
 
             setPieChartTwo({
                 datasets: [{
-                    data: [dataCountries["India"].Active,
-                    dataCountries["India"].Recovered,
-                    dataCountries["India"].Deaths],
+                    data: [dataCountries["Canada"].Active,
+                    dataCountries["Canada"].Recovered,
+                    dataCountries["Canada"].Deaths],
                     backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
@@ -154,35 +154,35 @@ export default function Chart(){
 
             let res= await fetch("https://pomber.github.io/covid19/timeseries.json")
             let response= await res.json()
-            let india_cases_ts=[] 
-            let india_newcases_ts=[] 
-            let india_active_ts= []
-            let india_deaths_ts=[] 
-            let india_newdeaths_ts=[] 
+            let canada_cases_ts=[] 
+            let canada_newcases_ts=[] 
+            let canada_active_ts= []
+            let canada_deaths_ts=[] 
+            let canada_newdeaths_ts=[] 
 
-            response['India'].map((item) => {
-                let cases_in=item['confirmed']
-                let deaths_in= item['deaths']
-                let recovered_in= item['recovered']
-                let active_in= cases_in-recovered_in-deaths_in
-                india_cases_ts.push(cases_in) 
-                india_deaths_ts.push(deaths_in) 
-                india_active_ts.push(active_in) 
+            response['Canada'].map((item) => {
+                let cases_ca=item['confirmed']
+                let deaths_ca= item['deaths']
+                let recovered_ca= item['recovered']
+                let active_ca= cases_ca-recovered_ca-deaths_ca
+                canada_cases_ts.push(cases_ca) 
+                canada_deaths_ts.push(deaths_ca) 
+                canada_active_ts.push(active_ca) 
             })
 
-            for(let i=0;i<india_cases_ts.length-1;i++){
-                let newcases_in= india_cases_ts[i+1]-india_cases_ts[i]
-                let newdeaths_in= india_deaths_ts[i+1]-india_deaths_ts[i]
-                india_newcases_ts.push(newcases_in)
-                india_newdeaths_ts.push(newdeaths_in)
+            for(let i=0;i<canada_cases_ts.length-1;i++){
+                let newcases_ca= canada_cases_ts[i+1]-canada_cases_ts[i]
+                let newdeaths_ca= canada_deaths_ts[i+1]-canada_deaths_ts[i]
+                canada_newcases_ts.push(newcases_ca)
+                canada_newdeaths_ts.push(newdeaths_ca)
             }
 
-            const india_ts= {
-                cases: india_cases_ts,
-                deaths: india_deaths_ts,
-                active: india_active_ts,
-                newcases: india_newcases_ts,
-                newdeaths: india_newdeaths_ts,
+            const canada_ts= {
+                cases: canada_cases_ts,
+                deaths: canada_deaths_ts,
+                active: canada_active_ts,
+                newcases: canada_newcases_ts,
+                newdeaths: canada_newdeaths_ts,
             }
 
             if(variableOne==="Cases"){
@@ -194,7 +194,7 @@ export default function Chart(){
                                 pointRadius:0,
                                 borderColor:'#424242',
                                 label:'Total Cases',
-                                data:  india_cases_ts,
+                                data:  canada_cases_ts,
                                 backgroundColor:'#f5f5f5'
                           }
                         ]
@@ -209,7 +209,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#ff7043',
                             label:'Total Deaths',
-                            data: india_deaths_ts,
+                            data: canada_deaths_ts,
                             backgroundColor:'#fbe9e7'
                           }
                         ]
@@ -224,7 +224,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#1e88e5',
                             label:'Active Infections',
-                            data: india_active_ts,
+                            data: canada_active_ts,
                             backgroundColor:'#e3f2fd'
                           }
                         ]
@@ -239,7 +239,7 @@ export default function Chart(){
                             fill:false,
                             borderColor:'#757575',//gray border
                             label:'New Infections',
-                            data: (india_newcases_ts),
+                            data: (canada_newcases_ts),
                             backgroundColor:'#757575'//gray bg
                           }
                         ]
@@ -253,7 +253,7 @@ export default function Chart(){
                             fill:false,
                             borderColor:'#ff7043',
                             label:'New Fatalities',
-                            data: (india_newdeaths_ts),
+                            data: (canada_newdeaths_ts),
                             backgroundColor:'#ff5722'
                           }
                         ]
@@ -592,7 +592,7 @@ export default function Chart(){
             //console.log(countriesInfo)
             setDataCountries(countriesInfo)
             setTimeSeriesData(timeSeriesInfo)
-            setSelectedItem(countriesInfo["India"])
+            setSelectedItem(countriesInfo["Canada"])
             setWorldData(world_data)
             //console.log(timeSeriesInfo)
             setPieChartOne({
@@ -607,9 +607,9 @@ export default function Chart(){
     
             setPieChartTwo({
                 datasets: [{
-                    data: [countriesInfo["India"].Active,
-                    countriesInfo["India"].Recovered,
-                    countriesInfo["India"].Deaths],
+                    data: [countriesInfo["Canada"].Active,
+                    countriesInfo["Canada"].Recovered,
+                    countriesInfo["Canada"].Deaths],
                     backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
@@ -623,7 +623,7 @@ export default function Chart(){
                             fill:false,
                             //borderColor:'#9e9e9e',//gray border
                             label:'New Infections',
-                            data: (timeSeriesInfo["India"].newCasesData),
+                            data: (timeSeriesInfo["Canada"].newCasesData),
                             backgroundColor:'#757575'//gray bg
                           }
                         ]
@@ -637,7 +637,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#424242',
                             label:'Total Cases',
-                            data:  timeSeriesInfo["India"].casesData,
+                            data:  timeSeriesInfo["Canada"].casesData,
                             backgroundColor:'#f5f5f5'
                       }
                     ]
