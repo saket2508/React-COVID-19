@@ -1,6 +1,5 @@
   
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 #india{
   align-self: center;
   position: relative;
@@ -9,6 +8,21 @@
 /* .FilteredTable{
   font-family: 'Open Sans', sans-serif;
 } */
+
+.appheading p{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15;
+}
+
+.appheadingUpdate{
+  flex: 1;
+  flex-direction: row;
+  color: #757575;
+  font-weight: 300;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+}
 
 .heading{
   font-family: 'Open Sans', sans-serif;

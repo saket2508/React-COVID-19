@@ -63,7 +63,7 @@ const SearchBar = ({selectedCountry, changeValue, list}) => {
                                 id="country-select-demo"
                                 options={list}
                                 getOptionLabel={(option) => option}
-                                defaultValue="Canada"
+                                defaultValue="USA"
                                 onChange={(e, value) => handleInputChange(value)}
                                 renderInput={(params) => (
                                     <TextField {...params} 

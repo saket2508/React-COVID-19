@@ -45,13 +45,13 @@ function TableHeader({ data }){
         <tr className="table-warning">
             <td></td>
             <td id='nowrap' style={{fontWeight:"600"}}> 
-                    <div class="btn-group">
-                        <button class="btn btn-custom btn-sm shadow-none dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div className="btn-group">
+                        <button className="btn btn-custom btn-sm shadow-none dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span style={{fontWeight:'600'}}>{data.data.Name}</span>
                         </button>
-                        <div class="dropdown-menu">
+                        <div className="dropdown-menu">
                             {data.list.map((element) => (
-                                <a key={element.id} class="dropdown-item" onClick={() => {
+                                <a key={element.id} className="dropdown-item" onClick={() => {
                                     data.changeContinent(element)
                                 }}>{element.name}</a>
                             ))}
@@ -60,11 +60,11 @@ function TableHeader({ data }){
             </td>
             <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Cases)}
-                    <small><span class="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
+                    <small><span className="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
             </td>
             <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Deaths)}
-                    <small><span class="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
+                    <small><span className="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
             </td>
             <td id='nowrap-r' style={{fontWeight:"600"}}>
                     {format(data.data.Recovered)}
@@ -89,13 +89,13 @@ export default function FilteredTable({ dataTable }){
 
     const checkConfirmedValue= (item) =>{
         if(item.todayCases >0){
-                return <small><span class="badge badge-pill badge-secondary">{'+'+format(item.todayCases)}</span></small>
+                return <small><span className="badge badge-pill badge-secondary">{'+'+format(item.todayCases)}</span></small>
         }
     }
 
     const checkDeathsValue = (item) =>{
         if(item.todayDeaths >0){
-            return <small><span class="badge badge-pill badge-danger">{'+'+format(item.todayDeaths)}</span></small>
+            return <small><span className="badge badge-pill badge-danger">{'+'+format(item.todayDeaths)}</span></small>
         }
     }
 
@@ -234,9 +234,9 @@ export default function FilteredTable({ dataTable }){
     return(
         <div className='FilteredTable'>
         <div className='container-lg'>
-            <div class="d-flex justify-content-start mb-3">
-                <div class='col-lg-4 col-sm-9 mt-2'>
-                <input id="search" class="form-control form-control-md" 
+            <div className="d-flex justify-content-start mb-3">
+                <div className='col-lg-4 col-sm-9 mt-2'>
+                <input id="search" className="form-control form-control-md" 
                             value={search} 
                             type="search"
                             placeholder="Search..."
@@ -247,7 +247,7 @@ export default function FilteredTable({ dataTable }){
             </div>
         </div>
           <div className='table-responsive-lg'>
-                <table id='statstable' class="table table-bordered table-hover table-sm">
+                <table id='statstable' className="table table-bordered table-hover table-sm">
                     <TableHeader {...{
                         data:{
                             changeContinent: dataTable.changeContinent,

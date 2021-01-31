@@ -99,7 +99,7 @@ export default function Chart(){
     const [ timeSeriesData, setTimeSeriesData ] = useState({})
 
     //self-explanatory
-    const [ selectedCountry, setSelectedCountry ]= useState("Canada")
+    const [ selectedCountry, setSelectedCountry ]= useState("USA")
     const [ selectedItem, setSelectedItem ]= useState({})
     const [ worldData, setWorldData ]= useState({})
 
@@ -138,15 +138,15 @@ export default function Chart(){
         if(key===""){
             //console.log('empty input')
         }
-        else if(key==="Canada"){
+        else if(key==="USA"){
             setSelectedCountry(key)
             setSelectedItem(dataCountries[key])
 
             setPieChartTwo({
                 datasets: [{
-                    data: [dataCountries["Canada"].Active,
-                    dataCountries["Canada"].Recovered,
-                    dataCountries["Canada"].Deaths],
+                    data: [dataCountries["USA"].Active,
+                    dataCountries["USA"].Recovered,
+                    dataCountries["USA"].Deaths],
                     backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
@@ -154,36 +154,36 @@ export default function Chart(){
 
             let res= await fetch("https://pomber.github.io/covid19/timeseries.json")
             let response= await res.json()
-            let canada_cases_ts=[] 
-            let canada_newcases_ts=[] 
-            let canada_active_ts= []
-            let canada_deaths_ts=[] 
-            let canada_newdeaths_ts=[] 
+            let usa_cases_ts=[] 
+            let usa_newcases_ts=[] 
+            let usa_active_ts= []
+            let usa_deaths_ts=[] 
+            let usa_newdeaths_ts=[] 
 
-            response['Canada'].map((item) => {
-                let cases_ca=item['confirmed']
-                let deaths_ca= item['deaths']
-                let recovered_ca= item['recovered']
-                let active_ca= cases_ca-recovered_ca-deaths_ca
-                canada_cases_ts.push(cases_ca) 
-                canada_deaths_ts.push(deaths_ca) 
-                canada_active_ts.push(active_ca) 
+            response['US'].map((item) => {
+                let usa_cases=item['confirmed']
+                let deaths_usa= item['deaths']
+                let recovered_usa= item['recovered']
+                let active_ca= usa_cases-recovered_usa-deaths_usa
+                usa_cases_ts.push(usa_cases) 
+                usa_deaths_ts.push(deaths_usa) 
+                usa_active_ts.push(active_ca) 
             })
 
-            for(let i=0;i<canada_cases_ts.length-1;i++){
-                let newcases_ca= canada_cases_ts[i+1]-canada_cases_ts[i]
-                let newdeaths_ca= canada_deaths_ts[i+1]-canada_deaths_ts[i]
-                canada_newcases_ts.push(newcases_ca)
-                canada_newdeaths_ts.push(newdeaths_ca)
+            for(let i=0;i<usa_cases_ts.length-1;i++){
+                let newcases_usa= usa_cases_ts[i+1]-usa_cases_ts[i]
+                let newdeaths_usa= usa_deaths_ts[i+1]-usa_deaths_ts[i]
+                usa_newcases_ts.push(newcases_usa)
+                usa_newdeaths_ts.push(newdeaths_usa)
             }
 
-            const canada_ts= {
-                cases: canada_cases_ts,
-                deaths: canada_deaths_ts,
-                active: canada_active_ts,
-                newcases: canada_newcases_ts,
-                newdeaths: canada_newdeaths_ts,
-            }
+            // const canada_ts= {
+            //     cases: usa_cases_ts,
+            //     deaths: usa_deaths_ts,
+            //     active: usa_active_ts,
+            //     newcases: usa_newcases_ts,
+            //     newdeaths: usa_newdeaths_ts,
+            // }
 
             if(variableOne==="Cases"){
                 setChartOne({
@@ -194,7 +194,7 @@ export default function Chart(){
                                 pointRadius:0,
                                 borderColor:'#424242',
                                 label:'Total Cases',
-                                data:  canada_cases_ts,
+                                data:  usa_cases_ts,
                                 backgroundColor:'#f5f5f5'
                           }
                         ]
@@ -209,7 +209,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#ff7043',
                             label:'Total Deaths',
-                            data: canada_deaths_ts,
+                            data: usa_deaths_ts,
                             backgroundColor:'#fbe9e7'
                           }
                         ]
@@ -224,7 +224,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#1e88e5',
                             label:'Active Infections',
-                            data: canada_active_ts,
+                            data: usa_active_ts,
                             backgroundColor:'#e3f2fd'
                           }
                         ]
@@ -239,7 +239,7 @@ export default function Chart(){
                             fill:false,
                             borderColor:'#757575',//gray border
                             label:'New Infections',
-                            data: (canada_newcases_ts),
+                            data: (usa_newcases_ts),
                             backgroundColor:'#757575'//gray bg
                           }
                         ]
@@ -253,7 +253,7 @@ export default function Chart(){
                             fill:false,
                             borderColor:'#ff7043',
                             label:'New Fatalities',
-                            data: (canada_newdeaths_ts),
+                            data: (usa_newdeaths_ts),
                             backgroundColor:'#ff5722'
                           }
                         ]
@@ -592,7 +592,7 @@ export default function Chart(){
             //console.log(countriesInfo)
             setDataCountries(countriesInfo)
             setTimeSeriesData(timeSeriesInfo)
-            setSelectedItem(countriesInfo["Canada"])
+            setSelectedItem(countriesInfo["USA"])
             setWorldData(world_data)
             //console.log(timeSeriesInfo)
             setPieChartOne({
@@ -607,9 +607,9 @@ export default function Chart(){
     
             setPieChartTwo({
                 datasets: [{
-                    data: [countriesInfo["Canada"].Active,
-                    countriesInfo["Canada"].Recovered,
-                    countriesInfo["Canada"].Deaths],
+                    data: [countriesInfo["USA"].Active,
+                    countriesInfo["USA"].Recovered,
+                    countriesInfo["USA"].Deaths],
                     backgroundColor:['#42a5f5','#9ccc65','#ff7043']
                 }],
                 labels: ['Active','Recovered','Deaths']
@@ -623,7 +623,7 @@ export default function Chart(){
                             fill:false,
                             //borderColor:'#9e9e9e',//gray border
                             label:'New Infections',
-                            data: (timeSeriesInfo["Canada"].newCasesData),
+                            data: (timeSeriesInfo["USA"].newCasesData),
                             backgroundColor:'#757575'//gray bg
                           }
                         ]
@@ -637,7 +637,7 @@ export default function Chart(){
                             pointRadius:0,
                             borderColor:'#424242',
                             label:'Total Cases',
-                            data:  timeSeriesInfo["Canada"].casesData,
+                            data:  timeSeriesInfo["USA"].casesData,
                             backgroundColor:'#f5f5f5'
                       }
                     ]
@@ -687,8 +687,8 @@ export default function Chart(){
                         <CardContent>
                             <div className='row mb-3'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
-                                    <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h4 style={{fontWeight:'500'}}>{format(worldData.Cases)}</h4>
+                                    <small className='text-secondary mb-2' style={{fontWeight:'600', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
+                                    <h4 style={{fontWeight:'600'}}>{format(worldData.Cases)}</h4>
                                     <TodayCases data={worldData.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartOne}/>
@@ -708,8 +708,8 @@ export default function Chart(){
                         <CardContent>
                             <div className='row mb-3'>
                                 <div className='col-lg-6 col-md-12 mb-2'>
-                                    <small className='mb-2' style={{fontWeight:'400', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
-                                    <h4 style={{fontWeight:'500'}}>{format(selectedItem.Cases)}</h4>
+                                    <small className='text-secondary mb-2' style={{fontWeight:'600', letterSpacing: 1.0}}>Total Coronavirus Cases</small>
+                                    <h4 style={{fontWeight:'600'}}>{format(selectedItem.Cases)}</h4>
                                     <TodayCases data={selectedItem.NewCases}/>
                                 </div>
                                 <PieChart {...pieChartTwo}/>
