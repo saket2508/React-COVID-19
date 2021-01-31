@@ -36,13 +36,14 @@
 
 .btn-custom{
   color:black;
-  background-color: #ffeeba;
+  border: none;
+  background: transparent;
 }
 
-.btn-custom:focus,.btn-custom:active {
+/* .btn-custom:focus,.btn-custom:active {
   outline: none !important;
   box-shadow: none;
-}
+} */
 
 .btn-custom2{
   color:#495057;
@@ -215,7 +216,7 @@ ul{
 
 th{
   font-size: small;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 

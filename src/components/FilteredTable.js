@@ -44,9 +44,9 @@ function TableHeader({ data }){
 
         <tr className="table-warning">
             <td></td>
-            <td id='nowrap' style={{fontWeight:"600"}}> 
+            <td id='nowrap'> 
                     <div className="btn-group">
-                        <button className="btn btn-custom btn-sm shadow-none dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button className="btn-custom btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span style={{fontWeight:'600'}}>{data.data.Name}</span>
                         </button>
                         <div className="dropdown-menu">
@@ -58,21 +58,21 @@ function TableHeader({ data }){
                         </div>
                     </div>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>
+            <td id='nowrap-r'>
                     {format(data.data.Cases)}
                     <small><span className="badge badge-pill badge-secondary">{'+'+format(data.data.TodayCases)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>
+            <td id='nowrap-r'>
                     {format(data.data.Deaths)}
                     <small><span className="badge badge-pill badge-danger">{'+'+format(data.data.TodayDeaths)}</span></small>
             </td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>
+            <td id='nowrap-r'>
                     {format(data.data.Recovered)}
             </td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>{format(data.data.Active)}</td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>{format(data.data.Critical)}</td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>{data.tests}</td>
-            <td id='nowrap-r' style={{fontWeight:"600"}}>{data.data.testsPerOneMillion}</td>
+            <td id='nowrap-r'>{format(data.data.Active)}</td>
+            <td id='nowrap-r'>{format(data.data.Critical)}</td>
+            <td id='nowrap-r'>{data.tests}</td>
+            <td id='nowrap-r'>{data.data.testsPerOneMillion}</td>
         </tr>
         </Fragment>
     );
